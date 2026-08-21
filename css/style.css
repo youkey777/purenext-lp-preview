@@ -54,6 +54,8 @@ img{display:block}
 .intro__panel{
   position:absolute;right:-30px;bottom:-28px;width:620px;height:auto;
   pointer-events:none;
+  /* 白背景のまま本体を立たせる（PNGの透過形状に沿った影） */
+  filter:drop-shadow(0 22px 34px rgba(29,56,83,.28)) drop-shadow(0 4px 10px rgba(29,56,83,.10));
 }
 .intro::after{
   content:"";position:absolute;left:0;bottom:0;width:100%;height:130px;
@@ -123,6 +125,7 @@ img{display:block}
 .memory__icon{width:36px;height:36px;filter:brightness(0) invert(1)}
 .memory__title{font-size:35px;font-weight:900;line-height:1.5;color:var(--navy)}
 .memory__sub{margin-top:18px;font-size:20px;font-weight:800;color:var(--blue)}
+.memory__body{margin-top:20px;font-size:16px;line-height:1.9;color:#55677a;font-weight:500}
 .memory__photo{position:absolute;right:0;top:0;width:58%;height:100%}
 .memory__photo img{width:100%;height:100%;object-fit:cover;object-position:40% 50%}
 
@@ -282,12 +285,14 @@ img{display:block}
   position:absolute;left:61px;
   font-weight:500;color:#383838;
 }
+/* ロングコピー内のキーワード強調（紺色本文＋青アクセントのトーンに合わせる） */
+.feat__em{font-style:normal;font-weight:800;color:var(--blue)}
 
 /* 01 */
 .feat01 .feat__num{top:30px}
 .feat01 .feat__rule{top:114px}
-.feat01 .feat__head{top:149px;font-size:35px;letter-spacing:.05em}
-.feat01 .feat__body{top:220px;font-size:24px;line-height:48px;letter-spacing:.023em}
+.feat01 .feat__head{top:137px;font-size:32px;line-height:1.3;letter-spacing:.05em;white-space:normal}
+.feat01 .feat__body{top:242px;font-size:24px;line-height:48px;letter-spacing:.023em}
 
 /* 02 */
 .feat02 .feat__num{top:45px}
@@ -397,18 +402,25 @@ img{display:block}
 }
 .voice__quote{
   position:relative;height:310px;background:#fff;
-  padding:36px 30px 0 103px;
+  /* 1枚目が3段落・計5行になったため上余白と段落間をわずかに詰めてカード内に収める */
+  padding:30px 30px 0 103px;
 }
 .voice__quote p{
   font-size:25px;line-height:46px;color:#101d38;font-weight:500;letter-spacing:.02em;white-space:nowrap;
 }
-.voice__quote p + p{margin-top:23px}
+.voice__quote p + p{margin-top:19px}
 .voice__mark{
   position:absolute;font-family:"Noto Serif JP",serif;font-weight:700;
   font-size:76px;line-height:1;color:#1b4a91;pointer-events:none;
 }
 .voice__mark--open{left:34px;top:27px}
-.voice__mark--close{right:44px;bottom:22px}
+/* 閉じ引用符は最終段落の末尾にインラインで置く（本文の行数がスライドごとに違うため絶対配置だと本文途中に見えてしまう） */
+.voice__mark--close{
+  position:relative;display:inline;margin-left:8px;
+  /* line-height:0 で行の高さを増やさずに文末へ添える。
+     top は実測値（76px の ” のインク中心を 25px 本文のインク中心に合わせる補正） */
+  line-height:0;top:40.5px;
+}
 /* 待機中（左右）のカードはうっすら白をかけて中央を主役にする */
 .voice__slide::after{
   content:"";position:absolute;inset:0;border-radius:20px;pointer-events:none;
@@ -864,8 +876,10 @@ img{display:block}
 .app em{font-style:normal}
 .app__title{
   position:absolute;left:0;top:44px;width:100%;text-align:center;
-  font-size:33px;font-weight:800;line-height:1.4;letter-spacing:.01em;color:#1d3853;
+  font-size:36px;font-weight:900;line-height:1.4;letter-spacing:.01em;color:#1d3853;
 }
+/* アプリの話題転換に合わせて「Pure Nextアプリ」だけ青文字＋薄青のマーカー下塗り */
+.app__title-em{color:var(--blue);background:linear-gradient(transparent 62%,#cfe6ff 62%)}
 .app__card{
   position:absolute;left:14px;top:148px;width:996px;height:634px;
   background:#fff;border-radius:20px;box-shadow:0 4px 18px rgba(29,56,83,.05);
