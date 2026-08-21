@@ -54,8 +54,15 @@ img{display:block}
 .intro__panel{
   position:absolute;right:-30px;bottom:-28px;width:620px;height:auto;
   pointer-events:none;
-  /* 白背景のまま本体を立たせる（PNGの透過形状に沿った影） */
-  filter:drop-shadow(0 22px 34px rgba(29,56,83,.28)) drop-shadow(0 4px 10px rgba(29,56,83,.10));
+  /* 影は付けない。PNGの縁が110pxのアルファフェードなので drop-shadow を掛けると
+     半透明画素の後ろに影が透けて本体の顔が灰色に曇る（rev4の失敗） */
+}
+/* 本体の「後ろ」に敷く落ち影。img より先に描かれるので写真の不透明部分には
+   一切かからず、輪郭の外側（左の背景側と接地側）にだけ影が出る */
+.intro::before{
+  content:"";position:absolute;right:-30px;bottom:-20px;width:880px;height:600px;
+  background:radial-gradient(54% 48% at 54% 76%, rgba(29,56,83,.22), rgba(29,56,83,0) 88%);
+  pointer-events:none;
 }
 .intro::after{
   content:"";position:absolute;left:0;bottom:0;width:100%;height:130px;
