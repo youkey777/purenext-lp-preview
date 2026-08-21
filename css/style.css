@@ -701,7 +701,7 @@ img{display:block}
   background:
     linear-gradient(115deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.55) 47%,rgba(255,255,255,0) 56%),
     radial-gradient(90% 70% at 18% 8%,#fdfeff 0%,rgba(253,254,255,0) 62%),
-    linear-gradient(180deg,#f8fafe 0%,#eef2fa 42%,#e4eaf4 78%,#eef2f8 96%,#f4f7fb 100%);
+    linear-gradient(180deg,#ffffff 0%,#f8f8f9 42%,#f1f2f4 78%,#f6f7f8 96%,#fafafb 100%);
 }
 .spec__unit{
   position:absolute;height:780px;width:auto;
