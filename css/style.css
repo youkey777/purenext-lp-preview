@@ -39,8 +39,10 @@ img{display:block}
 .chip img{width:38px;height:38px;object-fit:contain}
 .chip span{font-size:11px;font-weight:700;color:var(--navy);text-align:center;line-height:1.3}
 
-/* ---------- S02 lead ---------- */
-.lead{height:216px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+/* ---------- S02 lead ----------
+   「だから」見出しと同じリズム: 上に大きく・下は詰めて、次のセクションへ
+   つながって見える余白にする */
+.lead{padding:96px 0 24px;display:flex;flex-direction:column;align-items:center;gap:20px}
 .lead__title{font-size:38px;font-weight:800;letter-spacing:.22em;text-indent:.22em;color:var(--navy)}
 .lead__bar{width:64px;height:4px;border-radius:2px;background:var(--blue)}
 
@@ -60,7 +62,7 @@ img{display:block}
 }
 .intro__title{
   position:relative;z-index:1;
-  padding:150px 0 0 56px;
+  padding:88px 0 0 56px;
   font-size:46px;font-weight:900;line-height:1.55;letter-spacing:.02em;color:var(--navy);
 }
 .intro__figure{position:absolute;left:80px;top:490px;display:flex;gap:112px;z-index:1}
@@ -357,11 +359,7 @@ img{display:block}
   background:#eef1f5;
 }
 
-/* --- S10 下端の青い水平線 --- */
-.feat__hr{
-  position:absolute;left:0;top:395px;
-  display:block;width:1024px;height:2px;background:#1a3560;
-}
+/* S10 下端の水平線は発注主指示（2026-08-21 R2-2）で削除 */
 
 
 /* ========== fragment g2 ========== */
@@ -381,21 +379,25 @@ img{display:block}
   font-size:38px;font-weight:700;line-height:40px;letter-spacing:.204em;
   color:#0f57cf;white-space:nowrap;
 }
-.voice__stage{position:absolute;left:0;top:169px;width:1024px;height:750px}
+.voice__stage{position:absolute;left:0;top:169px;width:1024px;height:752px;overflow:hidden}
 
-/* 中央カード */
-.voice__card{
-  position:absolute;left:172px;top:0;width:660px;
-  border-radius:20px;background:#fff;
+/* 横スライドのトラック。カードは全て同寸（660×752）・写真も同比率（660×442） */
+.voice__track{
+  position:absolute;left:0;top:0;height:752px;
+  display:flex;gap:24px;will-change:transform;
+}
+.voice__track.is-anim{transition:transform .5s cubic-bezier(.33,.1,.22,1)}
+.voice__slide{
+  position:relative;flex:0 0 660px;width:660px;height:752px;
+  border-radius:20px;background:#fff;overflow:hidden;
   box-shadow:0 10px 26px rgba(29,56,83,.12);
 }
 .voice__photo{
-  width:660px;height:442px;object-fit:cover;object-position:50% 42%;
-  border-radius:20px 20px 0 0;
+  width:660px;height:442px;object-fit:cover;object-position:50% 42%;display:block;
 }
 .voice__quote{
-  position:relative;margin-top:-8px;background:#fff;border-radius:20px;
-  padding:36px 30px 43px 103px;
+  position:relative;height:310px;background:#fff;
+  padding:36px 30px 0 103px;
 }
 .voice__quote p{
   font-size:25px;line-height:46px;color:#101d38;font-weight:500;letter-spacing:.02em;white-space:nowrap;
@@ -406,40 +408,18 @@ img{display:block}
   font-size:76px;line-height:1;color:#1b4a91;pointer-events:none;
 }
 .voice__mark--open{left:34px;top:27px}
-.voice__mark--close{right:44px;bottom:2px}
-
-/* 左右の見切れカード */
-.voice__side{
-  position:absolute;top:0;height:743px;
-  border-radius:20px;background:#fff;overflow:hidden;
-  box-shadow:0 10px 26px rgba(29,56,83,.10);
+.voice__mark--close{right:44px;bottom:22px}
+/* 待機中（左右）のカードはうっすら白をかけて中央を主役にする */
+.voice__slide::after{
+  content:"";position:absolute;inset:0;border-radius:20px;pointer-events:none;
+  background:rgba(246,249,253,.55);opacity:1;transition:opacity .5s ease;
 }
-.voice__side--left{left:-81px;width:210px}
-.voice__side--right{left:841px;width:300px}
-.voice__side-photo{position:relative;height:473px;overflow:hidden}
-.voice__side-photo img{position:absolute;max-width:none}
-.voice__side--left .voice__side-photo img{width:420px;height:853px;left:-60px;top:-20px}
-.voice__side--right .voice__side-photo img{width:344px;height:699px;left:-6px;top:-20px;opacity:.66}
-.voice__side-quote{
-  position:relative;height:270px;background:#fff;opacity:.42;
-}
-.voice__side-quote p{
-  font-size:25px;line-height:46px;color:#101d38;font-weight:500;white-space:nowrap;
-}
-.voice__side-quote p + p{margin-top:23px}
-.voice__side--left .voice__side-quote{padding:34px 0 0 0;text-indent:-190px}
-.voice__side--right .voice__side-quote{padding:34px 0 0 136px}
-.voice__side-quote .voice__mark{font-size:66px;color:#3a63a8}
-.voice__side--right .voice__side-quote .voice__mark--open{left:71px;top:18px}
-.voice__side--left .voice__side-quote .voice__mark--close{right:36px;bottom:8px}
-.voice__veil{position:absolute;inset:0;pointer-events:none}
-.voice__veil--left{background:linear-gradient(90deg,rgba(246,249,253,.44) 0%,rgba(246,249,253,.08) 100%)}
-.voice__veil--right{background:linear-gradient(270deg,rgba(246,249,253,.62) 0%,rgba(246,249,253,.10) 100%)}
+.voice__slide.is-active::after{opacity:0}
 
 /* 前へ・次へ（白丸ボタン） */
 .voice__nav{
   position:absolute;top:318px;width:95px;height:95px;border-radius:50%;
-  background:#fff;border:0;padding:0;cursor:pointer;
+  background:#fff;border:0;padding:0;cursor:pointer;touch-action:manipulation;
   box-shadow:0 6px 18px rgba(29,56,83,.18);
   display:flex;align-items:center;justify-content:center;z-index:3;
   transition:transform .15s ease,box-shadow .15s ease;
@@ -453,10 +433,6 @@ img{display:block}
 .voice__nav--next i{transform:rotate(45deg);margin-left:-9px}
 .voice__nav--prev{left:35px}
 .voice__nav--prev i{transform:rotate(-135deg);margin-right:-9px}
-/* 切り替え時のフェード */
-.voice__card,.voice__side{transition:opacity .25s ease}
-.voice__stage.is-fading .voice__card,
-.voice__stage.is-fading .voice__side{opacity:0}
 
 /* 下の青リンク2行 */
 .voice__note{
@@ -879,24 +855,24 @@ img{display:block}
 /* PureNext LP v2 — G4ブロック（S21〜S25） */
 
 /* ============================================================
-   S21 アプリ
+   S21 アプリ（画面は発注主支給の実物PNGを組み込み）
    ============================================================ */
 .app{
-  position:relative;width:1024px;height:791px;
-  background:linear-gradient(180deg,#f5faff 0 744px,#ffffff 744px);
+  position:relative;width:1024px;height:829px;
+  background:linear-gradient(180deg,#f5faff 0 782px,#ffffff 782px);
 }
 .app em{font-style:normal}
 .app__title{
-  position:absolute;left:0;top:26px;width:100%;text-align:center;
-  font-size:27px;font-weight:800;line-height:1.3;letter-spacing:.01em;color:#1d3853;
+  position:absolute;left:0;top:44px;width:100%;text-align:center;
+  font-size:33px;font-weight:800;line-height:1.4;letter-spacing:.01em;color:#1d3853;
 }
 .app__card{
-  position:absolute;left:14px;top:148px;width:996px;height:596px;
+  position:absolute;left:14px;top:148px;width:996px;height:634px;
   background:#fff;border-radius:20px;box-shadow:0 4px 18px rgba(29,56,83,.05);
 }
 
 /* ---- 右カラム 3つの便利 ---- */
-.app__list{position:absolute;left:654px;top:233px;width:346px;list-style:none}
+.app__list{position:absolute;left:654px;top:270px;width:346px;list-style:none}
 .app__row{position:relative;height:82px;display:flex;align-items:center}
 .app__row + .app__row{margin-top:64px}
 .app__row:not(:last-child)::after{
@@ -910,196 +886,17 @@ img{display:block}
 .app__ico img{width:42px;height:42px;object-fit:contain}
 .app__lead{margin-left:23px;font-size:17px;font-weight:700;line-height:26px;color:#1d3853}
 
-/* ---- スマホ本体（黒フレーム） ---- */
+/* ---- スマホ本体（黒フレーム）＋実物スクリーン ---- */
 .app__phone{
-  position:absolute;top:150px;width:290px;height:578px;
+  position:absolute;top:150px;width:290px;
   background:#1b1c1e;border-radius:38px;padding:6px;
   box-shadow:0 12px 26px rgba(20,30,45,.28);
 }
 .app__phone--home{left:36px}
 .app__phone--filter{left:338px}
-.app-ui{
-  position:relative;width:278px;height:566px;
-  border-radius:32px;overflow:hidden;background:#fff;
-  font-family:"Noto Sans JP",sans-serif;
+.app__screen{
+  width:278px;height:603px;object-fit:cover;border-radius:32px;display:block;background:#fff;
 }
-
-/* ---- 画面共通: ヘッダー ---- */
-.app-ui__head{
-  position:absolute;left:0;top:0;width:100%;height:65px;
-  background:linear-gradient(180deg,#5ecbec 0%,#57c6e7 100%);
-}
-.app-ui__status{
-  height:24px;padding:0 13px 0 15px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.app-ui__clock{font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em}
-.app-ui__stat svg{width:42px;height:12px;fill:#fff;color:#fff}
-.app-ui__brand{
-  height:41px;padding:0 13px 0 15px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.app-ui__logo{
-  font-family:"Quicksand",sans-serif;font-weight:500;font-size:23px;
-  color:#fff;letter-spacing:.01em;line-height:1;
-}
-.app-ui__logo-x{font-size:27px}
-.app-ui__bell svg{width:17px;height:17px;fill:#fff;display:block}
-.app-ui__nav{position:relative;height:41px;padding:0 13px;display:flex;align-items:center}
-.app-ui__back svg{width:16px;height:16px;color:#fff;display:block}
-.app-ui__navttl{
-  position:absolute;left:0;right:0;text-align:center;
-  font-size:12.5px;font-weight:700;color:#fff;letter-spacing:.02em;
-}
-
-/* ---- 画面共通: 本文エリア ---- */
-.app-ui__body{position:absolute;left:0;top:65px;width:278px;height:430px}
-.app-ui--home .app-ui__body{background:linear-gradient(180deg,#f5f9fd 0%,#e9f2f9 100%)}
-
-/* ---- ホーム画面 ---- */
-.app-home__top{position:absolute;left:0;top:19px;width:100%;height:180px}
-.app-home__ruler{
-  position:absolute;left:16px;top:2px;width:11px;height:172px;
-  border:1.5px solid #a3cee6;border-right:0;
-}
-.app-home__ruler::before,.app-home__ruler::after{
-  content:"";position:absolute;left:0;width:6px;height:1.5px;background:#a3cee6;
-}
-.app-home__ruler::before{top:43px}
-.app-home__ruler::after{top:96px}
-
-.app-home__figure{position:absolute;left:38px;top:0;width:79px;height:169px}
-.app-home__figure i{position:absolute;display:block}
-.app-home__figure::before{ /* 肩（腕と胴をつなぐ） */
-  content:"";position:absolute;left:0;top:47px;width:79px;height:28px;
-  border-radius:26px 26px 7px 7px;background:#ecedee;
-}
-.app-home__head{left:21px;top:0;width:36px;height:37px;border-radius:50%;background:#ecedee}
-.app-home__torso{
-  left:18px;top:43px;width:41px;height:66px;border-radius:19px 19px 8px 8px;
-  background:linear-gradient(180deg,#ecedee 0 38px,#4cc3e6 38px);
-}
-.app-home__arm{
-  top:47px;width:17px;height:62px;border-radius:9px 9px 7px 7px;
-  background:linear-gradient(180deg,#ecedee 0 34px,#4cc3e6 34px);
-}
-.app-home__arm--l{left:0}
-.app-home__arm--r{left:62px}
-.app-home__leg{top:109px;width:19px;height:60px;border-radius:3px 3px 6px 6px;background:#4cc3e6}
-.app-home__leg--l{left:18px}
-.app-home__leg--r{left:40px}
-
-.app-home__stats{position:absolute;left:132px;top:8px;width:132px}
-.app-home__stat{padding-bottom:10px;margin-bottom:11px;border-bottom:1px solid #dce6ef}
-.app-home__stat--last{padding-bottom:0;margin-bottom:0;border-bottom:0}
-.app-home__stat dt{
-  display:flex;align-items:center;
-  font-size:9.5px;font-weight:700;line-height:14px;color:#33506a;letter-spacing:.02em;
-}
-.app-home__drop{
-  flex:none;width:6px;height:8px;margin-right:5px;background:#4cc3e6;
-  border-radius:0 60% 60% 60%;transform:rotate(-45deg);
-}
-.app-home__stat dd{display:flex;align-items:baseline;line-height:28px}
-.app-home__stat dd b{font-size:24px;font-weight:800;color:#164a86;letter-spacing:-.01em}
-.app-home__stat dd em{margin-left:2px;font-size:12px;font-weight:700;color:#164a86}
-
-.app-home__quick{position:absolute;left:14px;top:221px;width:250px;height:44px;display:flex;gap:8px}
-.app-home__qbtn{
-  flex:1;background:#fff;border:1.4px solid #a8e0f2;border-radius:8px;
-  display:flex;align-items:baseline;justify-content:center;
-}
-.app-home__qbtn b{font-size:17px;font-weight:700;color:#4cc3e6}
-.app-home__qbtn em{margin-left:1px;font-size:9px;font-weight:700;color:#4cc3e6}
-
-.app-home__slider{
-  position:absolute;left:14px;top:275px;width:250px;height:21px;
-  background:#fff;border:1.6px solid #6ccbe9;border-radius:11px;
-}
-.app-home__slider i{
-  position:absolute;left:-1px;top:-1px;display:block;
-  width:21px;height:21px;border-radius:50%;background:#4cc3e6;
-}
-.app-home__scale{
-  position:absolute;left:14px;top:301px;width:250px;
-  display:flex;justify-content:space-between;
-  font-size:9px;font-weight:500;color:#4d5f6e;
-}
-.app-home__rec{
-  position:absolute;left:14px;top:332px;width:250px;height:42px;border-radius:21px;
-  background:#5cc8e9;display:flex;flex-direction:column;align-items:center;justify-content:center;
-}
-.app-home__rec b{font-size:12px;font-weight:700;color:#fff}
-.app-home__rec em{margin-top:1px;font-size:9px;font-weight:500;color:#fff}
-.app-home__hist{
-  position:absolute;left:14px;top:389px;width:250px;height:26px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.app-home__hist span{font-size:13px;font-weight:600;color:#1d3853}
-.app-ui__chev{width:15px;height:15px;color:#79c0e2}
-
-/* ---- フィルター画面 ---- */
-.app-filter__body{background:#fff;padding:28px 14px 0;overflow:hidden}
-.app-filter__contract{display:flex;align-items:baseline;line-height:15px}
-.app-filter__contract span{font-size:10.5px;font-weight:700;color:#2ea3d4}
-.app-filter__contract em{margin-left:9px;font-size:11.5px;font-weight:600;color:#49b2dd}
-.app-filter__mini{margin-top:9px;font-size:7px;line-height:9px;color:#aab5bf}
-.app-filter__name{
-  position:relative;margin-top:2px;padding:0 22px 5px 0;
-  font-size:13px;font-weight:700;line-height:17px;color:#26323c;
-  border-bottom:1px solid #7fcde8;
-}
-.app-filter__pen{position:absolute;right:0;top:1px}
-.app-filter__pen svg{width:13px;height:13px;color:#8d99a4;display:block}
-.app-filter__h{margin-top:16px;font-size:12.5px;font-weight:700;line-height:16px;color:#1e6ade}
-.app-filter__row{position:relative;margin-top:10px;height:13px}
-.app-filter__label{
-  padding-left:6px;border-left:2.5px solid #5cc8e9;
-  font-size:9.5px;font-weight:700;line-height:13px;color:#4d5f6e;
-}
-.app-filter__row + .app-filter__val{margin-top:4px}
-.app-filter__update{
-  position:absolute;right:0;top:-6px;width:62px;height:26px;border-radius:13px;background:#3d4750;
-  color:#fff;font-size:10px;font-weight:600;
-  display:flex;align-items:center;justify-content:center;
-}
-.app-filter__val{margin-top:4px;font-size:13.5px;font-weight:700;line-height:18px;color:#26323c}
-.app-filter__note{margin-top:4px;font-size:6.5px;line-height:9px;color:#b5bfc8}
-.app-filter__note + .app-filter__label{margin-top:14px;display:inline-block}
-.app-filter__order{
-  margin-top:30px;height:32px;border-radius:16px;background:#5cc8e9;
-  color:#fff;font-size:11.5px;font-weight:600;
-  display:flex;align-items:center;justify-content:center;
-}
-.app-filter__order + .app-filter__h{margin-top:20px}
-.app-filter__user{margin-top:6px;height:36px;display:flex;align-items:center}
-.app-filter__user + .app-filter__user{margin-top:16px}
-.app-filter__avatar{
-  flex:none;width:34px;height:34px;border-radius:50%;background:#e3edf6;overflow:hidden;
-  display:flex;align-items:flex-end;justify-content:center;
-}
-.app-filter__avatar svg{width:27px;height:27px;fill:#164a6b;display:block}
-.app-filter__utext{margin-left:9px}
-.app-filter__utext em{display:block;font-size:7px;line-height:9px;color:#aab5bf}
-.app-filter__utext b{display:block;font-size:12px;font-weight:700;line-height:15px;color:#26323c}
-
-/* ---- 画面共通: 下部タブバー ---- */
-.app-tab{
-  position:absolute;left:0;bottom:0;width:278px;height:71px;
-  background:#fff;border-top:1px solid #e7eef4;
-  display:flex;align-items:flex-start;padding-top:14px;
-}
-.app-tab__i{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#9aa7b3}
-.app-tab__i svg{width:15px;height:15px;fill:currentColor;display:block}
-.app-tab__i em{font-size:7px;font-weight:600;color:#8d9aa6;letter-spacing:.02em}
-.app-tab__i--on{color:#4cc3e6}
-.app-tab__i--on em{color:#4cc3e6}
-.app-tab__home{
-  position:absolute;left:50%;bottom:20px;transform:translateX(-50%);
-  width:56px;height:56px;border-radius:50%;background:#4cc3e6;border:4px solid #fff;
-  display:flex;align-items:center;justify-content:center;
-}
-.app-tab__home svg{width:22px;height:22px;fill:#fff;display:block}
 
 /* ============================================================
    S22 製品詳細表
@@ -1154,6 +951,8 @@ img{display:block}
   position:relative;display:flex;align-items:center;width:100%;height:46px;
   background:none;border:0;padding:0;cursor:pointer;text-align:left;
   font-family:inherit;
+  /* スマホでのダブルタップ拡大待ち（約300ms）を無効化して体感即時にする */
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
 }
 .faq__q{
   flex:none;margin-left:23px;width:21px;height:21px;border-radius:50%;
@@ -1163,7 +962,7 @@ img{display:block}
 .faq__text{margin-left:28px;font-size:16px;font-weight:700;color:#1d3853}
 .faq__chev{
   position:absolute;right:23px;width:22px;height:22px;color:#2f7fd6;
-  transition:transform .25s ease;
+  transition:transform .12s ease;
 }
 .faq__qbtn[aria-expanded="true"] .faq__chev{transform:rotate(180deg)}
 .faq__a{

@@ -197,7 +197,6 @@
   </div>
 
   <img class="feat03__photo" src="images/feat03_soup.png" width="307" height="380" alt="コーンスープのカップとソーサー、木のスプーン" loading="eager">
-  <span class="feat__hr"></span>
 </section>
 
 <!-- S11 お客様の声 -->
@@ -209,38 +208,37 @@
   </div>
 
   <div class="voice__stage" id="voiceStage">
-    <!-- 左の見切れカード -->
-    <div class="voice__side voice__side--left" aria-hidden="true">
-      <div class="voice__side-photo"><img id="voiceSidePhotoL" src="images/review_left.png" alt=""></div>
-      <div class="voice__side-quote">
-        <p>毎朝の白湯が習慣になりました。</p>
-        <p>もう沸かさなくていいのが快適です。</p>
-        <span class="voice__mark voice__mark--close">”</span>
-      </div>
-      <span class="voice__veil voice__veil--left"></span>
-    </div>
-
-    <!-- 右の見切れカード -->
-    <div class="voice__side voice__side--right" aria-hidden="true">
-      <div class="voice__side-photo"><img id="voiceSidePhotoR" src="images/review_right.png" alt=""></div>
-      <div class="voice__side-quote">
-        <span class="voice__mark voice__mark--open">“</span>
-        <p>検討していた宅配水より、<br>自宅の使い方に合っていました。</p>
-        <p>冷蔵庫の場所も空いて、<br>段ボールをたたむ手間もゼロに。</p>
-      </div>
-      <span class="voice__veil voice__veil--right"></span>
-    </div>
-
-    <!-- 中央カード -->
-    <div class="voice__card" id="voiceCard">
-      <img class="voice__photo" id="voicePhoto" src="images/review_main.png" alt="夜の寝室で赤ちゃんを抱きながら Pure Next から水を注ぐ女性">
-      <div class="voice__quote" id="voiceQuote">
-        <span class="voice__mark voice__mark--open">“</span>
-        <p>40℃モードなら、熱湯も冷水も測らず2ポチ。</p>
-        <p>夜中の調乳がホントに楽になりました。</p>
-        <p>10ml単位で自由に変えられるのも<br>気が利きすぎてる。</p>
-        <span class="voice__mark voice__mark--close">”</span>
-      </div>
+    <!-- 横スライド式（ロール形式）。全カード同寸・同比率。クローンはJSが追加 -->
+    <div class="voice__track" id="voiceTrack">
+      <article class="voice__slide">
+        <img class="voice__photo" src="images/review_main.png" alt="夜の寝室で赤ちゃんを抱きながら Pure Next から水を注ぐ女性">
+        <div class="voice__quote">
+          <span class="voice__mark voice__mark--open">“</span>
+          <p>40℃モードなら、熱湯も冷水も測らず2ポチ。</p>
+          <p>夜中の調乳がホントに楽になりました。</p>
+          <p>10ml単位で自由に変えられるのも<br>気が利きすぎてる。</p>
+          <span class="voice__mark voice__mark--close">”</span>
+        </div>
+      </article>
+      <article class="voice__slide">
+        <img class="voice__photo" src="images/review_slide2.png" alt="朝のキッチンで白湯の入ったマグカップを持つ女性">
+        <div class="voice__quote">
+          <span class="voice__mark voice__mark--open">“</span>
+          <p>毎朝の白湯が習慣になりました。</p>
+          <p>もう沸かさなくていいのが快適です。</p>
+          <p>温度で迷わないのが、地味にうれしい。</p>
+          <span class="voice__mark voice__mark--close">”</span>
+        </div>
+      </article>
+      <article class="voice__slide">
+        <img class="voice__photo" src="images/review_slide3.png" alt="明るいリビングでくつろぐ家族と Pure Next">
+        <div class="voice__quote">
+          <span class="voice__mark voice__mark--open">“</span>
+          <p>検討していた宅配水より、<br>自宅の使い方に合っていました。</p>
+          <p>冷蔵庫の場所も空いて、<br>段ボールをたたむ手間もゼロに。</p>
+          <span class="voice__mark voice__mark--close">”</span>
+        </div>
+      </article>
     </div>
 
     <!-- 前へ・次へボタン -->
@@ -451,212 +449,12 @@
 
   <div class="app__card"></div>
 
-  <!-- スマホモックアップ1: ホーム画面 -->
+  <!-- スマホモックアップ: 発注主から渡された実物のアプリ画面PNGをそのまま組み込み -->
   <div class="app__phone app__phone--home">
-    <div class="app-ui app-ui--home">
-
-      <div class="app-ui__head">
-        <div class="app-ui__status">
-          <span class="app-ui__clock">9:41</span>
-          <span class="app-ui__stat">
-            <svg viewBox="0 0 42 12" aria-hidden="true">
-              <rect x="0" y="7" width="2.4" height="4" rx="1"/>
-              <rect x="3.6" y="5" width="2.4" height="6" rx="1"/>
-              <rect x="7.2" y="3" width="2.4" height="8" rx="1"/>
-              <rect x="10.8" y="1" width="2.4" height="10" rx="1"/>
-              <path d="M17.2 4.2a7.6 7.6 0 0 1 8.6 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M19.1 6.9a4.4 4.4 0 0 1 4.8 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="21.5" cy="9.4" r="1.2"/>
-              <rect x="29" y="2.4" width="11" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.1"/>
-              <rect x="30.4" y="3.8" width="8.2" height="4.2" rx="1"/>
-              <rect x="40.8" y="4.6" width="1.2" height="2.6" rx=".6"/>
-            </svg>
-          </span>
-        </div>
-        <div class="app-ui__brand">
-          <span class="app-ui__logo">Pure Ne<span class="app-ui__logo-x">X</span>t</span>
-          <span class="app-ui__bell">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6a1.5 1.5 0 0 1 1.5 1.5v.6a5.9 5.9 0 0 1 4.4 5.7v3.4l1.6 2.6H4.5l1.6-2.6v-3.4a5.9 5.9 0 0 1 4.4-5.7v-.6A1.5 1.5 0 0 1 12 2.6Zm0 19a2.6 2.6 0 0 1-2.5-2h5a2.6 2.6 0 0 1-2.5 2Z"/></svg>
-          </span>
-        </div>
-      </div>
-
-      <div class="app-ui__body">
-
-        <div class="app-home__top">
-          <span class="app-home__ruler"></span>
-          <div class="app-home__figure">
-            <i class="app-home__head"></i>
-            <i class="app-home__torso"></i>
-            <i class="app-home__arm app-home__arm--l"></i>
-            <i class="app-home__arm app-home__arm--r"></i>
-            <i class="app-home__leg app-home__leg--l"></i>
-            <i class="app-home__leg app-home__leg--r"></i>
-          </div>
-
-          <dl class="app-home__stats">
-            <div class="app-home__stat">
-              <dt><span class="app-home__drop"></span>今日の記録</dt>
-              <dd><b>1,000</b><em>ml</em></dd>
-            </div>
-            <div class="app-home__stat">
-              <dt><span class="app-home__drop"></span>目標摂取量</dt>
-              <dd><b>1,900</b><em>ml</em></dd>
-            </div>
-            <div class="app-home__stat app-home__stat--last">
-              <dt><span class="app-home__drop"></span>達成率</dt>
-              <dd><b>53</b><em>%</em></dd>
-            </div>
-          </dl>
-        </div>
-
-        <div class="app-home__quick">
-          <span class="app-home__qbtn"><b>100</b><em>ml</em></span>
-          <span class="app-home__qbtn"><b>50</b><em>ml</em></span>
-          <span class="app-home__qbtn"><b>500</b><em>ml</em></span>
-        </div>
-
-        <div class="app-home__slider"><i></i></div>
-        <div class="app-home__scale"><span>50ml</span><span>500ml</span><span>1,000ml</span></div>
-
-        <div class="app-home__rec">
-          <b>記録する</b>
-          <em>350ml を追加</em>
-        </div>
-
-        <div class="app-home__hist">
-          <span>今日の履歴</span>
-          <svg class="app-ui__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="app-tab">
-        <span class="app-tab__i">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4v16h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="m6 16 4-6 3.5 3L19 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <em>履歴</em>
-        </span>
-        <span class="app-tab__i">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l5 5v13H6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="14" cy="15" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-          <em>コラム</em>
-        </span>
-        <span class="app-tab__i app-tab__i--gap"></span>
-        <span class="app-tab__i">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.4"/><rect x="13" y="3" width="8" height="8" rx="1.4"/><rect x="3" y="13" width="8" height="8" rx="1.4"/><rect x="13" y="13" width="8" height="8" rx="1.4"/></svg>
-          <em>本体一覧</em>
-        </span>
-        <span class="app-tab__i">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <em>メニュー</em>
-        </span>
-      </div>
-      <span class="app-tab__home">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 11h2.4v9.2h5v-5.6h3.2v5.6h5V11H21z"/></svg>
-      </span>
-    </div>
+    <img class="app__screen" src="images/app_home.png" alt="Pure Nextアプリ ホーム画面（今日の記録 1,000ml・目標摂取量 1,900ml・達成率 53%・記録するボタン）">
   </div>
-
-  <!-- スマホモックアップ2: フィルター画面 -->
   <div class="app__phone app__phone--filter">
-    <div class="app-ui app-ui--filter">
-
-      <div class="app-ui__head">
-        <div class="app-ui__status">
-          <span class="app-ui__clock">9:41</span>
-          <span class="app-ui__stat">
-            <svg viewBox="0 0 42 12" aria-hidden="true">
-              <rect x="0" y="7" width="2.4" height="4" rx="1"/>
-              <rect x="3.6" y="5" width="2.4" height="6" rx="1"/>
-              <rect x="7.2" y="3" width="2.4" height="8" rx="1"/>
-              <rect x="10.8" y="1" width="2.4" height="10" rx="1"/>
-              <path d="M17.2 4.2a7.6 7.6 0 0 1 8.6 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M19.1 6.9a4.4 4.4 0 0 1 4.8 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="21.5" cy="9.4" r="1.2"/>
-              <rect x="29" y="2.4" width="11" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.1"/>
-              <rect x="30.4" y="3.8" width="8.2" height="4.2" rx="1"/>
-              <rect x="40.8" y="4.6" width="1.2" height="2.6" rx=".6"/>
-            </svg>
-          </span>
-        </div>
-        <div class="app-ui__nav">
-          <span class="app-ui__back">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4-7 8 7 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          <span class="app-ui__navttl">●●のウォーターサーバー</span>
-        </div>
-      </div>
-
-      <div class="app-ui__body app-filter__body">
-
-        <p class="app-filter__contract"><span>契約日</span><em>yyyy/mm/dd</em></p>
-
-        <p class="app-filter__mini">サーバー名</p>
-        <p class="app-filter__name">
-          ●●のウォーターバー
-          <span class="app-filter__pen">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L20 8l-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          </span>
-        </p>
-
-        <h4 class="app-filter__h">フィルターカートリッジ</h4>
-
-        <div class="app-filter__row">
-          <p class="app-filter__label">最終交換日</p>
-          <span class="app-filter__update">更新</span>
-        </div>
-        <p class="app-filter__val">2026年2月25日</p>
-        <p class="app-filter__note">※最終交換日から6か月後が次回の交換目安です。</p>
-
-        <p class="app-filter__label">次回カートリッジお届け予定月</p>
-        <p class="app-filter__val">2026年8月</p>
-        <p class="app-filter__note">※交換用カートリッジは、年1回、2回分をまとめて自動配送します。</p>
-
-        <p class="app-filter__order">カートリッジ追加注文</p>
-
-        <h4 class="app-filter__h">ユーザー</h4>
-
-        <div class="app-filter__user">
-          <span class="app-filter__avatar">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.6" r="4.1"/><path d="M12 13.8c-4.2 0-7.2 2.6-7.6 6.2h15.2c-.4-3.6-3.4-6.2-7.6-6.2z"/></svg>
-          </span>
-          <span class="app-filter__utext">
-            <em>サーバーの</em>
-            <b>あなた</b>
-          </span>
-        </div>
-        <div class="app-filter__user">
-          <span class="app-filter__avatar">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.6" r="4.1"/><path d="M12 13.8c-4.2 0-7.2 2.6-7.6 6.2h15.2c-.4-3.6-3.4-6.2-7.6-6.2z"/></svg>
-          </span>
-          <span class="app-filter__utext">
-            <em>サーバーの</em>
-            <b>メンバー</b>
-          </span>
-        </div>
-      </div>
-
-      <div class="app-tab">
-        <span class="app-tab__i">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4v16h18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="m6 16 4-6 3.5 3L19 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <em>履歴</em>
-        </span>
-        <span class="app-tab__i">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l5 5v13H6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="14" cy="15" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-          <em>コラム</em>
-        </span>
-        <span class="app-tab__i app-tab__i--gap"></span>
-        <span class="app-tab__i app-tab__i--on">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.4"/><rect x="13" y="3" width="8" height="8" rx="1.4"/><rect x="3" y="13" width="8" height="8" rx="1.4"/><rect x="13" y="13" width="8" height="8" rx="1.4"/></svg>
-          <em>本体一覧</em>
-        </span>
-        <span class="app-tab__i">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <em>メニュー</em>
-        </span>
-      </div>
-      <span class="app-tab__home">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 3 11h2.4v9.2h5v-5.6h3.2v5.6h5V11H21z"/></svg>
-      </span>
-    </div>
+    <img class="app__screen" src="images/app_filter.png" alt="Pure Nextアプリ フィルター画面（契約日・最終交換日・次回カートリッジお届け予定月・ユーザー）">
   </div>
 
   <!-- 右カラム: 3つの便利 -->

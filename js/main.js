@@ -1,88 +1,71 @@
-/* PureNext LP v2 — お客様の声カルーセル & FAQアコーディオン（素のJS・依存なし） */
+/* PureNext LP v2 — お客様の声カルーセル（横スライド・ロール式） & FAQアコーディオン（素のJS・依存なし） */
 (function () {
   "use strict";
 
-  /* ---------- お客様の声カルーセル ---------- */
-  var SLIDES = [
-    {
-      photo: "images/review_main.png",
-      alt: "夜の寝室で赤ちゃんを抱きながら Pure Next から水を注ぐ女性",
-      lines: [
-        "40℃モードなら、熱湯も冷水も測らず2ポチ。",
-        "夜中の調乳がホントに楽になりました。",
-        "10ml単位で自由に変えられるのも<br>気が利きすぎてる。"
-      ]
-    },
-    {
-      photo: "images/review_slide2.png",
-      alt: "朝のキッチンで白湯の入ったマグカップを持つ女性",
-      lines: [
-        "毎朝の白湯が習慣になりました。",
-        "もう沸かさなくていいのが快適です。",
-        "温度で迷わないのが、地味にうれしい。"
-      ]
-    },
-    {
-      photo: "images/review_slide3.png",
-      alt: "明るいリビングでくつろぐ家族と Pure Next",
-      lines: [
-        "検討していた宅配水より、<br>自宅の使い方に合っていました。",
-        "冷蔵庫の場所も空いて、<br>段ボールをたたむ手間もゼロに。"
-      ]
-    }
-  ];
+  /* ---------- お客様の声カルーセル（ロール式） ----------
+     トラック上に [最後のクローン][実スライド1..3][最初のクローン] を並べ、
+     translateX で横にスライドする。端まで来たらアニメなしで実スライドへ
+     つなぎ替えることで、無限に同方向へ回転しているように見せる。 */
+  var STAGE_W = 1024;   // ステージ幅
+  var SLIDE_W = 660;    // カード幅（全カード共通）
+  var GAP = 24;         // カード間隔
+  var STEP = SLIDE_W + GAP;
+  var BASE = (STAGE_W - SLIDE_W) / 2; // 中央カードの左端位置
 
-  var stage = document.getElementById("voiceStage");
-  if (stage) {
-    var photo = document.getElementById("voicePhoto");
-    var quote = document.getElementById("voiceQuote");
-    var sideL = document.getElementById("voiceSidePhotoL");
-    var sideR = document.getElementById("voiceSidePhotoR");
-    var sideQuoteL = document.querySelector(".voice__side--left .voice__side-quote");
-    var sideQuoteR = document.querySelector(".voice__side--right .voice__side-quote");
-    var idx = 0;
+  var track = document.getElementById("voiceTrack");
+  if (track) {
+    var real = track.children.length; // 実スライド数
+    // 両端にクローンを追加（無限ループ用）
+    var firstClone = track.children[0].cloneNode(true);
+    var lastClone = track.children[real - 1].cloneNode(true);
+    firstClone.setAttribute("aria-hidden", "true");
+    lastClone.setAttribute("aria-hidden", "true");
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, track.children[0]);
+
+    var cards = track.children; // [cloneLast, s1..sN, cloneFirst]
+    var pos = 1;                // 現在の中央カード（トラック内の添字）
     var busy = false;
 
-    function quoteHtml(lines, withOpen, withClose) {
-      var h = "";
-      if (withOpen) h += '<span class="voice__mark voice__mark--open">“</span>';
-      for (var i = 0; i < lines.length; i++) h += "<p>" + lines[i] + "</p>";
-      if (withClose) h += '<span class="voice__mark voice__mark--close">”</span>';
-      return h;
+    function apply(anim) {
+      if (anim) track.classList.add("is-anim");
+      else track.classList.remove("is-anim");
+      track.style.transform = "translateX(" + (BASE - STEP * pos) + "px)";
+      for (var i = 0; i < cards.length; i++) {
+        if (i === pos) cards[i].classList.add("is-active");
+        else cards[i].classList.remove("is-active");
+      }
+      if (!anim) void track.offsetHeight; // 即時反映（トランジション抑止を確定させる）
     }
 
-    function render() {
-      var n = SLIDES.length;
-      var cur = SLIDES[idx];
-      var prev = SLIDES[(idx + n - 1) % n];
-      var next = SLIDES[(idx + 1) % n];
-      photo.src = cur.photo;
-      photo.alt = cur.alt;
-      quote.innerHTML = quoteHtml(cur.lines, true, true);
-      sideL.src = prev.photo;
-      sideR.src = next.photo;
-      sideQuoteL.innerHTML = quoteHtml(prev.lines.slice(0, 2), false, true);
-      sideQuoteR.innerHTML = quoteHtml(next.lines.slice(0, 2), true, false);
+    function settle() {
+      // クローン上で止まったら、同じ見た目の実スライドへアニメなしで差し替え
+      if (pos === 0) { pos = real; apply(false); }
+      else if (pos === real + 1) { pos = 1; apply(false); }
+      busy = false;
     }
 
+    var settleTimer = null;
     function go(step) {
       if (busy) return;
       busy = true;
-      stage.classList.add("is-fading");
-      window.setTimeout(function () {
-        idx = (idx + step + SLIDES.length) % SLIDES.length;
-        render();
-        stage.classList.remove("is-fading");
-        window.setTimeout(function () { busy = false; }, 260);
-      }, 260);
+      pos += step;
+      apply(true);
+      // transitionend が飛ばない環境向けの保険
+      settleTimer = window.setTimeout(settle, 650);
     }
+    track.addEventListener("transitionend", function (e) {
+      if (e.target !== track) return;
+      if (settleTimer) { window.clearTimeout(settleTimer); settleTimer = null; }
+      settle();
+    });
 
     document.getElementById("voicePrev").addEventListener("click", function () { go(-1); });
     document.getElementById("voiceNext").addEventListener("click", function () { go(1); });
-    render();
+    apply(false);
   }
 
-  /* ---------- FAQアコーディオン ---------- */
+  /* ---------- FAQアコーディオン（体感即時） ---------- */
   var btns = document.querySelectorAll(".faq__qbtn");
   for (var i = 0; i < btns.length; i++) {
     btns[i].addEventListener("click", function () {
