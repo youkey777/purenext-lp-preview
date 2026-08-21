@@ -40,14 +40,17 @@ img{display:block}
 .chip span{font-size:11px;font-weight:700;color:var(--navy);text-align:center;line-height:1.3}
 
 /* ---------- S02 lead ---------- */
-.lead{height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
-.lead__title{font-size:28px;font-weight:800;letter-spacing:.22em;color:var(--navy)}
-.lead__bar{width:60px;height:4px;border-radius:2px;background:var(--blue)}
+.lead{height:216px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.lead__title{font-size:38px;font-weight:800;letter-spacing:.22em;text-indent:.22em;color:var(--navy)}
+.lead__bar{width:64px;height:4px;border-radius:2px;background:var(--blue)}
 
 /* ---------- S03 intro ---------- */
-.intro{position:relative;height:1188px;overflow:hidden;background:linear-gradient(180deg,#ffffff 0%,#f6f6f5 30%,#e6e5e4 78%,#e2e1e0 100%)}
+.intro{
+  position:relative;height:1188px;overflow:hidden;margin:0 8px 16px;border-radius:24px;
+  background:linear-gradient(180deg,#ffffff 0%,#f6f6f5 30%,#e6e5e4 78%,#e2e1e0 100%);
+}
 .intro__panel{
-  position:absolute;right:-60px;bottom:-40px;width:760px;height:auto;
+  position:absolute;right:-30px;bottom:-28px;width:620px;height:auto;
   pointer-events:none;
 }
 .intro::after{
@@ -60,7 +63,7 @@ img{display:block}
   padding:150px 0 0 56px;
   font-size:46px;font-weight:900;line-height:1.55;letter-spacing:.02em;color:var(--navy);
 }
-.intro__figure{position:absolute;left:88px;top:490px;display:flex;gap:112px;z-index:1}
+.intro__figure{position:absolute;left:80px;top:490px;display:flex;gap:112px;z-index:1}
 .figure-label{font-size:20px;font-weight:800;color:var(--blue);letter-spacing:.1em}
 /* 温度バー */
 .temp__body{position:relative;margin-top:26px;height:480px}
@@ -103,18 +106,28 @@ img{display:block}
   font-size:17px;font-weight:800;color:var(--navy);
 }
 
-/* ---------- S04 memory ---------- */
+/* ---------- S04 memory（S05と同じカード様式に統一） ---------- */
+.memory-wrap{padding:0 8px 16px;background:#fff}
 .memory{
-  height:372px;display:flex;align-items:center;justify-content:center;gap:64px;background:#fff;
+  position:relative;height:480px;border-radius:24px;overflow:hidden;
+  background:var(--card-blue);
+  display:flex;
 }
-.memory__title{font-size:36px;font-weight:900;line-height:1.6;color:var(--navy)}
-.memory__sub{margin-top:18px;font-size:16px;font-weight:800;color:var(--blue)}
-.memory__photo{width:372px;height:332px;object-fit:cover;object-position:40% 50%;border-radius:18px}
+.memory__text{padding:64px 0 0 56px;width:42%}
+.memory__iconwrap{
+  width:66px;height:66px;border-radius:50%;background:#4a90e2;
+  display:flex;align-items:center;justify-content:center;margin-bottom:26px;
+}
+.memory__icon{width:36px;height:36px;filter:brightness(0) invert(1)}
+.memory__title{font-size:35px;font-weight:900;line-height:1.5;color:var(--navy)}
+.memory__sub{margin-top:18px;font-size:20px;font-weight:800;color:var(--blue)}
+.memory__photo{position:absolute;right:0;top:0;width:58%;height:100%}
+.memory__photo img{width:100%;height:100%;object-fit:cover;object-position:40% 50%}
 
 /* ---------- S05 uv card ---------- */
 .uvcard-wrap{padding:0 8px 0;background:#fff}
 .uvcard{
-  position:relative;height:520px;border-radius:24px;overflow:hidden;
+  position:relative;height:480px;border-radius:24px;overflow:hidden;
   background:var(--card-blue);
   display:flex;
 }
@@ -128,19 +141,13 @@ img{display:block}
 
 /* ---------- S06 because ---------- */
 .because{
-  position:relative;height:1045px;margin-top:60px;
-  background:linear-gradient(180deg,#e3edf8 0%,#e0eaf5 40%,#e5ebf2 100%);
+  position:relative;height:1192px;margin-top:44px;
+  background:linear-gradient(180deg,#ffffff 0px,#ffffff 190px,#e3edf8 190px,#e0eaf5 55%,#e5ebf2 100%);
   overflow:hidden;
 }
-.because::before{ /* うっすら波線 */
-  content:"";position:absolute;left:0;top:110px;width:100%;height:260px;
-  background:
-    radial-gradient(120% 90px at 30% 0%,rgba(255,255,255,.5) 0 49.6%,transparent 50.4%),
-    radial-gradient(120% 90px at 75% 100%,rgba(255,255,255,.35) 0 49.6%,transparent 50.4%);
-  opacity:.35;pointer-events:none;
-}
-.because__lead{padding-top:52px;text-align:center;font-size:30px;font-weight:800;color:var(--blue-strong);letter-spacing:.1em}
-.because__list{position:relative;list-style:none;height:330px;margin-top:16px}
+.because__lead{padding-top:54px;text-align:center;font-size:38px;font-weight:800;color:var(--blue-strong);letter-spacing:.22em;text-indent:.22em}
+.because__leadbar{display:block;margin:20px auto 0;width:64px;height:4px;border-radius:2px;background:var(--blue)}
+.because__list{position:relative;list-style:none;height:330px;margin-top:72px}
 .because__item{position:absolute;display:flex;align-items:center;gap:18px}
 .because__item i{
   width:44px;height:44px;border-radius:50%;border:2px solid var(--blue);
@@ -154,17 +161,18 @@ img{display:block}
 .because__item--l2{left:88px;top:118px}
 .because__item--r2{left:560px;top:146px}
 .because__item--l3{left:88px;top:228px}
-.because__lower{position:absolute;left:0;top:398px;width:100%;height:647px}
+.because__lower{position:absolute;left:0;top:545px;width:100%;height:647px}
 .because__room{
   position:absolute;right:0;top:6px;width:470px;height:641px;object-fit:cover;
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 140px);
   mask-image:linear-gradient(90deg,transparent 0,#000 140px);
 }
 .because__badge{
-  position:absolute;right:118px;top:230px;width:132px;height:132px;border-radius:50%;
-  background:#fff;box-shadow:0 6px 18px rgba(29,56,83,.12);
+  position:absolute;right:64px;top:196px;width:128px;height:128px;border-radius:50%;
+  background:#fff;box-shadow:0 6px 18px rgba(29,56,83,.14);
   display:flex;align-items:center;justify-content:center;text-align:center;
   font-size:16px;font-weight:800;line-height:1.5;color:var(--navy);
+  z-index:2;
 }
 .because__title{
   position:absolute;left:64px;top:80px;
@@ -172,9 +180,9 @@ img{display:block}
 }
 .because__items{position:absolute;left:56px;top:268px;display:flex;align-items:flex-end;gap:16px}
 .because__arrow{
-  position:absolute;left:330px;bottom:52px;width:300px;height:150px;
-  background:linear-gradient(90deg,rgba(255,255,255,.5),rgba(255,255,255,.85));
-  clip-path:polygon(0 24%,60% 24%,60% 0,100% 50%,60% 100%,60% 76%,0 76%);
+  position:absolute;left:8px;bottom:48px;width:648px;height:158px;
+  background:linear-gradient(90deg,rgba(255,255,255,.45),rgba(255,255,255,.88));
+  clip-path:polygon(0 26%,86% 26%,86% 0,100% 50%,86% 100%,86% 74%,0 74%);
 }
 .because__items figure{position:relative;text-align:center;z-index:1}
 .because__items img{margin:0 auto;filter:drop-shadow(0 8px 10px rgba(29,56,83,.14))}
@@ -185,15 +193,34 @@ img{display:block}
 .because__items figure:nth-child(6) img{height:128px}  /* thermo */
 .because__items figcaption{margin-top:16px;font-size:15px;font-weight:700;color:#16324f;white-space:nowrap}
 
-/* ---------- S07 kodawari band ---------- */
-.kodawari{position:relative;height:549px;overflow:hidden}
-.kodawari__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.kodawari__inner{position:relative;z-index:1;padding:114px 0 0 44px;font-family:"Noto Serif JP",serif}
-.kodawari__eyebrow{font-size:20px;font-weight:600;letter-spacing:.3em;color:var(--navy2)}
-.kodawari__title{
-  margin-top:56px;font-size:46px;font-weight:600;line-height:1.75;letter-spacing:.06em;color:var(--navy2);
+/* ---------- S07 kodawari（タイトル・目次セクション） ---------- */
+.kodawari{
+  position:relative;padding:88px 0 84px;text-align:center;background:#fff;
 }
-.kodawari__title .num{font-size:56px}
+.kodawari__eyebrow{
+  font-size:17px;font-weight:700;letter-spacing:.34em;text-indent:.34em;color:var(--blue);
+}
+.kodawari__title{
+  margin-top:22px;font-family:"Noto Serif JP",serif;
+  font-size:42px;font-weight:600;line-height:1.5;letter-spacing:.08em;color:var(--navy2);
+}
+.kodawari__title .num{font-size:52px}
+.kodawari__bar{display:inline-block;margin-top:26px;width:64px;height:4px;border-radius:2px;background:var(--blue)}
+.kodawari__index{
+  margin-top:44px;list-style:none;
+  display:flex;justify-content:center;gap:20px;
+}
+.kodawari__index li{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 30px;background:#fff;border:1.5px solid #dbe7f4;border-radius:999px;
+  box-shadow:0 4px 14px rgba(29,56,83,.06);
+}
+.kodawari__index i{
+  width:38px;height:38px;border-radius:50%;border:2px solid var(--blue);
+  color:var(--blue);font-style:normal;font-weight:700;font-size:16px;
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.kodawari__index span{font-size:18px;font-weight:700;color:var(--navy);white-space:nowrap}
 
 
 /* ========== fragment g1 ========== */
@@ -409,17 +436,27 @@ img{display:block}
 .voice__veil--left{background:linear-gradient(90deg,rgba(246,249,253,.44) 0%,rgba(246,249,253,.08) 100%)}
 .voice__veil--right{background:linear-gradient(270deg,rgba(246,249,253,.62) 0%,rgba(246,249,253,.10) 100%)}
 
-/* 次へ（白丸ボタン） */
-.voice__next{
-  position:absolute;left:894px;top:318px;width:95px;height:95px;border-radius:50%;
-  background:#fff;box-shadow:0 6px 18px rgba(29,56,83,.18);
-  display:flex;align-items:center;justify-content:center;z-index:2;
+/* 前へ・次へ（白丸ボタン） */
+.voice__nav{
+  position:absolute;top:318px;width:95px;height:95px;border-radius:50%;
+  background:#fff;border:0;padding:0;cursor:pointer;
+  box-shadow:0 6px 18px rgba(29,56,83,.18);
+  display:flex;align-items:center;justify-content:center;z-index:3;
+  transition:transform .15s ease,box-shadow .15s ease;
 }
-.voice__next i{
-  display:block;width:24px;height:24px;margin-left:-9px;
+.voice__nav:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(29,56,83,.24)}
+.voice__nav i{
+  display:block;width:24px;height:24px;
   border-top:5px solid #16336f;border-right:5px solid #16336f;
-  transform:rotate(45deg);
 }
+.voice__nav--next{left:894px}
+.voice__nav--next i{transform:rotate(45deg);margin-left:-9px}
+.voice__nav--prev{left:35px}
+.voice__nav--prev i{transform:rotate(-135deg);margin-right:-9px}
+/* 切り替え時のフェード */
+.voice__card,.voice__side{transition:opacity .25s ease}
+.voice__stage.is-fading .voice__card,
+.voice__stage.is-fading .voice__side{opacity:0}
 
 /* 下の青リンク2行 */
 .voice__note{
@@ -527,26 +564,8 @@ img{display:block}
 .midcta__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .midcta__inner{position:relative;z-index:1;height:100%}
 .midcta__lead{
-  position:absolute;left:121px;top:122px;
-  font-size:20.5px;line-height:36px;font-weight:700;letter-spacing:0;color:#16304e;
-}
-.midcta__btn{
-  position:absolute;left:362px;top:141px;width:313px;height:61px;border-radius:31px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 26px 0 41px;text-decoration:none;
-  background:linear-gradient(180deg,#2350b6 0%,#1a44a4 100%);
-  box-shadow:0 8px 18px rgba(23,60,140,.28);
-}
-.midcta__btntxt{
-  font-size:23px;font-weight:700;letter-spacing:.05em;color:#fff;white-space:nowrap;
-}
-.midcta__arw{
-  flex:none;width:22px;height:22px;border-radius:50%;background:#fff;
-  display:flex;align-items:center;justify-content:center;
-}
-.midcta__arw::before{
-  content:"";display:block;width:7px;height:7px;margin-left:-2px;
-  border-top:2px solid #1c46a8;border-right:2px solid #1c46a8;transform:rotate(45deg);
+  position:absolute;left:121px;top:116px;
+  font-size:26px;line-height:44px;font-weight:700;letter-spacing:.02em;color:#16304e;
 }
 
 
@@ -593,7 +612,7 @@ img{display:block}
   background:#f7f9fc;
 }
 .uvdeep__bandtitle{
-  position:absolute;left:57px;top:16px;width:910px;margin:0;
+  position:absolute;left:57px;top:104px;width:910px;margin:0;
   display:flex;align-items:center;
 }
 .uvdeep__bandtitle::before,
@@ -742,7 +761,7 @@ img{display:block}
 .spec__dimd-line::before{top:0}
 .spec__dimd-line::after{bottom:0}
 .spec__dimd-label{
-  position:absolute;left:791px;top:731px;margin:0;white-space:nowrap;
+  position:absolute;left:820px;top:752px;margin:0;white-space:nowrap;
   font-size:21px;font-weight:700;line-height:1.2;letter-spacing:.02em;color:#1e6ade;
 }
 .spec__dimd-label em{font-style:normal;font-size:14px}
@@ -820,34 +839,14 @@ img{display:block}
 /* ============================================================
    S20  サポート帯   高さ 409px
    ============================================================ */
-.support{position:relative;width:1024px;height:409px;background:#f6f9fd}
-
-.support__cards{
-  position:absolute;left:30px;top:28px;width:936px;height:132px;
-  display:flex;gap:18px;
-}
-.support__card{
-  flex:1 1 0;height:132px;background:#fff;border-radius:14px;
-  display:flex;align-items:center;gap:26px;padding-left:40px;box-sizing:border-box;
-}
-.support__icon{
-  width:90px;height:90px;object-fit:contain;flex:0 0 auto;display:block;
-  box-sizing:border-box;padding:13px;border:2px solid #5b8fd9;border-radius:50%;
-}
-.support__cardtitle{
-  margin:0;font-size:36px;font-weight:800;line-height:1.15;letter-spacing:.04em;
-  color:#16273e;
-}
-.support__cardbar{display:none}
-.support__dots{display:flex;gap:10px;margin-top:12px}
-.support__dots i{display:block;width:9px;height:9px;border-radius:50%;background:#c9d6e6}
+.support{position:relative;width:1024px;height:268px;background:#f6f9fd}
 
 .support__flowtitle{
-  position:absolute;left:0;top:186px;width:1024px;margin:0;text-align:center;
+  position:absolute;left:0;top:38px;width:1024px;margin:0;text-align:center;
   font-size:28px;font-weight:800;line-height:1.2;letter-spacing:.04em;color:#1e6ade;
 }
 
-.support__steps{position:absolute;left:30px;top:232px;width:936px;height:140px}
+.support__steps{position:absolute;left:30px;top:94px;width:936px;height:140px}
 .support__step{
   position:absolute;top:0;width:290px;height:140px;background:#fff;border-radius:14px;
 }
@@ -1133,23 +1132,28 @@ img{display:block}
    S23 よくあるご質問
    ============================================================ */
 .faq{
-  width:1024px;height:272px;padding-top:70px;
+  width:1024px;padding:70px 0 44px;
   background:linear-gradient(180deg,#ffffff 0 70px,#f6f9fe 70px);
 }
 .faq__card{
-  margin:0 12px;height:207px;
+  margin:0 12px;padding-bottom:18px;
   background:#fafcff;border-radius:20px;
 }
 .faq__title{
   padding-top:4px;text-align:center;
   font-size:24px;font-weight:800;line-height:1.4;color:#1e6ade;letter-spacing:.02em;
 }
-.faq__list{margin-top:4px;list-style:none}
+.faq__list{margin-top:8px;list-style:none}
 .faq__item{
-  position:relative;height:30px;margin:0 20px 10px;
+  margin:0 20px 10px;
   background:#fff;border:1px solid #edf2f7;border-radius:10px;
   box-shadow:0 1px 4px rgba(29,56,83,.05);
-  display:flex;align-items:center;
+  overflow:hidden;
+}
+.faq__qbtn{
+  position:relative;display:flex;align-items:center;width:100%;height:46px;
+  background:none;border:0;padding:0;cursor:pointer;text-align:left;
+  font-family:inherit;
 }
 .faq__q{
   flex:none;margin-left:23px;width:21px;height:21px;border-radius:50%;
@@ -1157,28 +1161,23 @@ img{display:block}
   display:flex;align-items:center;justify-content:center;
 }
 .faq__text{margin-left:28px;font-size:16px;font-weight:700;color:#1d3853}
-.faq__chev{position:absolute;right:23px;width:22px;height:22px;color:#2f7fd6}
-
-/* ============================================================
-   S24 最終CTA
-   ============================================================ */
-.finalcta{width:1024px;height:207px;background:#fff;display:flex;justify-content:center}
-.finalcta__btn{
-  position:relative;margin-top:96px;width:605px;height:68px;border-radius:34px;
-  background:#1d4ed8;box-shadow:0 12px 26px rgba(29,78,216,.25);
-  display:flex;align-items:center;justify-content:center;text-decoration:none;
+.faq__chev{
+  position:absolute;right:23px;width:22px;height:22px;color:#2f7fd6;
+  transition:transform .25s ease;
 }
-.finalcta__label{
-  font-size:27px;font-weight:800;color:#fff;letter-spacing:.08em;text-indent:.08em;
+.faq__qbtn[aria-expanded="true"] .faq__chev{transform:rotate(180deg)}
+.faq__a{
+  padding:0 60px 16px 72px;
+  font-size:14.5px;font-weight:500;line-height:1.9;color:#3d5166;
 }
-.finalcta__chev{position:absolute;right:48px;width:24px;height:24px;color:#fff}
+.faq__a p+p{margin-top:6px}
 
 /* ============================================================
    S25 フッター
    ============================================================ */
 .footer{
-  width:1024px;height:440px;padding-top:16px;
-  background:linear-gradient(180deg,#ffffff 0 16px,#f6f9fd 16px);
+  width:1024px;height:472px;padding-top:48px;
+  background:linear-gradient(180deg,#ffffff 0 48px,#f6f9fd 48px);
 }
 .footer__band{position:relative;width:1024px;height:320px;overflow:hidden}
 .footer__bandimg{width:1024px;height:320px;object-fit:cover;object-position:50% 45%}

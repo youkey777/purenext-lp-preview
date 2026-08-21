@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Noto+Serif+JP:wght@400;500;600;700&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -69,12 +70,15 @@
   </section>
 
   <!-- S04 メモリ機能 -->
-  <section class="memory">
-    <div class="memory__text">
-      <h2 class="memory__title">いつもの量が<br>すぐに出る</h2>
-      <p class="memory__sub">前回取水量のメモリ機能</p>
+  <section class="memory-wrap">
+    <div class="memory">
+      <div class="memory__text">
+        <span class="memory__iconwrap"><img class="memory__icon" src="images/icon_bottle.png" alt=""></span>
+        <h2 class="memory__title">いつもの量が<br>すぐに出る</h2>
+        <p class="memory__sub">前回取水量のメモリ機能</p>
+      </div>
+      <div class="memory__photo"><img src="images/memory_photo.png" alt="パネルを押す女性とコップで水を受ける女の子"></div>
     </div>
-    <img class="memory__photo" src="images/memory_photo.png" alt="パネルを押す女性とコップで水を受ける女の子">
   </section>
 
   <!-- S05 取水口UV殺菌 -->
@@ -93,6 +97,7 @@
   <!-- S06 だから -->
   <section class="because">
     <p class="because__lead">だから</p>
+    <span class="because__leadbar"></span>
     <ol class="because__list">
       <li class="because__item because__item--l1"><i>01</i><span>買わなくていい</span></li>
       <li class="because__item because__item--r1"><i>02</i><span>運ばなくていい</span></li>
@@ -115,13 +120,16 @@
     </div>
   </section>
 
-  <!-- S07 こだわりの機能 帯 -->
+  <!-- S07 こだわりの機能（タイトル・目次） -->
   <section class="kodawari">
-    <img class="kodawari__bg" src="images/kodawari_band.png" alt="">
-    <div class="kodawari__inner">
-      <p class="kodawari__eyebrow">こだわりの機能</p>
-      <h2 class="kodawari__title">毎日に寄り添う、<br><span class="num">3</span>つの便利。</h2>
-    </div>
+    <p class="kodawari__eyebrow">こだわりの機能</p>
+    <h2 class="kodawari__title">毎日に寄り添う、<span class="num">3</span>つの便利。</h2>
+    <span class="kodawari__bar"></span>
+    <ul class="kodawari__index">
+      <li><i>01</i><span>10ml定量取水</span></li>
+      <li><i>02</i><span>常温水・白湯モード</span></li>
+      <li><i>03</i><span>40℃モード</span></li>
+    </ul>
   </section>
 
 
@@ -200,10 +208,10 @@
     <span class="voice__rule"></span>
   </div>
 
-  <div class="voice__stage">
+  <div class="voice__stage" id="voiceStage">
     <!-- 左の見切れカード -->
     <div class="voice__side voice__side--left" aria-hidden="true">
-      <div class="voice__side-photo"><img src="images/review_left.png" alt=""></div>
+      <div class="voice__side-photo"><img id="voiceSidePhotoL" src="images/review_left.png" alt=""></div>
       <div class="voice__side-quote">
         <p>毎朝の白湯が習慣になりました。</p>
         <p>もう沸かさなくていいのが快適です。</p>
@@ -214,7 +222,7 @@
 
     <!-- 右の見切れカード -->
     <div class="voice__side voice__side--right" aria-hidden="true">
-      <div class="voice__side-photo"><img src="images/review_right.png" alt=""></div>
+      <div class="voice__side-photo"><img id="voiceSidePhotoR" src="images/review_right.png" alt=""></div>
       <div class="voice__side-quote">
         <span class="voice__mark voice__mark--open">“</span>
         <p>検討していた宅配水より、<br>自宅の使い方に合っていました。</p>
@@ -224,9 +232,9 @@
     </div>
 
     <!-- 中央カード -->
-    <div class="voice__card">
-      <img class="voice__photo" src="images/review_main.png" alt="夜の寝室で赤ちゃんを抱きながら Pure Next から水を注ぐ女性">
-      <div class="voice__quote">
+    <div class="voice__card" id="voiceCard">
+      <img class="voice__photo" id="voicePhoto" src="images/review_main.png" alt="夜の寝室で赤ちゃんを抱きながら Pure Next から水を注ぐ女性">
+      <div class="voice__quote" id="voiceQuote">
         <span class="voice__mark voice__mark--open">“</span>
         <p>40℃モードなら、熱湯も冷水も測らず2ポチ。</p>
         <p>夜中の調乳がホントに楽になりました。</p>
@@ -235,8 +243,9 @@
       </div>
     </div>
 
-    <!-- 次へボタン -->
-    <span class="voice__next"><i></i></span>
+    <!-- 前へ・次へボタン -->
+    <button class="voice__nav voice__nav--prev" id="voicePrev" type="button" aria-label="前のお客様の声へ"><i></i></button>
+    <button class="voice__nav voice__nav--next" id="voiceNext" type="button" aria-label="次のお客様の声へ"><i></i></button>
   </div>
 
   <p class="voice__note">
@@ -297,7 +306,6 @@
     <img class="midcta__bg" src="images/midcta_band.png" alt="">
     <div class="midcta__inner">
       <p class="midcta__lead">わたしを助けてくれる、<br>優しい1台。</p>
-      <a class="midcta__btn" href="#"><span class="midcta__btntxt">お申し込みはこちら</span><i class="midcta__arw"></i></a>
     </div>
   </div>
 </section>
@@ -404,25 +412,6 @@
 
 <!-- ===================== S20 サポート帯 ===================== -->
 <section class="support">
-  <div class="support__cards">
-    <div class="support__card">
-      <img class="support__icon" src="images/icon_headset.png" alt="" loading="eager">
-      <div class="support__body">
-        <p class="support__cardtitle">安心サポート</p>
-        <span class="support__cardbar"></span>
-        <span class="support__dots"><i></i><i></i><i></i></span>
-      </div>
-    </div>
-    <div class="support__card">
-      <img class="support__icon" src="images/icon_wallet.png" alt="" loading="eager">
-      <div class="support__body">
-        <p class="support__cardtitle">お支払い方法</p>
-        <span class="support__cardbar"></span>
-        <span class="support__dots"><i></i><i></i><i></i></span>
-      </div>
-    </div>
-  </div>
-
   <p class="support__flowtitle">お申し込みの流れ</p>
 
   <div class="support__steps">
@@ -716,35 +705,39 @@
     <h2 class="faq__title">よくあるご質問</h2>
     <ul class="faq__list">
       <li class="faq__item">
-        <span class="faq__q">?</span>
-        <span class="faq__text">月額以外の費用は？</span>
-        <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">月額以外の費用は？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>月額料金のほかに、ご契約時に初期手数料3,000円（税込）がかかります。フィルター代は月額料金に含まれています。電気代はお客様のご負担となります。</p><p>※配送・設置にかかる費用は現在調整中です。確定し次第、こちらでご案内します。</p></div>
       </li>
       <li class="faq__item">
-        <span class="faq__q">?</span>
-        <span class="faq__text">フィルター交換頻度は？</span>
-        <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">フィルター交換頻度は？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>交換用フィルターは、交換時期に合わせて定期的にご自宅へお届けします。フィルター代は月額料金に含まれています。</p><p>※お届けの周期（目安：6か月〜1年ごと）は現在最終調整中です。確定し次第、こちらでご案内します。</p></div>
       </li>
       <li class="faq__item">
-        <span class="faq__q">?</span>
-        <span class="faq__text">途中解約は？</span>
-        <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">途中解約は？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>ご契約には最低利用期間があり、期間内のご解約には所定の解約金がかかります。解約金はご利用年数に応じて少なくなる仕組みを予定しています。なお、お申し込み当日中（23:59まで）のキャンセルは無料です。</p><p>※最低利用期間・解約金の額は現在確定しておらず、お申し込み前の重要事項説明でご確認いただけます。</p></div>
       </li>
       <li class="faq__item">
-        <span class="faq__q">?</span>
-        <span class="faq__text">40℃モードとは？</span>
-        <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">40℃モードとは？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>熱水と冷水を自動で組み合わせて、約40℃のぬるめのお湯を指定した量だけお作りするモードです。10ml単位で量を指定でき、ボタンひとつでちょうどよい温度をご利用いただけます。</p></div>
       </li>
     </ul>
   </div>
-</section>
-
-<!-- S24 最終CTA -->
-<section class="finalcta">
-  <a class="finalcta__btn" href="#">
-    <span class="finalcta__label">お申し込みはこちら</span>
-    <svg class="finalcta__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
 </section>
 
 <!-- S25 フッター -->
