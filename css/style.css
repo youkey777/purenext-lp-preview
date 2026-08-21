@@ -49,14 +49,25 @@ img{display:block}
 /* ---------- S03 intro ---------- */
 .intro{
   position:relative;height:1018px;overflow:hidden;margin:0 8px 16px;border-radius:24px;
-  background:linear-gradient(180deg,#f5f9fd 0%,#dfeaf6 100%);
+  background:linear-gradient(180deg,#ffffff 0%,#fbfbfa 30%,#f3f2f1 78%,#f1f0ef 100%);
 }
 .intro__panel{
-  position:absolute;right:-30px;top:170px;width:640px;height:auto;
+  position:absolute;right:-30px;bottom:-28px;width:620px;height:auto;
   pointer-events:none;
-  /* 影はCSSでは付けない。透過PNGの背後に図形影（角丸長方形・楕円＋ブラー）を敷くと
-     シルエットと合わず縁が露出する（rev4〜6の事故原因）。輪郭は背景の淡い水色との
-     トーン差で読ませ、立体感は写真自身の陰影に任せる */
+  /* 影は付けない。PNGの縁が110pxのアルファフェードなので drop-shadow を掛けると
+     半透明画素の後ろに影が透けて本体の顔が灰色に曇る（rev4の失敗） */
+}
+/* 本体の「後ろ」に敷く落ち影。img より先に描かれるので写真の不透明部分には
+   一切かからず、輪郭の外側（左の背景側と接地側）にだけ影が出る */
+.intro::before{
+  content:"";position:absolute;right:-30px;bottom:-20px;width:880px;height:600px;
+  background:radial-gradient(54% 48% at 54% 76%, rgba(29,56,83,.22), rgba(29,56,83,0) 88%);
+  pointer-events:none;
+}
+.intro::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:130px;
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.92));
+  pointer-events:none;
 }
 .intro__title{
   position:relative;z-index:1;
@@ -142,13 +153,13 @@ img{display:block}
 
 /* ---------- S06 because ---------- */
 .because{
-  position:relative;height:1192px;margin-top:44px;
+  position:relative;height:1226px;margin-top:44px;
   background:linear-gradient(180deg,#ffffff 0px,#ffffff 190px,#e3edf8 190px,#e0eaf5 55%,#e5ebf2 100%);
   overflow:hidden;
 }
 .because__lead{padding-top:54px;text-align:center;font-size:38px;font-weight:800;color:var(--blue-strong);letter-spacing:.22em;text-indent:.22em}
 .because__leadbar{display:block;margin:20px auto 0;width:64px;height:4px;border-radius:2px;background:var(--blue)}
-.because__list{position:relative;list-style:none;height:330px;margin-top:72px}
+.because__list{position:relative;list-style:none;height:330px;margin-top:106px}
 .because__item{position:absolute;display:flex;align-items:center;gap:18px}
 .because__item i{
   width:44px;height:44px;border-radius:50%;border:2px solid var(--blue);
@@ -162,7 +173,7 @@ img{display:block}
 .because__item--l2{left:88px;top:118px}
 .because__item--r2{left:560px;top:146px}
 .because__item--l3{left:88px;top:228px}
-.because__lower{position:absolute;left:0;top:545px;width:100%;height:647px}
+.because__lower{position:absolute;left:0;top:579px;width:100%;height:647px}
 .because__room{
   position:absolute;right:0;top:6px;width:470px;height:641px;object-fit:cover;
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 140px);
