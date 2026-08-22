@@ -465,13 +465,21 @@ img{display:block}
 
 /* ============ S12 価格 ============ */
 .price{
-  width:1024px;height:518px;background:#fff;
-  display:flex;align-items:center;justify-content:center;
+  width:1024px;height:600px;background:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
 }
 .price__row{
   position:relative;top:-3px;padding-left:22px;
   display:flex;align-items:baseline;justify-content:center;
   font-family:"Noto Serif JP",serif;color:#0d5fcd;
+}
+/* 価格の下の見出し（.lead__title / .lead__bar と同じ様式） rev14 */
+.price__title{
+  margin-top:72px;
+  font-size:38px;font-weight:800;letter-spacing:.22em;text-indent:.22em;color:var(--navy);
+}
+.price__bar{
+  display:block;margin-top:20px;width:64px;height:4px;border-radius:2px;background:var(--blue);
 }
 .price__label{font-size:40px;font-weight:500;letter-spacing:.1em;margin-right:12px;position:relative;top:-8px}
 .price__num{font-size:117px;font-weight:400;line-height:1;letter-spacing:.055em}
@@ -549,15 +557,7 @@ img{display:block}
   font-size:17px;font-weight:400;letter-spacing:.02em;color:#4c5560;line-height:1.4;
 }
 
-/* ============ S15 中間CTA帯 ============ */
-.midcta{width:1024px;height:370px;background:#fff;padding-top:34px}
-.midcta__band{position:relative;width:1024px;height:336px;overflow:hidden;background:#f4f9fd}
-.midcta__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.midcta__inner{position:relative;z-index:1;height:100%}
-.midcta__lead{
-  position:absolute;left:121px;top:116px;
-  font-size:26px;line-height:44px;font-weight:700;letter-spacing:.02em;color:#16304e;
-}
+/* S15 中間CTA帯は revision14 で発注主指示により削除（.midcta* を撤去） */
 
 
 /* ========== fragment g3 ========== */
@@ -678,22 +678,26 @@ img{display:block}
 /* ============================================================
    S18  スペック＆その他機能   高さ 1180px
    ============================================================ */
+/* rev14: 見出しを中央寄せにし、上下の余白を広げた（1180px → 1330px）
+   内訳 padding-top 12→96 / 見出し→バー 12→16 / バー→製品帯 25→94 */
 .spec{
-  position:relative;width:1024px;height:1180px;background:#fff;padding-top:12px;
+  position:relative;width:1024px;height:1337px;background:#fff;padding-top:96px;
   box-sizing:border-box;
 }
+/* WD検品を受けて .lead__title と完全に同じ様式へ（38px/800/字間.22em/紺・バー64×4・間隔20px） */
 .spec__title{
-  margin:0 0 0 60px;
-  font-size:41px;font-weight:900;line-height:1.15;letter-spacing:.02em;color:#16273e;
+  margin:0;text-align:center;
+  font-size:38px;font-weight:800;line-height:1.15;
+  letter-spacing:.22em;text-indent:.22em;color:var(--navy);
 }
 .spec__bar{
-  display:block;margin:12px 0 0 60px;width:72px;height:4px;border-radius:2px;
-  background:#2f6fd6;
+  display:block;margin:20px auto 0;width:64px;height:4px;border-radius:2px;
+  background:var(--blue);
 }
 
 /* --- 製品帯 --- */
 .spec__band{
-  position:relative;margin-top:25px;width:1024px;height:803px;overflow:hidden;
+  position:relative;margin-top:94px;width:1024px;height:803px;overflow:hidden;
   background:
     linear-gradient(115deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.55) 47%,rgba(255,255,255,0) 56%),
     radial-gradient(90% 70% at 18% 8%,#fdfeff 0%,rgba(253,254,255,0) 62%),
@@ -862,16 +866,28 @@ img{display:block}
 /* ============================================================
    S20  サポート帯   高さ 409px
    ============================================================ */
-.support{position:relative;width:1024px;height:268px;background:#f6f9fd}
+/* rev14: 見出しを .lead 様式（中央・字間.22em・青バー64×4）で外に出し、
+   背景を白にして直後のアプリ帯（#f5faff）と別のまとまりに見せる（268px → 498px）
+   上の余白96px／ステップ下の余白96pxで、白のまとまりを上下対称にしている */
+.support{position:relative;width:1024px;height:498px;background:#fff}
 
+.support__head{
+  position:absolute;left:0;top:96px;width:1024px;
+  display:flex;flex-direction:column;align-items:center;
+}
 .support__flowtitle{
-  position:absolute;left:0;top:38px;width:1024px;margin:0;text-align:center;
-  font-size:28px;font-weight:800;line-height:1.2;letter-spacing:.04em;color:#1e6ade;
+  margin:0;text-align:center;
+  font-size:38px;font-weight:800;line-height:1.2;letter-spacing:.22em;text-indent:.22em;
+  color:var(--navy);
+}
+.support__flowbar{
+  display:block;margin-top:20px;width:64px;height:4px;border-radius:2px;background:var(--blue);
 }
 
-.support__steps{position:absolute;left:30px;top:94px;width:936px;height:140px}
+.support__steps{position:absolute;left:30px;top:262px;width:936px;height:140px}
 .support__step{
   position:absolute;top:0;width:290px;height:140px;background:#fff;border-radius:14px;
+  border:1px solid #dce8f5;box-shadow:0 4px 14px rgba(29,56,83,.06);
 }
 .support__step:nth-of-type(1){left:0}
 .support__step:nth-of-type(2){left:323px}
