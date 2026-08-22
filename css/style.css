@@ -471,9 +471,14 @@ img{display:block}
 }
 
 /* ============ S12 価格 ============ */
+/* rev16(修正1): 「安全で綺麗なお水が毎日飲める」を次の濃紺PFOSブロックの導入見出しにする。
+   価格行→見出しの文字＝物差しA(110px)まで空け、青バー下端→濃紺帯の上端＝物差しC(122px)まで詰める。
+   中央寄せ(justify-content:center)だと上下が連動して片側だけ動かせないので、
+   上下を padding で明示する形に変えた。上端(価格行の位置)は R15 から動かしていない。 */
 .price{
-  width:1024px;height:600px;background:#fff;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:1024px;background:#fff;
+  display:flex;flex-direction:column;align-items:center;
+  padding:164px 0 73px;
 }
 .price__row{
   position:relative;top:-3px;padding-left:22px;
@@ -482,7 +487,11 @@ img{display:block}
 }
 /* 価格の下の見出し（.lead__title / .lead__bar と同じ様式） rev14 */
 .price__title{
-  margin-top:72px;
+  /* rev16: 価格行→見出しの文字を 76px から物差しD(217px＝章の変わり目)へ。
+     A(110px)だと下の 122px と拮抗して見出しが価格の締めに見える、とWD検品で実測指摘があったため。
+     このページの他のバー付き見出し（製品詳細 上214/下132・よくあるご質問 上251/下134・
+     お申し込みの流れ 上223/下123）と同じ 上:下≒1.8:1 に揃う */
+  margin-top:213px;
   font-size:38px;font-weight:800;letter-spacing:.22em;text-indent:.22em;color:var(--navy);
 }
 .price__bar{
@@ -559,10 +568,8 @@ img{display:block}
 .filter__boxhead{font-size:21px;font-weight:700;letter-spacing:.02em;color:#1550cc;line-height:26px}
 .filter__boxsub{margin-top:8px;font-size:19px;font-weight:500;letter-spacing:.02em;color:#23303f;line-height:26px}
 .filter__box--2 .filter__boxhead{font-size:23px}
-.filter__note{
-  position:absolute;left:57px;top:689px;
-  font-size:17px;font-weight:400;letter-spacing:.02em;color:#4c5560;line-height:1.4;
-}
+/* rev16(修正2): 注記「※試験・表記内容は最終確認中」は発注主確定により削除（.filter__note を撤去）。
+   絶対配置だったため、削除しても .filter（高さ830px固定）の中の他要素は1pxも動かない */
 
 /* S15 中間CTA帯は revision14 で発注主指示により削除（.midcta* を撤去） */
 
@@ -578,16 +585,21 @@ img{display:block}
 .uvdeep{
   position:relative;width:1024px;height:1600px;background:#fff;
 }
+/* rev16(修正5): 左右3pxで端に張り付いていたカードを、ページの他要素の基準（左右57px＝
+   スペックのストリップ・下の帯見出しと同じ）へ寄せた。中の文字と写真は絶対位置を変えないよう
+   padding-left 91→37 / 写真 left 202→148 で相殺してある */
 .uvdeep__card{
-  position:absolute;left:3px;top:100px;width:1018px;height:1298px;
+  position:absolute;left:57px;top:100px;width:910px;height:1298px;
   box-sizing:border-box;
-  padding:53px 0 0 91px;
+  padding:53px 0 0 37px;
   border:1px solid #e6edf7;border-radius:30px;
   background:linear-gradient(180deg,#ffffff 0%,#fcfcfd 55%,#fafbfc 100%);
 }
+/* rev16(修正4): ページ最大の 65px でトップのh1(44px)より大きかったので、h1と同じ 44px/900 へ縮小。
+   .uvdeep は高さ1600px固定・写真は絶対配置なので、縮んだぶんは見出しブロックの下の余白になるだけ */
 .uvdeep__title{
   margin:0;
-  font-size:65px;font-weight:900;line-height:1.15;letter-spacing:.025em;
+  font-size:44px;font-weight:900;line-height:1.32;letter-spacing:.025em;
   color:#16273e;
 }
 .uvdeep__bar{
@@ -600,7 +612,7 @@ img{display:block}
   color:#1d3350;
 }
 .uvdeep__photo{
-  position:absolute;left:202px;top:380px;width:620px;height:950px;
+  position:absolute;left:148px;top:380px;width:620px;height:950px;
   object-fit:contain;display:block;
 }
 
@@ -1085,7 +1097,8 @@ img{display:block}
   margin-top:9px;font-family:"Quicksand",sans-serif;font-weight:500;
   font-size:42px;line-height:52px;letter-spacing:.01em;color:#7fd0e8;
 }
-.footer__logo-x{font-size:50px}
+/* rev16(修正6): フッターのブランド表記は「Pure Ne<span>X</span>t」と span で X だけ大きくしていた。
+   統一先が PureNext（x は小文字）になったため span ごと撤去（.footer__logo-x を削除） */
 .footer__nav{margin-top:28px;display:flex;justify-content:center;gap:38px}
 .footer__nav a{font-size:16px;font-weight:400;line-height:24px;color:#1d3853;text-decoration:none}
 .footer__copyright{margin-top:20px;text-align:center;font-size:14px;line-height:20px;color:#98a4b0}
