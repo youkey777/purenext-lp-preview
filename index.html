@@ -261,7 +261,16 @@
   <span class="price__bar"></span>
 </section>
 
-<!-- S13 PFOS -->
+<!-- ▼▼▼ rev17: 発注主指示（2026-08-22「PFOSとかのフィルターについての内容2ブロック
+     （何種類除去できる）を非表示にして」）により、S13 PFOS と S14 安心の浄水性能 の
+     2セクションを非表示にした。削除ではなく非表示。
+     戻すときは、この直後の「S13 PFOS / S14 安心の浄水性能 ここから非表示」の行と、
+     下の「ここまで非表示」の行の2行だけを消せば、そのまま元どおり表示される。
+     対応するCSS（.pfos* / .filter*）と画像（images/pfos_ripple.png・images/filter_pour.png・
+     images/icon_filterbottle.png・images/icon_doccheck.png）は削除せず残してある。
+     ※このブロックの中に入っていた rev16 のメモ「注記『※試験・表記内容は最終確認中』は
+       発注主確定により削除」は、HTMLコメントが入れ子にできないためここへ退避した。 -->
+<!-- S13 PFOS / S14 安心の浄水性能 ここから非表示
 <section class="pfos">
   <div class="pfos__band">
     <img class="pfos__bg" src="images/pfos_ripple.png" alt="">
@@ -273,7 +282,6 @@
   </div>
 </section>
 
-<!-- S14 安心の浄水性能 -->
 <section class="filter">
   <img class="filter__photo" src="images/filter_pour.png" alt="フィルターカートリッジを通った水がグラスへ注がれる様子">
   <div class="filter__inner">
@@ -296,9 +304,10 @@
         <p class="filter__boxhead">JIS17項目＋JWPAS4項目</p>
       </div>
     </div>
-    <!-- rev16: 注記「※試験・表記内容は最終確認中」は発注主確定により削除 -->
   </div>
 </section>
+ここまで非表示 -->
+<!-- ▲▲▲ rev17 非表示ここまで -->
 
 <!-- S15 中間CTA帯は revision14 で発注主指示により削除 -->
 

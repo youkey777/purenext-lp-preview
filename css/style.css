@@ -478,7 +478,11 @@ img{display:block}
 .price{
   width:1024px;background:#fff;
   display:flex;flex-direction:column;align-items:center;
-  padding:164px 0 73px;
+  /* rev17: 下の PFOS/浄水性能の2ブロックを非表示にしたので、次に来るのが S16 の殺菌カードに
+     変わった。物差しC（青バーの下端→次の中身＝122px）を保つため 73px → 22px。
+     22 + .uvdeep__card の top:100px ＝ 122px。見出しの上（物差しD＝217px）は触っていないので、
+     上217 : 下122 ＝ 1.78:1 という R16 の比率（＝このページの他のバー付き見出しと同じ）のまま。 */
+  padding:164px 0 22px;
 }
 .price__row{
   position:relative;top:-3px;padding-left:22px;
