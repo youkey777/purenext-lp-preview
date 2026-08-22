@@ -20,7 +20,9 @@
     <div class="hero__inner">
       <p class="hero__badge">浄水型ウォーターサーバー PureNext</p>
       <h1 class="hero__title">毎日をラクにしてくれる<br>わたしの味方</h1>
-      <p class="hero__sub">水が<span class="blue">ラク</span>だと、毎日も<span class="blue">ラク</span>。</p>
+      <!-- rev18(修正2): 発注主指示（2026-08-22）でサブコピーを差し替え。
+           青字の強調は現行と同じ2か所（「衛生面」「安心」） -->
+      <p class="hero__sub"><span class="blue">衛生面</span>にも特化した、便利で<span class="blue">安心</span>の一台</p>
       <ul class="hero__chips">
         <li class="chip"><img src="images/icon_cup.png" alt=""><span>常温水</span></li>
         <li class="chip"><img src="images/icon_mug.png" alt=""><span>白湯</span></li>
@@ -311,17 +313,17 @@
 
 <!-- S15 中間CTA帯は revision14 で発注主指示により削除 -->
 
-<!-- ===================== S16 出水口までしっかり殺菌 ===================== -->
-<section class="uvdeep">
-  <div class="uvdeep__card">
-    <h2 class="uvdeep__title">出水口までしっかり殺菌</h2>
-    <span class="uvdeep__bar"></span>
-    <p class="uvdeep__body">空気中や水はねから細菌が入りやすく、<br>残り水が常温になると菌が繁殖しやすい。<br>だから、内部のUV殺菌ライトを<br>残留水と出水口へ照射。</p>
-    <img class="uvdeep__photo" src="images/uv_inside.png" alt="サーバー内部の熱水タンクと冷水タンクから合流管を通り、出水口へ紫のUV殺菌ライトが照射される様子" loading="eager">
-  </div>
-  <div class="uvdeep__band">
-    <p class="uvdeep__bandtitle"><span>見落とされがちな、出水口の衛生。</span></p>
-  </div>
+<!-- rev18(修正1): 発注主指示（2026-08-22「見落とされがちな取水口、というのと出水口まで
+     しっかり殺菌というのを入れ替えて」）により、衛生ブロックの順序を
+     「解決策 → 問題提起 → 問題の中身」から「問題提起 → 問題の中身 → 解決策」へ入れ替えた。
+     ①S16a 帯（見落とされがちな、出水口の衛生。）→ ②S17 3カード → ③S16b 殺菌カード。
+     帯は元は .uvdeep の中の絶対配置ブロックだったが、3カードの前に出すため
+     独立したセクション .uvband（1024×202・背景 #f7f9fc）へ切り出した。
+     文言・写真・色・文字サイズは1か所も変えていない。 -->
+
+<!-- ===================== S16a 帯「見落とされがちな、出水口の衛生。」 ===================== -->
+<section class="uvband">
+  <p class="uvdeep__bandtitle"><span>見落とされがちな、出水口の衛生。</span></p>
 </section>
 
 <!-- ===================== S17 タンク3カード ===================== -->
@@ -349,6 +351,18 @@
     <p class="tanks__text tanks__text--strong">常温になりやすく、<br>対策が必要な箇所</p>
     <p class="tanks__note">空気中や水撥ねから細菌が入りやすい。<br>残り水が常温になるので<br>菌が繁殖しやすい。</p>
   </article>
+</section>
+
+<!-- ===================== S16b 出水口までしっかり殺菌（解決策のカード） ===================== -->
+<!-- rev18(修正1): 元は S17 の手前にあったカード。順序入れ替えで 3カードの後ろへ移した。
+     中身（見出し・本文・写真）は1文字・1pxも変えていない -->
+<section class="uvdeep">
+  <div class="uvdeep__card">
+    <h2 class="uvdeep__title">出水口までしっかり殺菌</h2>
+    <span class="uvdeep__bar"></span>
+    <p class="uvdeep__body">空気中や水はねから細菌が入りやすく、<br>残り水が常温になると菌が繁殖しやすい。<br>だから、内部のUV殺菌ライトを<br>残留水と出水口へ照射。</p>
+    <img class="uvdeep__photo" src="images/uv_inside.png" alt="サーバー内部の熱水タンクと冷水タンクから合流管を通り、出水口へ紫のUV殺菌ライトが照射される様子" loading="eager">
+  </div>
 </section>
 
 <!-- ===================== S18 スペック＆その他機能 ===================== -->

@@ -31,9 +31,14 @@ img{display:block}
 }
 .hero__sub{margin-top:16px;font-size:21px;font-weight:800;letter-spacing:.04em}
 .hero__chips{margin-top:26px;list-style:none;display:flex;gap:8px}
+/* rev18(修正2): 背景写真が明るい室内で白いため、白いチップが背景に溶けていた。
+   カードの周りに淡い枠線を足して分離させる。枠線の色 #dce8f5 と影は、このページが既に持っている
+   同じ性質のカード（.support__step ＝ 淡い色の帯の上に置いた白い小カード）と同一の値。
+   新しい色は作っていない。box-sizing:border-box なので 74×94 の大きさは変わらない。 */
 .chip{
   width:74px;height:94px;background:#fff;border-radius:10px;
-  box-shadow:0 3px 10px rgba(29,56,83,.10);
+  border:1px solid #dce8f5;
+  box-shadow:0 4px 14px rgba(29,56,83,.16);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
 }
 .chip img{width:38px;height:38px;object-fit:contain}
@@ -480,9 +485,12 @@ img{display:block}
   display:flex;flex-direction:column;align-items:center;
   /* rev17: 下の PFOS/浄水性能の2ブロックを非表示にしたので、次に来るのが S16 の殺菌カードに
      変わった。物差しC（青バーの下端→次の中身＝122px）を保つため 73px → 22px。
-     22 + .uvdeep__card の top:100px ＝ 122px。見出しの上（物差しD＝217px）は触っていないので、
-     上217 : 下122 ＝ 1.78:1 という R16 の比率（＝このページの他のバー付き見出しと同じ）のまま。 */
-  padding:164px 0 22px;
+     22 + .uvdeep__card の top:100px ＝ 122px。
+     rev18: 順序入れ替えで、バーの次に来るものが「白いカード」から「薄水色の帯」に変わった。
+     このページはバー付き見出しの直後に色帯が来る箇所を2つ持っており（製品詳細・よくあるご質問）、
+     どちらも バー下端→帯の始まり＝物差しA 110px。ここも同じ 110px に合わせる（22px → 110px）。
+     見出しの上（物差しD＝217px・R16で発注主承認済み）は触っていない。 */
+  padding:164px 0 110px;
 }
 .price__row{
   position:relative;top:-3px;padding-left:22px;
@@ -584,18 +592,30 @@ img{display:block}
    接頭辞: .uvdeep .tanks .spec .strips .support のみ。グローバル定義なし。 */
 
 /* ============================================================
-   S16  出水口までしっかり殺菌   高さ 1600px
+   S16a 帯「見落とされがちな、出水口の衛生。」 高さ 202px（.uvband・3カードの手前）
+   S16b 出水口までしっかり殺菌               高さ 1464px（.uvdeep・3カードの後ろ）
    ============================================================ */
+/* rev18(修正1): 順序を「問題提起（帯）→ 問題の中身（3カード）→ 解決策（殺菌カード）」へ入れ替えた。
+   .uvdeep は帯を手放して「殺菌カードだけのセクション」になった。
+   高さ 1600px → 1464px（＝カードの top:100 + 高さ1298 + 下の余白66px）。
+   下の66pxは、入れ替え前に .tanks が持っていた「カード下端→セクション下端」の66pxと同値で、
+   これに .spec の padding-top 151px が足されて 章の変わり目＝物差しD 217px になる。 */
 .uvdeep{
-  position:relative;width:1024px;height:1600px;background:#fff;
+  position:relative;width:1024px;height:1464px;background:#fff;
 }
 /* rev16(修正5): 左右3pxで端に張り付いていたカードを、ページの他要素の基準（左右57px＝
    スペックのストリップ・下の帯見出しと同じ）へ寄せた。中の文字と写真は絶対位置を変えないよう
    padding-left 91→37 / 写真 left 202→148 で相殺してある */
+/* rev18(修正1の副作用の是正): 内部UV写真はもともとカードの下端を 33px はみ出しており、
+   入れ替え前は直後に重なる薄水色帯（.uvdeep__band）が、その33pxを塗りつぶして隠していた。
+   帯を3カードの前へ動かしたことで覆いが外れ、白地の上に写真の下端が水平に切れて見えるようになった。
+   overflow:hidden でカードの角丸ごとクリップすると、見えている範囲が入れ替え前と1pxも変わらない
+   （写真の位置・大きさ・カードの高さはどれも変更していない）。 */
 .uvdeep__card{
   position:absolute;left:57px;top:100px;width:910px;height:1298px;
   box-sizing:border-box;
   padding:53px 0 0 37px;
+  overflow:hidden;
   border:1px solid #e6edf7;border-radius:30px;
   background:linear-gradient(180deg,#ffffff 0%,#fcfcfd 55%,#fafbfc 100%);
 }
@@ -620,9 +640,12 @@ img{display:block}
   object-fit:contain;display:block;
 }
 
-/* 下部の薄水色帯＋見出し */
-.uvdeep__band{
-  position:absolute;left:0;top:1398px;width:1024px;height:202px;
+/* 薄水色帯＋見出し（rev18: .uvdeep の中の絶対配置ブロック .uvdeep__band から、
+   3カードの手前に置く独立セクション .uvband へ切り出した。
+   幅1024・高さ202px・背景 #f7f9fc・中の見出しの位置（left57 / top104）はすべて元のまま。
+   直後の .tanks も上半分が #f7f9fc なので、帯と3カードが地続きに見える関係は保たれる） */
+.uvband{
+  position:relative;width:1024px;height:202px;
   background:#f7f9fc;
 }
 .uvdeep__bandtitle{
