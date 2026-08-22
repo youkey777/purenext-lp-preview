@@ -152,7 +152,7 @@ img{display:block}
   background:linear-gradient(180deg,#ffffff 0px,#ffffff 190px,#e3edf8 190px,#e0eaf5 55%,#e5ebf2 100%);
   overflow:hidden;
 }
-.because__water{position:absolute;left:0;top:0;pointer-events:none}
+.because__water{position:absolute;left:0;top:200px;pointer-events:none}
 .because__lead{padding-top:54px;text-align:center;font-size:38px;font-weight:800;color:var(--blue-strong);letter-spacing:.22em;text-indent:.22em}
 .because__leadbar{display:block;margin:20px auto 0;width:64px;height:4px;border-radius:2px;background:var(--blue)}
 .because__list{position:relative;list-style:none;height:330px;margin-top:106px}
@@ -755,6 +755,39 @@ img{display:block}
   font-size:21px;font-weight:700;line-height:1.2;letter-spacing:.02em;color:#1e6ade;
 }
 .spec__dimd-label em{font-style:normal;font-size:14px}
+
+/* 注水スペース 高さ250mm（垂直・両端T字・小） rev12 */
+.spec__dimn-line{
+  position:absolute;left:756px;top:253px;width:2px;height:163px;background:#1e6ade;
+}
+.spec__dimn-line::before,
+.spec__dimn-line::after{
+  content:"";position:absolute;left:-6px;width:14px;height:2px;background:#1e6ade;
+}
+.spec__dimn-line::before{top:0}
+.spec__dimn-line::after{bottom:0}
+.spec__dimn-label{
+  position:absolute;left:774px;top:306px;margin:0;white-space:nowrap;
+  font-size:16px;font-weight:700;line-height:1.45;letter-spacing:.02em;color:#1e6ade;
+}
+.spec__dimn-label em{font-style:normal;font-size:12px}
+
+/* 受け皿 奥行160mm（斜線・両端T字・小） rev12 */
+.spec__dimt-line{
+  position:absolute;left:743px;top:425px;width:2px;height:28px;background:#1e6ade;
+  transform-origin:top center;transform:rotate(-21deg);
+}
+.spec__dimt-line::before,
+.spec__dimt-line::after{
+  content:"";position:absolute;left:-6px;width:14px;height:2px;background:#1e6ade;
+}
+.spec__dimt-line::before{top:0}
+.spec__dimt-line::after{bottom:0}
+.spec__dimt-label{
+  position:absolute;left:765px;top:434px;margin:0;white-space:nowrap;
+  font-size:16px;font-weight:700;line-height:1.2;letter-spacing:.02em;color:#1e6ade;
+}
+.spec__dimt-label em{font-style:normal;font-size:12px}
 
 /* --- 機能ストリップ 1 --- */
 .spec__strip{
