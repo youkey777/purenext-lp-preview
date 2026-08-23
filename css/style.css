@@ -589,77 +589,100 @@ img{display:block}
 /* ========== fragment g3 ========== */
 /* PureNext LP v2 — g3（S16 出水口までしっかり殺菌 / S17 タンク3カード /
    S18 スペック＆その他機能 / S19 ストリップ2〜4 / S20 サポート帯）
-   接頭辞: .uvdeep .tanks .spec .strips .support のみ。グローバル定義なし。 */
+   接頭辞: .hygiene .tanks .spec .strips .support のみ。グローバル定義なし。（rev19 で .uvdeep* は .hygiene* へ統合） */
 
 /* ============================================================
-   S16a 帯「見落とされがちな、出水口の衛生。」 高さ 202px（.uvband・3カードの手前）
-   S16b 出水口までしっかり殺菌               高さ 1464px（.uvdeep・3カードの後ろ）
+   S16 衛生ブロック .hygiene（導入見出し → 3カード → 理由3行 → 解決見出し → 本文 → UV写真）
    ============================================================ */
-/* rev18(修正1): 順序を「問題提起（帯）→ 問題の中身（3カード）→ 解決策（殺菌カード）」へ入れ替えた。
-   .uvdeep は帯を手放して「殺菌カードだけのセクション」になった。
-   高さ 1600px → 1464px（＝カードの top:100 + 高さ1298 + 下の余白66px）。
-   下の66pxは、入れ替え前に .tanks が持っていた「カード下端→セクション下端」の66pxと同値で、
-   これに .spec の padding-top 151px が足されて 章の変わり目＝物差しD 217px になる。 */
-.uvdeep{
-  position:relative;width:1024px;height:1464px;background:#fff;
+/* rev19: 発注主指示（2026-08-23）「『見落とされがちな、出水口の衛生。』と『出水口までしっかり殺菌』が
+   別のブロックに見えてしまっているので、同じブロックに見えるように」「『出水口までしっかり殺菌』の
+   文字はこんなに大きくなくてよい」を受け、rev18 の3セクション（.uvband 202px / .tanks 552px /
+   .uvdeep 1464px）を、ひとつの淡色パネル .hygiene に統合した。
+
+   ・淡色 #f7f9fc を 1〜6 の全体に敷き、その上に白いカードを載せる形にした。
+     ページが既に持っている「淡色の帯の中に白いカードを置く」構成（お客様の声・製品詳細・FAQ）と同じ型で、
+     白＋余白 → 色カードのリズムから外れない。
+   ・上の余白 104px は rev18 の帯（上端→見出しの文字 104px）をそのまま引き継いだ。
+     直前の .price は padding-bottom 110px（物差しA）のままなので、バー下端→パネル上端も不変。
+   ・下の余白 66px ＋ .spec の padding-top 151px ＝ 章の変わり目＝物差しD 217px（rev18 と同値）。 */
+.hygiene{
+  position:relative;width:1024px;box-sizing:border-box;
+  background:#f7f9fc;
+  padding:104px 0 66px;
 }
-/* rev16(修正5): 左右3pxで端に張り付いていたカードを、ページの他要素の基準（左右57px＝
-   スペックのストリップ・下の帯見出しと同じ）へ寄せた。中の文字と写真は絶対位置を変えないよう
-   padding-left 91→37 / 写真 left 202→148 で相殺してある */
-/* rev18(修正1の副作用の是正): 内部UV写真はもともとカードの下端を 33px はみ出しており、
-   入れ替え前は直後に重なる薄水色帯（.uvdeep__band）が、その33pxを塗りつぶして隠していた。
-   帯を3カードの前へ動かしたことで覆いが外れ、白地の上に写真の下端が水平に切れて見えるようになった。
-   overflow:hidden でカードの角丸ごとクリップすると、見えている範囲が入れ替え前と1pxも変わらない
-   （写真の位置・大きさ・カードの高さはどれも変更していない）。 */
-.uvdeep__card{
-  position:absolute;left:57px;top:100px;width:910px;height:1298px;
-  box-sizing:border-box;
-  padding:53px 0 0 37px;
-  overflow:hidden;
+
+/* rev19: このブロック内の行送り（line-height）は倍率ではなく px 固定にしてある。
+   倍率のままだと .hygiene の高さが 2300.74px という端数になり、これより下の全セクションが
+   0.74px ずれた位置に描かれる（＝ページ末尾まで文字のアンチエイリアスが変わり、
+   変更前との画素照合ができなくなる）。35px / 40px / 42px は倍率計算値（34.8 / 39.9 / 42.24）に
+   最も近い整数で、見た目の行間は変わらない。合計で .hygiene の高さがちょうど 2301px になる。 */
+
+/* 1. 導入見出し「実は見落とされがちな出水口の衛生」
+   rev18 の帯見出し（29px/800・左右罫線・x=57〜967）と同じ様式のまま、
+   絶対配置をやめて流し込みに変えただけ。文言だけ差し替えている。 */
+.hygiene__lead{
+  margin:0;padding:0 57px;
+  display:flex;align-items:center;
+}
+.hygiene__lead::before,
+.hygiene__lead::after{
+  content:"";flex:1 1 auto;height:2px;background:#c2d2e8;
+}
+.hygiene__lead span{
+  flex:0 0 auto;padding:0 20px;white-space:nowrap;
+  font-size:29px;font-weight:800;letter-spacing:.04em;line-height:35px;
+  color:#16273e;
+}
+
+/* 3. 対策が必要な理由（3行）
+   淡色パネルの地の上に置く。3カード（問題の中身）との距離 66px に対し、
+   解決の白カードとの距離を 110px 取って「理由は問題側に属する」ことを見た目で示す。 */
+.hygiene__why{
+  margin:66px auto 0;padding:0;list-style:none;
+  width:620px;
+}
+.hygiene__why li{
+  position:relative;padding-left:26px;
+  font-size:21px;font-weight:500;line-height:40px;letter-spacing:.015em;
+  color:#1e3450;
+}
+.hygiene__why li + li{margin-top:6px}
+.hygiene__why li::before{
+  content:"";position:absolute;left:4px;top:15px;
+  width:8px;height:8px;border-radius:50%;background:#2f6fd6;
+}
+
+/* 4〜6. 解決の白カード（見出し・青バー・本文・UV写真）
+   rev18 の .uvdeep__card と同じ 幅910px・左右57px基準・角丸30px・枠線 #e6edf7・
+   上から白へ落ちるグラデーションを引き継ぎ、高さ固定＋絶対配置をやめて流し込みにした。
+   （写真は白背景の実写なので、淡色の地に直接置くと白い矩形が浮く。白カードの中に置くのが正しい） */
+.hygiene__solve{
+  position:relative;margin:110px auto 0;width:910px;box-sizing:border-box;
+  padding:53px 37px 40px;
   border:1px solid #e6edf7;border-radius:30px;
   background:linear-gradient(180deg,#ffffff 0%,#fcfcfd 55%,#fafbfc 100%);
 }
-/* rev16(修正4): ページ最大の 65px でトップのh1(44px)より大きかったので、h1と同じ 44px/900 へ縮小。
-   .uvdeep は高さ1600px固定・写真は絶対配置なので、縮んだぶんは見出しブロックの下の余白になるだけ */
-.uvdeep__title{
+/* rev19: 44px/900 は h1（.hero__title 44px）と同格で「こんなに大きくなくてよい」と指摘された。
+   帯見出し 29px より一段上・h1 より明確に下の 32px/900 に落とし、ブロック内の中見出しにした。 */
+.hygiene__solvetitle{
   margin:0;
-  font-size:44px;font-weight:900;line-height:1.32;letter-spacing:.025em;
+  font-size:32px;font-weight:900;line-height:42px;letter-spacing:.025em;
   color:#16273e;
 }
-.uvdeep__bar{
-  display:block;margin-top:25px;width:79px;height:4px;border-radius:2px;
+.hygiene__solvebar{
+  display:block;margin-top:22px;width:79px;height:4px;border-radius:2px;
   background:#2f6fd6;
 }
-.uvdeep__body{
-  margin:21px 0 0;
-  font-size:32px;font-weight:500;line-height:1.62;letter-spacing:.04em;
+/* rev19: 本文は 32px から 25px へ。見出しを 32px に下げたため、32px のままだと
+   見出しと本文が同じ大きさになって上下関係が読めなくなる。25px はこのページが既に持つ本文の号数。 */
+.hygiene__solvebody{
+  margin:20px 0 0;
+  font-size:25px;font-weight:500;line-height:1.62;letter-spacing:.04em;
   color:#1d3350;
 }
-.uvdeep__photo{
-  position:absolute;left:148px;top:380px;width:620px;height:950px;
-  object-fit:contain;display:block;
-}
-
-/* 薄水色帯＋見出し（rev18: .uvdeep の中の絶対配置ブロック .uvdeep__band から、
-   3カードの手前に置く独立セクション .uvband へ切り出した。
-   幅1024・高さ202px・背景 #f7f9fc・中の見出しの位置（left57 / top104）はすべて元のまま。
-   直後の .tanks も上半分が #f7f9fc なので、帯と3カードが地続きに見える関係は保たれる） */
-.uvband{
-  position:relative;width:1024px;height:202px;
-  background:#f7f9fc;
-}
-.uvdeep__bandtitle{
-  position:absolute;left:57px;top:104px;width:910px;margin:0;
-  display:flex;align-items:center;
-}
-.uvdeep__bandtitle::before,
-.uvdeep__bandtitle::after{
-  content:"";flex:1 1 auto;height:2px;background:#c2d2e8;
-}
-.uvdeep__bandtitle span{
-  flex:0 0 auto;padding:0 20px;white-space:nowrap;
-  font-size:29px;font-weight:800;letter-spacing:.04em;line-height:1.2;
-  color:#16273e;
+.hygiene__solvephoto{
+  display:block;margin:24px auto 0;width:620px;height:950px;
+  object-fit:contain;
 }
 
 /* ============================================================
@@ -667,12 +690,16 @@ img{display:block}
    ============================================================ */
 /* rev15: 3カードが帯の上端 14px に張り付いて「上下がギュッ」だったので +32px 下げた
    （帯見出し→カード上端 78 → 110px＝物差しA）。帯・セクションの高さも同じだけ伸ばす */
+/* rev19: 独立セクションから .hygiene の中の一要素へ。背景（淡色→白のグラデ）は .hygiene が
+   持つようになったので手放し、高さはカードそのものの 440px に、上の余白 110px（物差しA）は
+   margin-top に移した。カードの左右位置・大きさ・中身は 1px も変えていない
+   （カード top:46 → 0、シェブロン top:203 → 157 は、その 46px ぶんを差し引いただけ）。 */
 .tanks{
-  position:relative;width:1024px;height:552px;
-  background:linear-gradient(180deg,#f7f9fc 0px,#f7f9fc 502px,#ffffff 502px,#ffffff 552px);
+  position:relative;width:1024px;height:440px;margin-top:110px;
+  background:none;
 }
 .tanks__card{
-  position:absolute;top:46px;height:440px;
+  position:absolute;top:0;height:440px;
   box-sizing:border-box;
   padding-top:30px;text-align:center;
   background:#fff;border:1px solid #e2e9f4;border-radius:16px;
@@ -716,7 +743,7 @@ img{display:block}
 }
 /* カード間のシェブロン */
 .tanks__chev{
-  position:absolute;top:203px;width:16px;height:16px;
+  position:absolute;top:157px;width:16px;height:16px;
   border-top:3px solid #a9b6c6;border-right:3px solid #a9b6c6;
   transform:rotate(45deg);
 }
