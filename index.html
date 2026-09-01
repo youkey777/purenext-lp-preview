@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!-- =========================================================================
+     【この版について】フィルター非表示版
+     S13「なぜ、PFOS・PFOAが不安視されているのか。」と
+     S14「安心の浄水性能」の2ブロックを非表示にしてある版です。
+     （2026-08-22 の発注主指示 rev17 の状態）
+     2ブロックを表示した版は、隣の「site_フィルター表示版」フォルダにあります。
+     ========================================================================= -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -42,7 +49,9 @@
   <!-- S03 温度と量 -->
   <section class="intro">
     <img class="intro__panel" src="images/intro_panel_closeup.png" alt="PureNext の操作パネル" loading="eager">
-    <h2 class="intro__title">欲しい<span class="blue">温度</span>も、欲しい<span class="blue">量</span>も<br>ワンタッチですぐに。</h2>
+    <!-- rev20(2026-08-31): 発注主指示で文言差し替え
+         旧「欲しい温度も、欲しい量も／ワンタッチですぐに。」 -->
+    <h2 class="intro__title">選べる<span class="blue">5つの温度</span>、<br>欲しい<span class="blue">水量</span>がワンタッチですぐに。</h2>
     <div class="intro__figure">
       <div class="temp">
         <p class="figure-label">温度</p>
@@ -93,7 +102,7 @@
         <p class="uvcard__sub">取水口UV殺菌</p>
         <p class="uvcard__body">浄水から給水までの通り道を、<br>UVライトでしっかり管理。<br>いつでもきれいな水を、安心してどうぞ。</p>
       </div>
-      <div class="uvcard__photo"><img src="images/uv_outlet_photo.png" alt="取水口のUV殺菌ライト"></div>
+      <div class="uvcard__photo"><img src="images/uv_outlet_photo.png" alt="給水タンクから出水口までの通り道をUV殺菌ライトが照らす様子"></div>
     </div>
   </section>
 
@@ -148,7 +157,9 @@
     <h3 class="feat__head">10ml単位の<br>指定量取水</h3>
     <p class="feat__body">全モードで量を指定して、<br>手放しで自動取水。<br><em class="feat__em">粉ミルク</em>を作るための<br><em class="feat__em">目盛り合わせ</em>も<em class="feat__em">不要</em>に。<br>スープもいつもの濃さで。</p>
   </div>
-  <img class="feat01__photo" src="images/feat01_photo.png" width="647" height="524" alt="パネルを押して150mlを計量カップへ自動取水しているところ" loading="eager">
+  <video class="feat01__photo" src="images/feat01_panel.mp4" poster="images/feat01_panel_poster.jpg"
+         width="647" height="529" autoplay muted loop playsinline preload="metadata"
+         aria-label="操作パネルの＋ボタンを押し続けると、表示が100mlから10ml刻みでだんだん速く1000mlまで増えていく様子"></video>
 </section>
 
 <!-- S09 機能02 -->
@@ -208,37 +219,39 @@
 <section class="voice">
   <div class="voice__head">
     <span class="voice__rule"></span>
-    <h2 class="voice__title">お客様の声</h2>
+    <h2 class="voice__title">開発に活かしたお客様の声</h2>
     <span class="voice__rule"></span>
   </div>
 
   <div class="voice__stage" id="voiceStage">
     <!-- 横スライド式（ロール形式）。全カード同寸・同比率。クローンはJSが追加 -->
     <div class="voice__track" id="voiceTrack">
+      <!-- rev20(2026-08-31): 発注主指示で見出しを「開発に活かしたお客様の声」に変更し、
+           3枚の声を「開発前に寄せられた要望」の内容へ全面差し替えた。写真も合わせて作り直し。 -->
       <article class="voice__slide">
-        <img class="voice__photo" src="images/review_main.png" alt="夜の寝室で赤ちゃんを抱きながら PureNext から水を注ぐ女性">
+        <img class="voice__photo" src="images/review_main.png" alt="赤ちゃんを抱きながら哺乳瓶とミルクの準備に手間取る女性">
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>40℃モードなら、熱湯も冷水も測らず2ポチ。</p>
-          <p>夜中の調乳がホントに楽になりました。</p>
-          <p>10ml単位で量が変えれるので、<br>赤ちゃんの成長に合わせて変えられる。<br>気が利きすぎ。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>自動調乳器がいいと聞いたけど、<br>高いから購入できない。</p>
+          <p>ウォーターサーバーにも自動調乳器みたいな<br>機能が付いたらいいのに。</p>
+          <p>ミルク作りを楽にしたい。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
       <article class="voice__slide">
-        <img class="voice__photo" src="images/review_slide2.png" alt="朝のキッチンで白湯の入ったマグカップを持つ女性">
+        <img class="voice__photo" src="images/review_slide2.png" alt="キッチンで計量カップの目盛りを確かめる女性">
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>毎朝の白湯が習慣になりました。</p>
-          <p>もう沸かさなくていいのが快適です。</p>
-          <p>温度で迷わないのが、地味にうれしい。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>他社のウォーターサーバーで150mlとか<br>だけ選べる機能はあるけど、</p>
+          <p>なかなかちょうどその量を使うことがない。</p>
+          <p>10ml単位で好きなだけ<br>自分の出したい量が選べたらいいのに。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
       <article class="voice__slide">
-        <img class="voice__photo" src="images/review_slide3.png" alt="明るいリビングでくつろぐ家族と PureNext">
+        <img class="voice__photo" src="images/review_slide3.png" alt="コップの水を光にかざして確かめる女性">
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>検討していた宅配水より、<br>自宅の使い方に合っていました。</p>
-          <p>冷蔵庫の場所も空いて、<br>段ボールをたたむ手間もゼロに。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>ウォーターサーバーを導入したいけど、<br>やっぱり安全性が不安。</p>
+          <p>本当にしっかりと安全性にこだわって<br>作られたウォーターサーバーがあれば<br>使いたい。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
     </div>
@@ -248,17 +261,22 @@
     <button class="voice__nav voice__nav--next" id="voiceNext" type="button" aria-label="次のお客様の声へ"><i></i></button>
   </div>
 
+  <!-- rev20(2026-08-31): 発注主指示で注記を差し替え
+       旧「調乳や粉ミルクの作り方は、厚生労働省のガイドラインをご確認ください」 -->
   <p class="voice__note">
     調乳や粉ミルクの作り方は、<br>
-    <a href="https://www.mhlw.go.jp/topics/bukyoku/iyaku/syoku-anzen/qa/dl/070604-1a.pdf" target="_blank" rel="noopener">厚生労働省のガイドラインをご確認ください<i class="voice__chev"></i></a>
+    <a href="https://www.mhlw.go.jp/topics/bukyoku/iyaku/syoku-anzen/qa/dl/070604-1a.pdf" target="_blank" rel="noopener">厚生労働省のガイドライン参照<i class="voice__chev"></i></a>や<br>ミルクメーカーにお問い合わせください
   </p>
 </section>
 
 <!-- S12 価格 -->
 <section class="price">
+  <!-- rev21(2026-08-31): 発注主指示「月額3,300円（税抜）にして、その下に小さく税込3,630円。
+       税込金額は控えめで大丈夫」 -->
   <p class="price__row">
-    <span class="price__label">月額</span><span class="price__num">3,630</span><span class="price__yen">円</span><span class="price__tax">（税込）</span>
+    <span class="price__label">月額</span><span class="price__num">3,300</span><span class="price__yen">円</span><span class="price__tax">（税抜）</span>
   </p>
+  <p class="price__taxnote">税込3,630円</p>
   <h2 class="price__title">安全で綺麗なお水が毎日飲める</h2>
   <span class="price__bar"></span>
 </section>
@@ -400,7 +418,8 @@
   <article class="spec__strip">
     <p class="spec__num">1</p>
     <span class="spec__numbar"></span>
-    <p class="spec__label">水はねしにくい取水口</p>
+    <!-- rev21: 「取水口」の文字が写真にかかっていたため2行に折り返し -->
+    <p class="spec__label">水はねしにくい<br>取水口</p>
     <span class="spec__lead"><i></i></span>
     <img class="spec__photo" src="images/strip1_outlet.png" alt="白い本体の取水口クローズアップ" loading="eager">
   </article>
@@ -433,8 +452,17 @@
     <span class="strips__numbar"></span>
     <p class="strips__label">丸い受け皿で、<br>鍋も置きやすい</p>
     <span class="strips__lead strips__lead--4"><i></i></span>
-    <img class="strips__photo" src="images/strip4_pan.png" alt="受け皿の上に置いた木の取っ手の白いホーロー鍋" loading="eager">
+    <img class="strips__photo" src="images/strip4_pan.png" alt="受け皿の上に置いた木の取っ手の紺色のホーロー鍋" loading="eager">
   </article>
+</section>
+
+<!-- rev21(2026-08-31): 発注主指示「1〜4とは別で項目を作成（レイアウトはお任せ）」による追加機能リスト -->
+<section class="extras">
+  <ul class="extras__list">
+    <li class="extras__item"><span class="extras__check"></span><p>丸い受け皿で鍋も置きやすい</p></li>
+    <li class="extras__item"><span class="extras__check"></span><p>エコボタンで電気代を節約</p></li>
+    <li class="extras__item"><span class="extras__check"></span><p>チャイルドロックで小さなお子様の誤作動にもしっかり対応</p></li>
+  </ul>
 </section>
 
 <!-- ===================== S20 サポート帯 ===================== -->
@@ -444,10 +472,11 @@
     <span class="support__flowbar"></span>
   </div>
 
+  <!-- rev21(2026-08-31): 発注主指示「カードを大きく・文字とアイコンも大きく・位置を揃える・
+       ①②③の数字は不要（アイコンと言葉だけ）」により、番号バッジを削除しカードを拡大 -->
   <div class="support__steps">
     <div class="support__step">
       <div class="support__steprow">
-        <span class="support__stepnum">1</span>
         <img class="support__stepicon" src="images/icon_laptop.png" alt="" loading="eager">
       </div>
       <p class="support__steplabel">WEBで申し込み</p>
@@ -457,7 +486,6 @@
 
     <div class="support__step">
       <div class="support__steprow">
-        <span class="support__stepnum">2</span>
         <img class="support__stepicon" src="images/icon_truck.png" alt="" loading="eager">
       </div>
       <p class="support__steplabel">お届け</p>
@@ -467,7 +495,6 @@
 
     <div class="support__step">
       <div class="support__steprow">
-        <span class="support__stepnum">3</span>
         <img class="support__stepicon" src="images/icon_dropshine.png" alt="" loading="eager">
       </div>
       <p class="support__steplabel">すぐ使える</p>
@@ -516,21 +543,32 @@
 <section class="detail">
   <div class="detail__card">
     <table class="detail__table">
+      <!-- rev20(2026-08-31): 発注主指示「製品詳細を、AI人材の水担当に聞いて埋めて」により、
+           ウォーターサーバー担当の台帳（取説サンプル PNX-01-ST 2026-08-21 ほか）から転記。
+           温水の温度表記（85℃前後）は 2026-08-30 の発注主指示に従った暫定。電気代は記録なしのため確認中。 -->
+      <!-- rev21(2026-08-31): 発注主指示により整理。
+           削除＝型番・設置スペース・電気代・注意事項／浄水方式＝「カートリッジ式」「2段階ろ過」の2つのみ／
+           温度の並び＝温水・白湯・冷水・40℃（「40℃」と記載）・常温水。
+           製品名・全体サイズ・消費電力・チャイルドロックは指示に無かったため残した（不要なら行ごと削除可） -->
       <tbody>
-        <tr><th>製品名</th><td>PureNext</td></tr>
-        <tr><th>型番</th><td>—</td></tr>
-        <tr><th>浄水方式</th><td>—</td></tr>
+        <tr><th>製品名</th><td>PureNext（浄水型ウォーターサーバー）</td></tr>
+        <tr><th>浄水方式</th><td>カートリッジ式・2段階ろ過</td></tr>
         <tr><th>全体サイズ</th><td>H1200mm × W280mm × D370mm</td></tr>
-        <tr><th>設置スペース</th><td>—</td></tr>
-        <tr><th>重さ</th><td>—</td></tr>
-        <tr><th>タンク容量</th><td>—</td></tr>
-        <tr><th>温度</th><td>—</td></tr>
-        <tr><th>消費電力</th><td>—</td></tr>
-        <tr><th>電気代</th><td>—</td></tr>
-        <tr><th>チャイルドロック</th><td>—</td></tr>
-        <tr><th>注意事項</th><td>—</td></tr>
+        <tr><th>重さ</th><td>約21.0kg（浄水カートリッジ含む）</td></tr>
+        <tr><th>タンク容量</th><td>給水タンク4L／サブタンク1L／温水タンク1.7L／冷水タンク2.0L</td></tr>
+        <tr><th>温度</th><td>温水 約85℃前後／白湯 約60℃／冷水 約6℃／40℃／常温水</td></tr>
+        <tr><th>消費電力</th><td>冷却80W／加熱350W（定格電圧 AC100V 50/60Hz）</td></tr>
+        <tr><th>チャイルドロック</th><td>あり（＋と−ボタンを同時に2秒押しで作動／解除）</td></tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<!-- rev21(2026-08-31): 発注主指示「よくあるご質問の前に、バナーのような形で先行予約販売の注意書きを」 -->
+<section class="notice">
+  <div class="notice__box">
+    <p class="notice__head">当商品は先行予約販売のためのページです。</p>
+    <p class="notice__body">発売時には多少の製品機能の変更が加わる可能性があります。</p>
   </div>
 </section>
 
