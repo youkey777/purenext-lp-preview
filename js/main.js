@@ -2,20 +2,24 @@
 (function () {
   "use strict";
 
-  var SP_MAX = 767;   // これ以下は1カラム（responsive.css が効いている幅）
+  /* rev22-r4: 767 → 1023。600〜1023px を「タブレット層」として responsive.css で
+     1カラムのまま組み直したので、カルーセルの実測（measure）とスワイプもこの帯まで効かせる */
+  var SP_MAX = 1023;  // これ以下は1カラム（responsive.css が効いている幅）
   var PC_MIN = 1024;  // これ以上は変更前とまったく同じ挙動
 
   function vw() { return document.documentElement.clientWidth; }
 
-  /* ---------- タブレット（768〜1023px）: PCレイアウトを幅に合わせて縮小 ----------
-     1カラム化はせず、.page（1024px固定）に zoom を掛けて丸ごと縮める。
-     1024px 以上では zoom を空文字に戻すので、描画は変更前と同一。 */
+  /* ---------- rev22-r4: タブレット（768〜1023px）の zoom 縮小を廃止 ----------
+     もとは .page（1024px固定）に zoom を掛けて丸ごと縮めていた。
+     ところが Galaxy Z Fold 7 の横向き（約800px）では文字が 78% まで縮み、
+     本文が実質 12px 相当になって読めない。600〜1023px は responsive.css の
+     タブレット層（1カラム＋内容の最大幅800px）で組むので、zoom は一切掛けない。
+     1024px 以上の挙動は従来どおり（zoom を空文字に戻すだけ＝描画は変更前と同一）。
+     関数と呼び出しは、将来また幅で切り替えたくなったときの入口として残す。 */
   function fitPage() {
-    var w = vw();
     var pg = document.querySelector(".page");
     if (!pg) return;
-    if (w >= 768 && w < PC_MIN) { pg.style.zoom = String(w / PC_MIN); }
-    else { pg.style.zoom = ""; }
+    pg.style.zoom = "";
   }
 
   /* ---------- お客様の声カルーセル（ロール式） ----------
@@ -44,8 +48,8 @@
     var pos = 1;                // 現在の中央カード（トラック内の添字）
     var busy = false;
 
-    /* 767px 以下だけ、ステージ幅・カード幅・間隔を実測値に置き換える。
-       768px 以上（タブレットの zoom 表示・PC）は従来の固定値のまま。 */
+    /* rev22-r4: 1023px 以下（スマホ＋タブレット層）で、ステージ幅・カード幅・間隔を
+       実測値に置き換える。1024px 以上（PC）は従来の固定値 1024/660/24 のまま。 */
     function measure() {
       if (!stage || vw() > SP_MAX) {
         if (stage) {
@@ -55,7 +59,9 @@
         STAGE_W = 1024; SLIDE_W = 660; GAP = 24;
       } else {
         var sw = stage.clientWidth;
-        var want = Math.round(sw * 0.80); /* 統括検品: 0.84→0.80（隣カードの見え幅を確保。responsive.css の 80vw と対） */
+        /* rev22-r4: 上限 560px。タブレット層（600〜1023）では 80% が 480〜818px になり、
+           カードが本文の最大幅（800px）より広くなって1枚だけ間延びするため頭を止める */
+        var want = Math.min(Math.round(sw * 0.80), 560); /* 統括検品: 0.84→0.80（隣カードの見え幅を確保。responsive.css の 80vw と対） */
         stage.style.setProperty("--slide-w", want + "px");
         stage.style.setProperty("--photo-h", Math.round(want * 442 / 660) + "px");
         STAGE_W = sw;
@@ -145,7 +151,7 @@
     });
   }
 
-  /* ---------- タブレットの縮小表示を有効化 ---------- */
+  /* ---------- rev22-r4: zoom は掛けないが、1024px 以上へ戻ったときに残骸を消すため呼ぶ ---------- */
   fitPage();
   window.addEventListener("resize", fitPage);
   window.addEventListener("orientationchange", fitPage);

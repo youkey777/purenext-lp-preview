@@ -23,7 +23,12 @@
        ④文字は3段階 章見出し24・カード見出し20（入らなければ18）・本文14（注記12）
        ⑤写真の高さは3種類 L260 / M190 / S140
      ========================================================================== */
-  @media (max-width:767.98px){
+  /* rev22-r4（2026-09-03）: この入れ子の上限を 767.98 → 1023.98 に広げた。
+     Galaxy Z Fold 7（開いた画面 720px・横向き 800px）が「スマホ用の1カラムを2倍に
+     引き伸ばした画」になっていたため、600〜1023.98px を『タブレット層』として
+     この1カラム構造の上に作り直す（物差しと写真の切り方だけ差し替える）。
+     375/390 の描画は1px も変わらない（この行より下は元のまま） */
+  @media (max-width:1023.98px){
 
   .page{width:100%;max-width:1024px;
     /* rev22-r3: SP の物差し。生の px を各ルールに直書きせず、必ずこの変数を経由させる */
@@ -283,9 +288,14 @@
   /* S10 スープ写真。元画像 700×800、カップ上端 y185・ソーサー下端 y590。
      見せる範囲を y=157〜608（451行）に比で固定すると、どの画面幅でも上に28px・下に18px
      余裕を持ってカップとソーサーが入る。375px では高さ190px（＝M） */
+  /* rev22-r4: object-position 34.8% → 45%。34.8% では見えていた範囲が y121〜572 で、
+     受け皿の底（y590）が18px切れていた（上のコメントの「y157〜608」と実際がずれていた）。
+     45% にすると実際に y157〜608 になり、上28px・下18px の余裕でカップと受け皿が入る。
+     写真の枠の大きさは変わらないので、この差分はこの矩形の中で閉じる（下の要素は動かない）。
+     統括判断（2026-09-03）で 375/390 の描画変更を承認済み */
   .feat03__photo{position:relative;z-index:1;right:auto;top:auto;
     width:calc(100% - var(--pad) * 2);margin:calc(var(--it) - 34px) var(--pad) 0;
-    height:auto;aspect-ratio:700/451;object-fit:cover;object-position:50% 34.8%;
+    height:auto;aspect-ratio:700/451;object-fit:cover;object-position:50% 45%;
     border-radius:var(--r-photo)}
 
   /* ============================ S11 voice ============================ */
@@ -400,7 +410,13 @@
   /* 出水口まわりの写真だけ、切り取る範囲を比で固定する。元画像 640×640 で
      出水口とUVの光 y32〜256・グラス y288〜576。y=30〜594（564行）を見せる比にすると
      どの画面幅でもグラスの底（576）が切れない。375px では高さ260px（＝L） */
-  .tanks__photo--wide{width:100%;height:auto;aspect-ratio:640/564;object-fit:cover;
+  /* rev22-r4: セレクタを `.tanks__card--3 .tanks__photo--wide` に強めた。
+     style.css の `.tanks__card--3 .tanks__photo{height:168px}` がセレクタ2つぶんで強く、
+     ここの `height:auto` に勝っていたため、375px でも枠が 295×168 になり
+     グラスの底（元画像 y576）が y476 で切れていた（見えていたのは y107〜476）。
+     同じ強さにすると 295×260 になり、狙いどおり y30〜594 が入る（＝下に18pxの余裕）。
+     統括判断（2026-09-03）で、この1件に限り 375/390 の描画変更を承認済み */
+  .tanks__card--3 .tanks__photo--wide{width:100%;height:auto;aspect-ratio:640/564;object-fit:cover;
     object-position:50% 39.5%;border-radius:var(--r-photo);margin-top:var(--it)}
   .tanks__text{margin-top:var(--it);font-size:var(--t-body);line-height:1.7}
   .tanks__text--strong{margin-top:var(--it)}
@@ -612,7 +628,207 @@
   .footer__logo{margin-top:6px;font-size:28px;line-height:1.3}
   .footer__copyright{margin-top:16px;padding-bottom:24px;font-size:var(--t-note)}
 
-  } /* /max-width:767.98px */
+  } /* /max-width:1023.98px（rev22-r4 で 767.98 から広げた。中身は SP 用のまま） */
+
+  /* ==========================================================================
+     rev22-r4（2026-09-03）タブレット層 600px 〜 1023.98px
+     （この @media は max-width:1023.98px の内側にあるので上限は 1023.98px）
+
+     何を直しているか:
+       Galaxy Z Fold 7 を開いた画面はブラウザ上 720px（横向き 約800px）。
+       767px 以下＝スマホ用がそのまま2倍に引き伸ばされ、
+         ・「高さ固定＋cover」の写真が横長の帯になって上下が大きく切れる
+         ・幅の半分ずつ置いたアプリ画面が 1枚 340px の巨大なスマホになる
+       という2つの壊れ方をしていた。768〜1023 は main.js の zoom で PC を縮めていたが、
+       800px では文字が 78% に縮むのでこちらも使わない（main.js 側で廃止した）。
+
+     ここで差し替えるのは次の3つだけ。骨格（1カラム・並び順・導線）は SP のまま:
+       ① 物差し（余白・角丸・文字サイズ）を1段上げる
+       ② 内容の最大幅 800px・中央寄せ（全面写真だけ幅いっぱい）
+       ③ 写真の「高さ固定」を「縦横比＋高さの上限」に置き換える
+     ========================================================================== */
+  @media (min-width:600px){
+
+  /* --- ① 物差し（SP の変数をこの帯だけ上書きする。生の px は各ルールに直書きしない） --- */
+  .page{
+    --pad:32px;          /* 左右の余白・カードの内側（SP 20） */
+    --ch:72px;           /* 章の境目（SP 56） */
+    --hd:28px;           /* 見出し → 中身（SP 24） */
+    --it:16px;           /* 要素同士・カード同士（SP 12） */
+    --r-card:20px;       /* カードの角丸（SP 16） */
+    --r-photo:14px;      /* 写真の角丸（SP 12） */
+    --t-sec:28px;        /* 章見出し（SP 24） */
+    --t-card:22px;       /* カード見出し（SP 20） */
+    --t-body:15px;       /* 本文（SP 14） */
+    --t-note:13px;       /* 注記（SP 12） */
+    --content-max:800px; /* 内容の最大幅。全面写真だけこの外に出る */
+  }
+
+  /* --- ② 内容の最大幅と中央寄せ ---
+     (a) 親に左右の余白が無いもの＝自分の margin で内側に入っていたもの */
+  .intro,.memory,.uvcard,.feat,.voice__note,.tanks,.hygiene__facts,.hygiene__solve,
+  .spec__band,.spec__strip,.faq__card{
+    width:min(100% - var(--pad) * 2, var(--content-max));
+    margin-left:auto;margin-right:auto;
+  }
+  /* memory / uvcard は包みの左右余白を外して、カード自身で中央に寄せる */
+  .memory-wrap{padding-left:0;padding-right:0}
+  .uvcard-wrap{padding-left:0;padding-right:0}
+
+  /* (b) 自分の padding で内側に入っていたもの（左右の padding を 0 にしてから中央へ） */
+  .because__list,.because__title,.because__items,.voice__head,.hygiene__lead,
+  .strips,.support__steps,.hero__chips{
+    width:min(100% - var(--pad) * 2, var(--content-max));
+    margin-left:auto;margin-right:auto;padding-left:0;padding-right:0;
+  }
+
+  /* (c) 親にすでに左右の余白があるもの */
+  .kodawari__index,.extras__list,.detail__card,.notice__box,.app__title,.app__list{
+    width:min(100%, var(--content-max));
+    margin-left:auto;margin-right:auto;
+  }
+  .kodawari__index{max-width:var(--content-max)}
+
+  /* --- ③ 写真: 高さ固定 → 縦横比＋上限 ---------------------------------------
+     L（主役）= 3/2・上限480 ／ M（カードの中）= 16/9・上限420 ／ S（2枚横並び）= 4/3・上限300
+     object-fit / object-position は SP の実測値をそのまま継承する（下で直す1件を除く） */
+
+  /* L: memory・uvcard・リビング写真・解決カードのUV図 */
+  .because__room,.hygiene__solvephoto{
+    height:auto;aspect-ratio:3 / 2;max-height:480px;
+  }
+  /* memory / uvcard は「囲みの div ＋ 中の img」の二重構造。囲みに縦横比を掛けると、
+     中の img（height:100%）が先に正方形の高さで場所を取り、囲みが中身の高さに
+     引きずられて 3/2 にならない（uvcard の元画像は 1024×1024）。
+     縦横比は中の img 自身に掛ける */
+  .memory__photo,.uvcard__photo{height:auto}
+  .memory__photo img,.uvcard__photo img{
+    display:block;height:auto;aspect-ratio:3 / 2;max-height:480px;
+  }
+  /* 解決カードの図だけ object-position を直す。元画像 1300×2000 で見せたいのは
+     タンク y440〜800 と UVの光/出水口 y800〜1160。3/2 の枠だと 20% のままでは
+     720px 幅で見える範囲が y226〜1093 になり、出水口（1160）が 67px 切れる。
+     28% にすると y317〜1184 で、下に 24px の余裕を持って全部入る */
+  .hygiene__solvephoto{object-position:50% 28%}
+
+  /* M: ストリップ1・ストリップ2/4 の写真 */
+  .spec__photo,.strips__photo{
+    height:auto;aspect-ratio:16 / 9;max-height:420px;
+  }
+
+  /* S: 2枚横並び（機能02の2枚・ストリップ3の2枚・熱水/冷水タンク）
+     ※ 出水口まわり（.tanks__photo--wide）は同じ .tanks__photo を持つが別扱い */
+  .feat02__mug,.feat02__glass,.strips__photo--half,
+  .tanks__photo:not(.tanks__photo--wide){
+    height:auto;aspect-ratio:4 / 3;max-height:300px;
+  }
+  .tanks__photo:not(.tanks__photo--wide){object-fit:contain}
+
+  /* すでに比率で切ってある3枚（機能01の動画・スープ・出水口まわり）は比率を変えない。
+     上限を「高さ」に掛けると cover が余分に切り、被写体が欠ける
+       ・スープ 800px 幅で上限420 → 枠 670×420 になり、受け皿の底（y590）が y565 で切れた
+       ・出水口 720px 幅で上限420 → 枠 592×420 になり、グラスの底（y576）が y527 で切れた
+     そこで上限は「その高さになる幅」に掛ける（＝比も見える範囲も SP と同じまま守れる）。
+       機能01  420 × 1294/680 = 799px ／ スープ 420 × 700/451 = 651px ／ 出水口 420 × 640/564 = 476px */
+  .feat01__photo{width:min(100% - var(--pad) * 2, 799px);margin-left:auto;margin-right:auto}
+  /* 切り取り位置 45% は SP 側で直したのでここでは触らない（幅の上限だけ掛ける） */
+  .feat03__photo{width:min(100% - var(--pad) * 2, 651px);margin-left:auto;margin-right:auto}
+  /* 比と切り取りは SP 側で直したので、ここでは幅の上限（高さ420px相当）だけ掛ける */
+  .tanks__card--3 .tanks__photo--wide{width:min(100%, 476px);margin-left:auto;margin-right:auto}
+
+  /* --- S01 hero ---------------------------------------------------------- */
+  /* 文字は内容の最大幅の中へ。写真は全面のまま 16/10・上限600px */
+  .hero{grid-template-columns:minmax(var(--pad),1fr) minmax(0,var(--content-max)) minmax(var(--pad),1fr)}
+  .hero__bg{height:auto;aspect-ratio:16 / 10;max-height:600px}
+  /* rev22-r4（統括判断 2026-09-03）: 見出しは 26 → 30px、サブは 15（--t-body）→ 16px。
+     写真が 450〜600px に育つぶん、スマホのままの見出しでは写真に負けて小さく見えていた。
+     チップの文字は変えない（--t-note 13px のまま） */
+  .hero__title{font-size:30px}
+  .hero__sub{font-size:16px}
+  /* チップ5枚は 720px 幅だと3枚＋2枚で1枚 213px の空箱になるので、1行5枚にそろえる */
+  .hero__chips{flex-wrap:nowrap}
+  .chip{flex:1 1 0}
+
+  /* --- S03 intro --------------------------------------------------------- */
+  /* 3列横並び（温度バー／取水量／本体写真）は維持。バーと目盛りを 210→380、本体を 420 に */
+  .intro__title{font-size:var(--t-card)}
+  .temp,.temp__stops{width:72px}
+  .temp__body,.temp__bar{height:380px}
+  .temp__bar{width:20px;border-radius:10px}
+  .temp__stop i{width:12px;height:12px;margin-left:4px}
+  .temp__stop i::after{left:15px;top:5px;width:9px}
+  .temp__stop span{margin-left:6px}
+  /* 5つの目盛りの縦位置は SP の比（6/53/100/148/192 ÷ 210）をそのまま 380 に掛けた値 */
+  .temp__stop--hot{top:11px}
+  .temp__stop--sayu{top:96px}
+  .temp__stop--w40{top:181px}
+  .temp__stop--room{top:268px}
+  .temp__stop--cold{top:347px}
+  .amount{width:78px}
+  /* 目盛りは 20本。380 ÷ 20 = 19px 間隔 */
+  .amount__ruler{width:78px;height:380px;
+    background:repeating-linear-gradient(180deg,#9db6d2 0,#9db6d2 1px,transparent 1px,transparent 19px);
+    background-size:10px 100%;background-repeat:no-repeat}
+  .amount__mark::before{width:17px}
+  .amount__mark em{left:24px;top:-9px}
+  .intro__panel{width:100%;height:420px;object-fit:contain;object-position:100% 100%}
+
+  /* --- S04 memory / S05 uvcard ------------------------------------------- */
+  /* SP の 18px は 335px 幅に入れるための逃げだったので、タブレットでは他と同じ 22px に戻す */
+  .uvcard__title{font-size:var(--t-card)}
+
+  /* --- S06 because ------------------------------------------------------- */
+  /* 白→淡青の切替は「見出し35 ＋ バーまで16 ＋ バー4 ＋ 導入28」= 92px（SP は 88px） */
+  .because{background:linear-gradient(180deg,#ffffff 0px,#ffffff 92px,#e3edf8 92px,#e0eaf5 55%,#e5ebf2 100%)}
+  .because__water{top:182px}
+  .because__item span{font-size:var(--t-card)}
+  /* 5点の帯: 写真 56→72px・キャプション 11→13px（1行固定のまま）。
+     矢印は SP と同じ関係（高さ＝写真の約1.55倍／下端＝写真の約0.53倍）で伸ばす */
+  .because__items img{height:72px}
+  .because__items figcaption{margin:8px -10px 0;font-size:var(--t-note)}
+  .because__arrow{bottom:38px;height:110px}
+
+  /* --- S08〜S10 feat ----------------------------------------------------- */
+  /* 40℃の図は 0.72 → 0.9 倍。縮んだぶんの高さ（122 − 122×0.9 = 12.2px）を写真の上に戻す */
+  .feat03__diagram{transform:scale(.9)}
+  .feat03__photo{margin-top:calc(var(--it) - 12px);margin-left:auto;margin-right:auto}
+
+  /* --- S11 voice --------------------------------------------------------- */
+  /* カード幅は main.js が min(80%, 560px) で実測して --slide-w に書き込む。
+     矢印はカードの左右の縁にかかる位置へ（SP の「20px」だと隣のカードから離れすぎる） */
+  .voice__nav--prev{left:calc((100% - var(--slide-w,80vw)) / 2 - 24px)}
+  .voice__nav--next{right:calc((100% - var(--slide-w,80vw)) / 2 - 24px)}
+
+  /* --- S16 hygiene ------------------------------------------------------- */
+  .tanks__card--3 .tanks__name{font-size:var(--t-card)}
+
+  /* --- S18 spec / S19 strips --------------------------------------------- */
+  .spec__label{font-size:var(--t-card)}
+  .strips__label{font-size:var(--t-card)}
+  .strips__card--3 .strips__label{font-size:var(--t-body)}
+
+  /* --- S19b extras ------------------------------------------------------- */
+  /* エコボタン／チャイルドロックは2列横並び */
+  .extras__list{display:grid;grid-template-columns:1fr 1fr;gap:var(--it)}
+  .extras__head{font-size:var(--t-card)}
+
+  /* --- S21 app ----------------------------------------------------------- */
+  /* アプリ画面2枚を 各220px・中央・間32px に。指示書の grid-template-columns:220px 220px＋
+     justify-content:center だと、同じグリッドに乗っている見出しと3項目まで 440px に
+     縮んでしまうので、両脇に 1fr の余り列を足した4列にして同じ見た目を作る */
+  .app{grid-template-columns:1fr minmax(0,220px) minmax(0,220px) 1fr;
+    column-gap:var(--pad);
+    grid-template-areas:"title title title title" "card card card card"
+                        "list list list list" ". home filter ."}
+  .app__phone{margin-top:var(--hd)}
+  .app__phone--filter{margin-top:var(--hd)}
+
+  /* --- S22 detail -------------------------------------------------------- */
+  .detail__table th,.detail__table td{font-size:var(--t-body)}
+  .detail__table th{width:120px}
+
+  }
+  /* /min-width:600px（rev22-r4 タブレット層） */
 
   /* ==========================================================================
      360px 未満（iPhone SE 第1世代・Android の小型機）だけの詰め直し。
