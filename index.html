@@ -9,13 +9,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1024">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>浄水型ウォーターサーバー PureNext</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Noto+Serif+JP:wght@400;500;600;700&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
 <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -51,7 +52,7 @@
     <img class="intro__panel" src="images/intro_panel_closeup.png" alt="PureNext の操作パネル" loading="eager">
     <!-- rev20(2026-08-31): 発注主指示で文言差し替え
          旧「欲しい温度も、欲しい量も／ワンタッチですぐに。」 -->
-    <h2 class="intro__title">選べる<span class="blue">5つの温度</span>、<br>欲しい<span class="blue">水量</span>がワンタッチですぐに。</h2>
+    <h2 class="intro__title">選べる<span class="blue">5つの温度</span>、<br>欲しい<span class="blue">水量</span>が<span class="nobr">ワンタッチですぐに。</span></h2>
     <div class="intro__figure">
       <div class="temp">
         <p class="figure-label">温度</p>
@@ -87,7 +88,7 @@
         <span class="memory__iconwrap"><img class="memory__icon" src="images/icon_bottle.png" alt=""></span>
         <h2 class="memory__title">いつもの量が<br>すぐに出る</h2>
         <p class="memory__sub">取水量のメモリ機能</p>
-        <p class="memory__body">前回取水した量が各ボタンごとに記憶されます。<br>毎朝の白湯など、習慣づきやすいよう<br>サポートします。</p>
+        <p class="memory__body">前回取水した量が各ボタンごとに記憶されます。<br class="pc-br">毎朝の白湯など、習慣づきやすいよう<br class="pc-br">サポートします。</p>
       </div>
       <div class="memory__photo"><img src="images/memory_photo.png" alt="パネルを押す女性とコップで水を受ける女の子"></div>
     </div>
@@ -100,7 +101,7 @@
         <img class="uvcard__icon" src="images/icon_shield.png" alt="">
         <h2 class="uvcard__title">出てくる直前まで、<br>きれいな水を。</h2>
         <p class="uvcard__sub">取水口UV殺菌</p>
-        <p class="uvcard__body">浄水から給水までの通り道を、<br>UVライトでしっかり管理。<br>いつでもきれいな水を、安心してどうぞ。</p>
+        <p class="uvcard__body">浄水から給水までの通り道を、<br class="pc-br">UVライトでしっかり管理。<br class="pc-br">いつでもきれいな水を、安心してどうぞ。</p>
       </div>
       <div class="uvcard__photo"><img src="images/uv_outlet_photo.png" alt="給水タンクから出水口までの通り道をUV殺菌ライトが照らす様子"></div>
     </div>
@@ -129,7 +130,8 @@
         <figure><img src="images/item_box.png" alt=""><figcaption>運ぶ</figcaption></figure>
         <figure><img src="images/item_kettle.png" alt=""><figcaption>沸かす</figcaption></figure>
         <figure><img src="images/item_cup.png" alt=""><figcaption>測る</figcaption></figure>
-        <figure class="wide"><img src="images/item_thermo.png" alt=""><figcaption>温度を合わせる</figcaption></figure>
+        <!-- rev22: 5枚とも同じ箱（幅92px・写真スロット84x104px）にしたので .wide の特別扱いを廃止 -->
+        <figure><img src="images/item_thermo.png" alt=""><figcaption>温度を合わせる</figcaption></figure>
       </div>
     </div>
   </section>
@@ -137,7 +139,7 @@
   <!-- S07 こだわりの機能（タイトル・目次） -->
   <section class="kodawari">
     <p class="kodawari__eyebrow">こだわりの機能</p>
-    <h2 class="kodawari__title">毎日に寄り添う、<span class="num">3</span>つの便利。</h2>
+    <h2 class="kodawari__title">毎日に寄り添う、<span class="nobr"><span class="num">3</span>つの便利。</span></h2>
     <span class="kodawari__bar"></span>
     <ul class="kodawari__index">
       <li><i>01</i><span>10ml単位の指定量取水</span></li>
@@ -155,7 +157,7 @@
     <p class="feat__num">01</p>
     <span class="feat__rule"></span>
     <h3 class="feat__head">10ml単位の<br>指定量取水</h3>
-    <p class="feat__body">全モードで量を指定して、<br>手放しで自動取水。<br><em class="feat__em">粉ミルク</em>を作るための<br><em class="feat__em">目盛り合わせ</em>も<em class="feat__em">不要</em>に。<br>スープもいつもの濃さで。</p>
+    <p class="feat__body">全モードで量を指定して、<br class="pc-br">手放しで自動取水。<br class="pc-br"><em class="feat__em">粉ミルク</em>を作るための<br class="pc-br"><em class="feat__em">目盛り合わせ</em>も<em class="feat__em">不要</em>に。<br class="pc-br">スープもいつもの濃さで。</p>
   </div>
   <video class="feat01__photo" src="images/feat01_panel.mp4" poster="images/feat01_panel_poster.jpg"
          width="647" height="529" autoplay muted loop playsinline preload="metadata"
@@ -169,7 +171,7 @@
     <p class="feat__num">02</p>
     <span class="feat__rule"></span>
     <h3 class="feat__head">常温水・白湯モード</h3>
-    <p class="feat__body">朝の白湯と<br>夜の常温水、<br>ワンポチで出せる。</p>
+    <p class="feat__body">朝の白湯と<br class="pc-br">夜の常温水、<br class="pc-br">ワンポチで出せる。</p>
   </div>
   <div class="feat02__photos">
     <img class="feat02__mug" src="images/feat02_mug.png" width="316" height="401" alt="湯気の立つマグカップに注がれた白湯" loading="eager">
@@ -184,7 +186,7 @@
     <p class="feat__num">03</p>
     <span class="feat__rule"></span>
     <h3 class="feat__head">40℃モード</h3>
-    <p class="feat__body">熱水1回＋冷水1回＝<br>指定量40℃。<br>スープや飲みものを、<br>ちょうどよい温度に。</p>
+    <p class="feat__body">熱水1回＋冷水1回＝<br class="pc-br">指定量40℃。<br class="pc-br">スープや飲みものを、<br class="pc-br">ちょうどよい温度に。</p>
   </div>
 
   <div class="feat03__diagram">
@@ -230,28 +232,30 @@
            3枚の声を「開発前に寄せられた要望」の内容へ全面差し替えた。写真も合わせて作り直し。 -->
       <article class="voice__slide">
         <img class="voice__photo" src="images/review_main.png" alt="赤ちゃんを抱きながら哺乳瓶とミルクの準備に手間取る女性">
+        <!-- rev22(2026-09-02): 発注主指示で文言を差し替え（一字も変えていない）。改行は句読点の後で、1行およそ20字 -->
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>自動調乳器がいいと聞いたけど、<br>高いから購入できない。</p>
-          <p>ウォーターサーバーにも自動調乳器みたいな<br>機能が付いたらいいのに。</p>
-          <p>ミルク作りを楽にしたい。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>ウォーターサーバーがあると<br class="pc-br">粉ミルクづくりには便利だけど、<br class="pc-br">もっとラクがしたい。</p>
+          <p>特に夜中のミルクが大変。</p>
+          <p>自動調乳器が欲しいけど、高いんですよね。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
       <article class="voice__slide">
         <img class="voice__photo" src="images/review_slide2.png" alt="キッチンで計量カップの目盛りを確かめる女性">
+        <!-- rev22(2026-09-02): 発注主指示で文言を差し替え（一字も変えていない） -->
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>他社のウォーターサーバーで150mlとか<br>だけ選べる機能はあるけど、</p>
-          <p>なかなかちょうどその量を使うことがない。</p>
-          <p>10ml単位で好きなだけ<br>自分の出したい量が選べたらいいのに。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>ウォーターサーバーは契約すると<br class="pc-br">長く使うから、シンプルだけど<br class="pc-br">最先端なモノがいい。</p>
+          <p>でもなかなかコレと言ったものが<br class="pc-br">見つかっていません。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
       <article class="voice__slide">
         <img class="voice__photo" src="images/review_slide3.png" alt="コップの水を光にかざして確かめる女性">
+        <!-- rev22(2026-09-02): 発注主指示で文言を差し替え（一字も変えていない） -->
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>ウォーターサーバーを導入したいけど、<br>やっぱり安全性が不安。</p>
-          <p>本当にしっかりと安全性にこだわって<br>作られたウォーターサーバーがあれば<br>使いたい。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>ウォーターサーバーは欲しいけど、<br class="pc-br">なんか安全性が不安。</p>
+          <p>便利なのは分かるけど、<br class="pc-br">徹底的に安全性にこだわってる<br class="pc-br">商品があれば使いたいのですが。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
     </div>
@@ -264,8 +268,8 @@
   <!-- rev20(2026-08-31): 発注主指示で注記を差し替え
        旧「調乳や粉ミルクの作り方は、厚生労働省のガイドラインをご確認ください」 -->
   <p class="voice__note">
-    調乳や粉ミルクの作り方は、<br>
-    <a href="https://www.mhlw.go.jp/topics/bukyoku/iyaku/syoku-anzen/qa/dl/070604-1a.pdf" target="_blank" rel="noopener">厚生労働省のガイドライン参照<i class="voice__chev"></i></a>や<br>ミルクメーカーにお問い合わせください
+    調乳や粉ミルクの作り方は、<br class="pc-br">
+    <a href="https://www.mhlw.go.jp/topics/bukyoku/iyaku/syoku-anzen/qa/dl/070604-1a.pdf" target="_blank" rel="noopener">厚生労働省のガイドライン参照<i class="voice__chev"></i></a>や<br class="pc-br">ミルクメーカーにお問い合わせください
   </p>
 </section>
 
@@ -350,7 +354,7 @@
   <article class="tanks__card tanks__card--1">
     <h3 class="tanks__name">熱水タンク</h3>
     <img class="tanks__photo" src="images/tank_hot.png" alt="赤い熱水が入った金属製の熱水タンク" loading="eager">
-    <p class="tanks__text">熱によって<br>雑菌が繁殖しにくい環境</p>
+    <p class="tanks__text">熱によって<br class="pc-br">雑菌が繁殖しにくい環境</p>
   </article>
 
   <span class="tanks__chev tanks__chev--1"></span>
@@ -358,7 +362,7 @@
   <article class="tanks__card tanks__card--2">
     <h3 class="tanks__name">冷水タンク</h3>
     <img class="tanks__photo" src="images/tank_cold.png" alt="青い冷水が入った冷水タンク" loading="eager">
-    <p class="tanks__text">低温（5〜10℃）で<br>繁殖しにくい環境</p>
+    <p class="tanks__text">低温（5〜10℃）で<br class="pc-br">繁殖しにくい環境</p>
   </article>
 
   <span class="tanks__chev tanks__chev--2"></span>
@@ -367,23 +371,44 @@
     <span class="tanks__badge">対策が<br>必要</span>
     <h3 class="tanks__name">出水口まわり</h3>
     <img class="tanks__photo tanks__photo--wide" src="images/outlet_uv_card.png" alt="取水スペースに紫のUVライトが照射され、グラスに水が注がれる様子" loading="eager">
-    <p class="tanks__text tanks__text--strong">常温になりやすく、<br>対策が必要な箇所</p>
-    <p class="tanks__note">空気中や水撥ねから細菌が入りやすい。<br>残り水が常温になるので<br>菌が繁殖しやすい。</p>
+    <p class="tanks__text tanks__text--strong">常温になりやすく、<br class="pc-br">対策が必要な箇所</p>
+    <p class="tanks__note">空気中や水撥ねから細菌が入りやすい。<br class="pc-br">残り水が常温になるので<br class="pc-br">菌が繁殖しやすい。</p>
   </article>
   </div>
 
-  <!-- 3. 対策が必要な理由（3行） -->
-  <ul class="hygiene__why">
-    <li>取水口からは空気中や水ハネから細菌が入りやすい</li>
-    <li>タンクから出水口までのパイプには常に残留水が存在する</li>
-    <li>残留水は常温になるので菌が繁殖しやすい</li>
+  <!-- 3. お悩み3つ（rev22: 発注主指示「3項目が目につきにくいから、お客さんの悩みとかで
+       よくあるような『課題感』のあるデザインにして、ピュアネクストなら、という表現から
+       『出水口までしっかり、、』とつなげてください」により、中黒の3行を吹き出し3つへ）
+       文言は現行の3行のまま（営業コピー人材の「お客さんの声」版に差し替えやすいよう、
+       1つの吹き出しに hygiene__issuetext を1文だけ入れてある） -->
+  <ul class="hygiene__issues">
+    <li class="hygiene__issue">
+      <span class="hygiene__issueicon" aria-hidden="true">!</span>
+      <p class="hygiene__issuetext">取水口は空気にも<br class="pc-br">水はねにもふれるから、<br class="pc-br">菌が入りそう。</p>
+    </li>
+    <li class="hygiene__issue">
+      <span class="hygiene__issueicon" aria-hidden="true">!</span>
+      <p class="hygiene__issuetext">タンクから出口までの<br class="pc-br">パイプに、水はずっと<br class="pc-br">残ったまま？</p>
+    </li>
+    <li class="hygiene__issue">
+      <span class="hygiene__issueicon" aria-hidden="true">!</span>
+      <p class="hygiene__issuetext">その残った水、<br class="pc-br">常温にもどるなら<br class="pc-br">菌が増えそうで心配。</p>
+    </li>
   </ul>
+
+  <!-- 3b. 悩み → 解決 をつなぐラベル -->
+  <div class="hygiene__so">
+    <p class="hygiene__sopill">ピュアネクストなら</p>
+    <svg class="hygiene__sochev" width="22" height="12" viewBox="0 0 22 12" aria-hidden="true" focusable="false">
+      <path d="M1 1.5 L11 10 L21 1.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
 
   <!-- 4〜6. 解決の見出し・本文・UV殺菌ライトの写真 -->
   <div class="hygiene__solve">
     <h2 class="hygiene__solvetitle">出水口までしっかり殺菌</h2>
     <span class="hygiene__solvebar"></span>
-    <p class="hygiene__solvebody">PureNextではこの残留水や出水口部分にUV殺菌ライトを照射。<br>出てくる水の綺麗さにまでこだわり安全な水をお届けします。</p>
+    <p class="hygiene__solvebody">PureNextではこの残留水や出水口部分にUV殺菌ライトを照射。<br class="pc-br">出てくる水の綺麗さにまでこだわり安全な水をお届けします。</p>
     <img class="hygiene__solvephoto" src="images/uv_inside.png" alt="サーバー内部の熱水タンクと冷水タンクから合流管を通り、出水口へ紫のUV殺菌ライトが照射される様子" loading="eager">
   </div>
 
@@ -404,14 +429,23 @@
     <span class="spec__dimh-line"></span>
     <p class="spec__dimh-label">高さ<br>1200<em>mm</em></p>
 
-    <span class="spec__dimd-line"></span>
-    <p class="spec__dimd-label">奥行370<em>mm</em></p>
+    <!-- rev22: 発注主指示「足元の奥行は、奥行を示してるように見えないからデザインちゃんと
+         考えてやって」。斜線1本をやめ、上から見た設置面（幅280 × 奥行370）の図に置き換えた。
+         別案（床面に敷いた遠近つきの平行四辺形）は variants の spec_depth_B に置いてある -->
+    <div class="spec__floor">
+      <p class="spec__floor-w">幅280<em>mm</em></p>
+      <span class="spec__floor-wline"></span>
+      <span class="spec__floor-rect"></span>
+      <span class="spec__floor-dline"></span>
+      <p class="spec__floor-d">奥行370<em>mm</em></p>
+      <p class="spec__floor-cap">設置面<span class="sp-hide">（上から見た形）</span></p>
+    </div>
 
     <span class="spec__dimn-line"></span>
     <p class="spec__dimn-label">注水スペース<br>高さ250<em>mm</em></p>
 
-    <span class="spec__dimt-line"></span>
-    <p class="spec__dimt-label">受け皿 奥行160<em>mm</em></p>
+    <!-- rev22: 発注主指示「スペックのとこから、受け皿の奥行は削除」により
+         spec__dimt-line / spec__dimt-label を削除（非表示ではなく削除） -->
   </div>
 
   <!-- 機能ストリップ 1 -->
@@ -432,6 +466,8 @@
     <p class="strips__num">2</p>
     <span class="strips__numbar"></span>
     <p class="strips__label">受け皿を外せる</p>
+    <!-- rev22: 発注主指示「受け皿を外せる、のところに、『奥行16cm』というのをココに持ってきて」 -->
+    <p class="strips__tag">奥行<em>16</em>cm</p>
     <span class="strips__lead strips__lead--2"><i></i></span>
     <img class="strips__photo" src="images/strip2_tray.png" alt="両手で波型リブの受け皿を外しているところ" loading="eager">
   </article>
@@ -440,8 +476,10 @@
   <article class="strips__card strips__card--3">
     <p class="strips__num">3</p>
     <span class="strips__numbar"></span>
-    <p class="strips__label">500mlペットボトルも<br>楽々の余白。受け皿を<br>外すと2Lペットボトル<br>も入る。</p>
+    <p class="strips__label">500mlペットボトルも<br class="pc-br">楽々の余白。受け皿を<br class="pc-br">外すと2Lペットボトル<br class="pc-br">も入る。</p>
     <span class="strips__lead strips__lead--3"><i></i></span>
+    <span class="strips__cap strips__cap--a">500ml・受け皿あり</span>
+    <span class="strips__cap strips__cap--b">2L・受け皿を外して</span>
     <img class="strips__photo strips__photo--half strips__photo--a" src="images/strip3_500ml.png" alt="取水スペースに置いた500mlペットボトル" loading="eager">
     <img class="strips__photo strips__photo--half strips__photo--b" src="images/strip3_2l.png" alt="受け皿を外して置いた2Lペットボトル" loading="eager">
   </article>
@@ -450,18 +488,47 @@
   <article class="strips__card strips__card--4">
     <p class="strips__num">4</p>
     <span class="strips__numbar"></span>
-    <p class="strips__label">丸い受け皿で、<br>鍋も置きやすい</p>
+    <p class="strips__label">丸い受け皿で、<br class="pc-br">鍋も置きやすい</p>
     <span class="strips__lead strips__lead--4"><i></i></span>
     <img class="strips__photo" src="images/strip4_pan.png" alt="受け皿の上に置いた木の取っ手の紺色のホーロー鍋" loading="eager">
   </article>
 </section>
 
 <!-- rev21(2026-08-31): 発注主指示「1〜4とは別で項目を作成（レイアウトはお任せ）」による追加機能リスト -->
+<!-- rev22(2026-09-02): 発注主指示 1「4の丸い受け皿で、、、の下に、また丸い受け皿で鍋も
+     置きやすいの項目がある。なんで？いらんやろ」→ 重複していた1行を削除
+     2「エコボタンで電気代、、、と、チャイルドロックで、は別のパターンの見せ方を3つ考えて」
+     → 本線はパターンA（アイコンカード2枚）。B（5・6として番号を続ける）と C（1本の帯）は
+        variants の extras_B / extras_C に1ページずつ置いてある -->
 <section class="extras">
   <ul class="extras__list">
-    <li class="extras__item"><span class="extras__check"></span><p>丸い受け皿で鍋も置きやすい</p></li>
-    <li class="extras__item"><span class="extras__check"></span><p>エコボタンで電気代を節約</p></li>
-    <li class="extras__item"><span class="extras__check"></span><p>チャイルドロックで小さなお子様の誤作動にもしっかり対応</p></li>
+    <li class="extras__item">
+      <span class="extras__ico" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 25C5 19 8 9 25 7c1 15-7 20-14 19"/>
+          <path d="M11 25c1-6 4-10 9-13"/>
+        </svg>
+      </span>
+      <div class="extras__txt">
+        <h3 class="extras__head">かしこく節電、<br>エコボタン</h3>
+        <p class="extras__body">ボタンひとつで、<br class="pc-br">毎日の電気代をおさえられます。</p>
+      </div>
+    </li>
+    <li class="extras__item">
+      <span class="extras__ico" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="14" width="18" height="12" rx="3"/>
+          <path d="M11 14v-3a5 5 0 0 1 10 0v3"/>
+          <path d="M16 18.5v3"/>
+        </svg>
+      </span>
+      <div class="extras__txt">
+        <h3 class="extras__head">誤操作を防ぐ<br>チャイルドロック</h3>
+        <p class="extras__body">小さなお子様がふれても、<br class="pc-br">全ボタンが効きません。</p>
+      </div>
+    </li>
   </ul>
 </section>
 
@@ -479,7 +546,7 @@
       <div class="support__steprow">
         <img class="support__stepicon" src="images/icon_laptop.png" alt="" loading="eager">
       </div>
-      <p class="support__steplabel">WEBで申し込み</p>
+      <p class="support__steplabel">WEBで<span class="nobr">申し込み</span></p>
     </div>
 
     <span class="support__chev"></span>
@@ -558,7 +625,7 @@
         <tr><th>タンク容量</th><td>給水タンク4L／サブタンク1L／温水タンク1.7L／冷水タンク2.0L</td></tr>
         <tr><th>温度</th><td>温水 約85℃前後／白湯 約60℃／冷水 約6℃／40℃／常温水</td></tr>
         <tr><th>消費電力</th><td>冷却80W／加熱350W（定格電圧 AC100V 50/60Hz）</td></tr>
-        <tr><th>チャイルドロック</th><td>あり（＋と−ボタンを同時に2秒押しで作動／解除）</td></tr>
+        <!-- rev22(2026-09-02): 発注主指示によりチャイルドロックの行を削除（表は7行） -->
       </tbody>
     </table>
   </div>
@@ -567,7 +634,7 @@
 <!-- rev21(2026-08-31): 発注主指示「よくあるご質問の前に、バナーのような形で先行予約販売の注意書きを」 -->
 <section class="notice">
   <div class="notice__box">
-    <p class="notice__head">当商品は先行予約販売のためのページです。</p>
+    <p class="notice__head">当商品は先行予約販売のための<span class="nobr">ページです。</span></p>
     <p class="notice__body">発売時には多少の製品機能の変更が加わる可能性があります。</p>
   </div>
 </section>
@@ -581,38 +648,88 @@
 <!-- S23 よくあるご質問 -->
 <section class="faq">
   <div class="faq__card">
+    <!-- rev22(2026-09-02): 発注主指示「よくあるご質問の内容を10個ほど考えて。回答も。そこから選ぶ」
+         → 営業コピー人材が確定数字だけで10問作成（copy_faq_rev22.md）。選ばれなかった問は li ごと削除すればよい -->
     <ul class="faq__list">
       <li class="faq__item">
         <button class="faq__qbtn" type="button" aria-expanded="false">
           <span class="faq__q">?</span>
-          <span class="faq__text">月額以外の費用は？</span>
+          <span class="faq__text">月額のほかに費用はかかりますか？</span>
           <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="faq__a" hidden><p>月額料金のほかに、ご契約時に初期手数料3,000円（税込）がかかります。フィルター代は月額料金に含まれています。電気代はお客様のご負担となります。</p><p>※配送・設置にかかる費用は現在調整中です。確定し次第、こちらでご案内します。</p></div>
+        <div class="faq__a" hidden><p>月額3,300円（税抜・税込3,630円）の<span class="nobr">スタンダードプラン</span>には、フィルター代も含まれています。このほかにご契約時の<span class="nobr">初期手数料</span>3,000円（税込）がありますが、先行予約でお申し込みの方は無料です。</p><p>初月分は、ご契約の翌日から月末までの日割りでご請求します。なお、電気代はお客様のご負担となります。</p></div>
       </li>
       <li class="faq__item">
         <button class="faq__qbtn" type="button" aria-expanded="false">
           <span class="faq__q">?</span>
-          <span class="faq__text">フィルター交換頻度は？</span>
+          <span class="faq__text">フィルター交換の手間と費用は？</span>
           <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="faq__a" hidden><p>交換用フィルターは、交換時期に合わせて定期的にご自宅へお届けします。フィルター代は月額料金に含まれています。</p><p>※お届けの周期（目安：6か月〜1年ごと）は現在最終調整中です。確定し次第、こちらでご案内します。</p></div>
+        <div class="faq__a" hidden><p>交換用のフィルターは、交換時期に合わせてご自宅へお届けします。本体には2種類のフィルターが入っていて、交換の目安はそれぞれ6か月ごと・1年ごとです。</p><p>フィルター代は月額料金に含まれているため、追加のご請求はありません。次のお届け予定日は、PureNextアプリでいつでも確認できます。</p></div>
       </li>
       <li class="faq__item">
         <button class="faq__qbtn" type="button" aria-expanded="false">
           <span class="faq__q">?</span>
-          <span class="faq__text">途中解約は？</span>
+          <span class="faq__text">途中で解約できますか？</span>
           <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="faq__a" hidden><p>ご契約には最低利用期間があり、期間内のご解約には所定の解約金がかかります。解約金はご利用年数に応じて少なくなる仕組みを予定しています。なお、お申し込み当日中（23:59まで）のキャンセルは無料です。</p><p>※最低利用期間・解約金の額は現在確定しておらず、お申し込み前の重要事項説明でご確認いただけます。</p></div>
+        <div class="faq__a" hidden><p>ご契約から5年間が最低利用期間です。期間内に解約された場合の解約金は1年目が6万円で、1年ごとに1万円ずつ少なくなり（2年目5万円・3年目4万円・4年目3万円・5年目2万円）、5年を過ぎると0円になります。</p><p>くわしい条件は、お申し込み前の重要事項説明でご確認いただけます。</p></div>
       </li>
       <li class="faq__item">
         <button class="faq__qbtn" type="button" aria-expanded="false">
           <span class="faq__q">?</span>
-          <span class="faq__text">40℃モードとは？</span>
+          <span class="faq__text">申し込んだ後でも取り消せますか？</span>
           <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="faq__a" hidden><p>熱水と冷水を自動で組み合わせて、約40℃のぬるめのお湯を指定した量だけお作りするモードです。10ml単位で量を指定でき、ボタンひとつでちょうどよい温度をご利用いただけます。</p></div>
+        <div class="faq__a" hidden><p>お申し込み当日の23:59までにご連絡いただければ、キャンセル料はかかりません。それを過ぎたあとも、契約書面を<span class="nobr">受け取った</span>日から8日間は<span class="nobr">クーリング・オフ</span>ができます。</p><p>お手続きの方法は、お申し込み前の重要事項説明でご案内します。</p></div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">水は水道水を入れるのですか？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>はい。ご家庭の水道水を、そのまま給水タンクに入れてお使いいただけます。水道法の水質基準に適合した水道水が対象で、<span class="nobr">井戸水</span>はお使いいただけません。35℃以上の温かい水も入れないでください。</p></div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">お手入れは大変ですか？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>給水タンクは本体から取り外して丸洗いできます。パッキンも外せるので、すみずみまで洗えます。常温水用の小さなタンクだけは取り外せませんが、UVライトを当てて衛生を保つ仕組みです。</p><p>使い終わった<span class="nobr">カートリッジ</span>は、プラスチックごみとして捨てられます。</p></div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">置き場所はどのくらい必要？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>本体の設置面積は1,036cm²で、A3用紙（1,247cm²）より小さく収まります。背面と左右は15cm以上あけ、上面と正面はふさがないでください。</p><p>傾いた場所・直射日光の当たる場所・高温多湿の場所・<span class="nobr">熱器具</span>のそば・水がかかる場所・屋外は避けてください。</p></div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">小さな子どもがいても安全？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>チャイルドロックは、お届けした時点でONになっています。しばらく操作しないと自動でかかり直し、ロック中はすべての<span class="nobr">ボタン</span>が効きません。</p><p>万一倒れたときは通電が止まり、水もれを感知したときは自動で停止してアプリにお知らせします。</p></div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">衛生面は本当に大丈夫ですか？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>本体の中では、常温水をためる浄水タンクと、出水口とそこに残った水の2か所にUVライトを当てています。第三者機関の試験（2026年8月14日・KCL）では、大腸菌・緑膿菌・黄色ブドウ球菌の3種類が、37℃の条件で10分後に菌数10未満（減少率99.9%）まで減りました。</p><p>冷水と温水は、タンクも通り道も別々にしています。</p></div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__qbtn" type="button" aria-expanded="false">
+          <span class="faq__q">?</span>
+          <span class="faq__text">故障したら修理費はかかる？</span>
+          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq__a" hidden><p>通常のご使用の中で起きた故障は、無償で修理いたします。お客様のお取り扱いが原因の場合は有償となります。</p><p>お問い合わせへのご回答は、1〜3営業日を目安にしています。</p></div>
       </li>
     </ul>
   </div>
