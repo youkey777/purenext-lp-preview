@@ -1067,8 +1067,16 @@ img{display:block}
   position:absolute;right:-5px;top:-5px;width:12px;height:12px;box-sizing:border-box;
   border-radius:50%;background:#fff;border:3px solid #1e6ade;
 }
-.strips__lead--2{left:228px;top:135px;width:224px;transform:rotate(-10.3deg)}
-/* rev22-r2: .strips__lead--3 は説明文ごと削除（発注主指示「3番は文字での説明は不要」） */
+/* rev22-r3: 発注主指示「終点の白丸が横の壁に付いている。受け皿そのものの上に置く」。
+   カード座標で受け皿（白い格子のトレイ）の輪郭を実測（1024px・2倍撮影）した結果、
+   トレイ上端の弧は x=450→y137.5 / 460→130 / 470→129 / 480→121 / 500→108、
+   中央の丸穴は左上が (533,145)、格子面の下端は x=500 で y≈166、
+   左下の指の上端は (426,151.5)。終点の白丸を (500,141) に置くと
+   上のトレイ輪郭まで 22.9px・丸穴まで 28.5px・格子面の下端まで 19px・指まで 11.8px 空く
+   （いずれも白丸の半径6pxを引いた値）。旧終点 (447,96) は壁の上だった。 */
+.strips__lead--2{left:228px;top:135px;width:273.05px;transform:rotate(1.053deg)}
+/* rev22-r3: 発注主指示で説明文とともに復活（rev22 以前と同じ値） */
+.strips__lead--3{left:318px;top:137px;width:125px;transform:rotate(-1.4deg)}
 /* rev22-r2: 発注主指示「指してるのが鍋本体になってるから、受け皿の白い部分にポイントを
    おいて線を引いて」。終点をカード座標 (540,248)＝写真の中の受け皿の白い前面に移した
    （旧 (569,156) は鍋の胴に重なっていた）。始点 (228,175)・長さ 320.4px・角度 13.17°で、
@@ -1081,14 +1089,8 @@ img{display:block}
 .strips__photo--half{width:262px}
 .strips__photo--a{left:339px}
 .strips__photo--b{left:615px}
-/* rev22-QA: 写真だけでは 500ml/2L・受け皿の有無が分からないため、各写真の左上に注記ピル */
-.strips__cap{
-  position:absolute;top:12px;z-index:3;padding:5px 12px;border-radius:999px;
-  background:rgba(255,255,255,.92);border:1px solid #c9dcf3;
-  font-size:13px;font-weight:700;line-height:1;letter-spacing:.02em;color:#16273e;white-space:nowrap;
-}
-.strips__cap--a{left:351px}
-.strips__cap--b{left:627px}
+/* rev22-r3: 写真の上の注記ピル（.strips__cap）は、説明文（.strips__label）が
+   戻ったことで役目が重複するため削除した（発注主指示） */
 
 /* ============================================================
    S19b 追加機能リスト（rev21 新設・発注主指示）

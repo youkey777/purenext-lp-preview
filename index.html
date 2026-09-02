@@ -52,6 +52,7 @@
     <img class="intro__panel" src="images/intro_panel_closeup.png" alt="PureNext の操作パネル" loading="eager">
     <!-- rev20(2026-08-31): 発注主指示で文言差し替え
          旧「欲しい温度も、欲しい量も／ワンタッチですぐに。」 -->
+    <!-- rev22-r3: 読点「、」を一度削除したが発注主指示ではなかったため戻した -->
     <h2 class="intro__title">選べる<span class="blue">5つの温度</span>、<br>欲しい<span class="blue">水量</span>が<span class="nobr">ワンタッチですぐに。</span></h2>
     <div class="intro__figure">
       <div class="temp">
@@ -493,11 +494,11 @@
   <article class="strips__card strips__card--3">
     <p class="strips__num">3</p>
     <span class="strips__numbar"></span>
-    <!-- rev22-r2: 発注主指示「3番の500mlと2Lのとこは、文字での説明は不要。今回の画像いい感じ」
-         により、説明文（.strips__label）と引き出し線（.strips__lead--3）を削除。
-         番号「3」と下線、写真の上の注記ピルは残す -->
-    <span class="strips__cap strips__cap--a">500ml・受け皿あり</span>
-    <span class="strips__cap strips__cap--b">2L・受け皿を外して</span>
+    <!-- rev22-r3: 発注主指示（第3ラウンド）で、rev22-r2 に削除した説明文（.strips__label）と
+         引き出し線（.strips__lead--3）を復活させた。代わりに rev22-QA で入れていた写真の上の
+         注記ピル（.strips__cap--a / --b）は HTML・CSS とも削除（PC・SP 両方）。 -->
+    <p class="strips__label">500mlペットボトルも<br class="pc-br">楽々の余白。<span class="nobr">受け皿</span>を<br class="pc-br">外すと<span class="nobr">2Lペットボトル</span><br class="pc-br">も入る。</p>
+    <span class="strips__lead strips__lead--3"><i></i></span>
     <img class="strips__photo strips__photo--half strips__photo--a" src="images/strip3_500ml.png" alt="取水スペースに置いた500mlペットボトル" loading="eager">
     <img class="strips__photo strips__photo--half strips__photo--b" src="images/strip3_2l.png" alt="受け皿を外して置いた2Lペットボトル" loading="eager">
   </article>
@@ -544,7 +545,8 @@
       </span>
       <div class="extras__txt">
         <h3 class="extras__head">誤操作を防ぐ<br>チャイルドロック</h3>
-        <p class="extras__body">小さなお子様がふれても、<br class="pc-br">全ボタンが効きません。</p>
+        <!-- rev22-r3: 発注主指示で文言差し替え（旧「小さなお子様がふれても、全ボタンが効きません。」） -->
+        <p class="extras__body">全ボタンにロックがかかり、<br class="pc-br">小さなお子様の誤操作も防いで安心です。</p>
       </div>
     </li>
   </ul>
@@ -636,7 +638,10 @@
            温度の並び＝温水・白湯・冷水・40℃（「40℃」と記載）・常温水。
            製品名・全体サイズ・消費電力・チャイルドロックは指示に無かったため残した（不要なら行ごと削除可） -->
       <tbody>
-        <tr><th>製品名</th><td>PureNext（浄水型ウォーターサーバー）</td></tr>
+        <!-- rev22-r3: SP（375px以下）で td の幅が足りず「浄水型ウ／ォーターサーバー」と
+             小書きの「ォ」が行頭に来ていた。語をひとまとまりにして防ぐ。
+             PC は1行に収まるので描画は変わらない -->
+        <tr><th>製品名</th><td>PureNext（浄水型<span class="nobr">ウォーターサーバー</span>）</td></tr>
         <tr><th>浄水方式</th><td>カートリッジ式・2段階ろ過</td></tr>
         <tr><th>全体サイズ</th><td>H1200mm × W280mm × D370mm</td></tr>
         <tr><th>重さ</th><td>約21.0kg（浄水カートリッジ含む）</td></tr>
@@ -669,6 +674,8 @@
     <!-- rev22(2026-09-02): 発注主指示「よくあるご質問の内容を10個ほど考えて。回答も。そこから選ぶ」
          → 営業コピー人材が確定数字だけで10問作成（copy_faq_rev22.md）。選ばれなかった問は li ごと削除すればよい -->
     <ul class="faq__list">
+      <!-- rev22-r3(2026-09-02): 発注主指示で3問に絞り込み、2問目・3問目の文言を差し替えた
+           （旧10問は copy_faq_rev22.md に全部残してある） -->
       <li class="faq__item">
         <button class="faq__qbtn" type="button" aria-expanded="false">
           <span class="faq__q">?</span>
@@ -680,74 +687,18 @@
       <li class="faq__item">
         <button class="faq__qbtn" type="button" aria-expanded="false">
           <span class="faq__q">?</span>
-          <span class="faq__text">フィルター交換の手間と費用は？</span>
+          <span class="faq__text">フィルター交換は有料ですか？</span>
           <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="faq__a" hidden><p>交換用のフィルターは、交換時期に合わせてご自宅へお届けします。本体には2種類のフィルターが入っていて、交換の目安はそれぞれ6か月ごと・1年ごとです。</p><p>フィルター代は月額料金に含まれているため、追加のご請求はありません。次のお届け予定日は、PureNextアプリでいつでも確認できます。</p></div>
+        <div class="faq__a" hidden><p>いいえ。フィルター代は月額料金に含まれているため、追加のご請求はありません。</p><p>交換用のフィルターは、交換時期（目安：6か月ごと・1年ごとの2種類）に合わせてご自宅へお届けします。次のお届け予定日は、PureNextアプリでいつでも確認できます。</p></div>
       </li>
       <li class="faq__item">
         <button class="faq__qbtn" type="button" aria-expanded="false">
           <span class="faq__q">?</span>
-          <span class="faq__text">途中で解約できますか？</span>
+          <span class="faq__text">どうやって給水するのですか？</span>
           <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="faq__a" hidden><p>ご契約から5年間が最低利用期間です。期間内に解約された場合の解約金は1年目が6万円で、1年ごとに1万円ずつ少なくなり（2年目5万円・3年目4万円・4年目3万円・5年目2万円）、5年を過ぎると0円になります。</p><p>くわしい条件は、お申し込み前の重要事項説明でご確認いただけます。</p></div>
-      </li>
-      <li class="faq__item">
-        <button class="faq__qbtn" type="button" aria-expanded="false">
-          <span class="faq__q">?</span>
-          <span class="faq__text">申し込んだ後でも取り消せますか？</span>
-          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="faq__a" hidden><p>お申し込み当日の23:59までにご連絡いただければ、キャンセル料はかかりません。それを過ぎたあとも、契約書面を<span class="nobr">受け取った</span>日から8日間は<span class="nobr">クーリング・オフ</span>ができます。</p><p>お手続きの方法は、お申し込み前の重要事項説明でご案内します。</p></div>
-      </li>
-      <li class="faq__item">
-        <button class="faq__qbtn" type="button" aria-expanded="false">
-          <span class="faq__q">?</span>
-          <span class="faq__text">水は水道水を入れるのですか？</span>
-          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="faq__a" hidden><p>はい。ご家庭の水道水を、そのまま給水タンクに入れてお使いいただけます。水道法の水質基準に適合した水道水が対象で、<span class="nobr">井戸水</span>はお使いいただけません。35℃以上の温かい水も入れないでください。</p></div>
-      </li>
-      <li class="faq__item">
-        <button class="faq__qbtn" type="button" aria-expanded="false">
-          <span class="faq__q">?</span>
-          <span class="faq__text">お手入れは大変ですか？</span>
-          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="faq__a" hidden><p>給水タンクは本体から取り外して丸洗いできます。パッキンも外せるので、すみずみまで洗えます。常温水用の小さなタンクだけは取り外せませんが、UVライトを当てて衛生を保つ仕組みです。</p><p>使い終わった<span class="nobr">カートリッジ</span>は、プラスチックごみとして捨てられます。</p></div>
-      </li>
-      <li class="faq__item">
-        <button class="faq__qbtn" type="button" aria-expanded="false">
-          <span class="faq__q">?</span>
-          <span class="faq__text">置き場所はどのくらい必要？</span>
-          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="faq__a" hidden><p>本体の設置面積は1,036cm²で、A3用紙（1,247cm²）より小さく収まります。背面と左右は15cm以上あけ、上面と正面はふさがないでください。</p><p>傾いた場所・直射日光の当たる場所・高温多湿の場所・<span class="nobr">熱器具</span>のそば・水がかかる場所・屋外は避けてください。</p></div>
-      </li>
-      <li class="faq__item">
-        <button class="faq__qbtn" type="button" aria-expanded="false">
-          <span class="faq__q">?</span>
-          <span class="faq__text">小さな子どもがいても安全？</span>
-          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="faq__a" hidden><p>チャイルドロックは、お届けした時点でONになっています。しばらく操作しないと自動でかかり直し、ロック中はすべての<span class="nobr">ボタン</span>が効きません。</p><p>万一倒れたときは通電が止まり、水もれを感知したときは自動で停止してアプリにお知らせします。</p></div>
-      </li>
-      <li class="faq__item">
-        <button class="faq__qbtn" type="button" aria-expanded="false">
-          <span class="faq__q">?</span>
-          <span class="faq__text">衛生面は本当に大丈夫ですか？</span>
-          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="faq__a" hidden><p>本体の中では、常温水をためる浄水タンクと、出水口とそこに残った水の2か所にUVライトを当てています。第三者機関の試験（2026年8月14日・KCL）では、大腸菌・緑膿菌・黄色ブドウ球菌の3種類が、37℃の条件で10分後に菌数10未満（減少率99.9%）まで減りました。</p><p>冷水と温水は、タンクも通り道も別々にしています。</p></div>
-      </li>
-      <li class="faq__item">
-        <button class="faq__qbtn" type="button" aria-expanded="false">
-          <span class="faq__q">?</span>
-          <span class="faq__text">故障したら修理費はかかる？</span>
-          <svg class="faq__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="faq__a" hidden><p>通常のご使用の中で起きた故障は、無償で修理いたします。お客様のお取り扱いが原因の場合は有償となります。</p><p>お問い合わせへのご回答は、1〜3営業日を目安にしています。</p></div>
+        <div class="faq__a" hidden><p>ご家庭の水道水を、給水タンクに入れるだけです。水道法の水質基準に適合した水道水が対象で、<span class="nobr">井戸水</span>はお使いいただけません。</p><p>35℃以上の温かい水は入れないでください。</p></div>
       </li>
     </ul>
   </div>

@@ -4,7 +4,9 @@
    1024px 以上には1行も効かない ＝ PC の描画は変更前と画素単位で同一。
      ・768〜1023px … CSS では何もしない。main.js が .page に zoom を掛けて縮小表示する
      ・767px 以下  … 本物の1カラム（下の入れ子メディアクエリ）
-   style.css は1行も編集していない。ここは「後ろから上書きする」だけのファイル。
+   style.css は rev22-r3 の §A（PCの直し4件: ストリップ2の引き出し線・ストリップ3の説明文と
+   注記ピル・チャイルドロックの文言・FAQ3問）でだけ触っている。
+   それ以外の PC の描画は変更前と画素単位で同一（機械比較で確認済み: reports/r3/pc_diff.json）。
    ============================================================================ */
 @media (max-width:1023.98px){
 
@@ -13,13 +15,44 @@
 
   /* ==========================================================================
      ここから 767px 以下 ＝ スマートフォン用の1カラム
+     rev22-r3（2026-09-02 統括の指示書 §B/§C）で全面的に組み直した。
+     使ってよい値はこの5つだけ。ここに無い値を新しく作らない。
+       ①左右の余白 20px（内容幅 335@375。全面写真＝ヒーロー／リビング写真／フッターだけ 0）
+       ②カード 角丸16px・内側の余白20px・カードの中の写真は角丸12px
+       ③縦の余白は3つ 章の境目56 / 見出し→中身24 / 要素同士12
+       ④文字は3段階 章見出し24・カード見出し20（入らなければ18）・本文14（注記12）
+       ⑤写真の高さは3種類 L260 / M190 / S140
      ========================================================================== */
   @media (max-width:767.98px){
 
-  .page{width:100%;max-width:1024px}
+  .page{width:100%;max-width:1024px;
+    /* rev22-r3: SP の物差し。生の px を各ルールに直書きせず、必ずこの変数を経由させる */
+    --pad:20px;          /* 左右の余白 */
+    --ch:56px;           /* 章の境目 */
+    --hd:24px;           /* 見出し → 中身 */
+    --it:12px;           /* 要素同士・カード同士 */
+    --r-card:16px;       /* カードの角丸 */
+    --r-photo:12px;      /* カードの中の写真の角丸 */
+    --ph-l:260px;        /* 写真 L（ブロックの主役） */
+    --ph-m:190px;        /* 写真 M（カードの中） */
+    --ph-s:140px;        /* 写真 S（2枚横並び） */
+    --t-sec:24px;        /* 章見出し */
+    --t-card:20px;       /* カード見出し */
+    --t-body:14px;       /* 本文 */
+    --t-note:12px;       /* 注記 */
+    --t-num:28px;        /* 番号 */
+  }
 
   /* PC で行幅に合わせて入れてある手動改行を、本文系だけ無効化して自然に流す */
   br.pc-br{display:none}
+  /* rev22-r3: 自然に流すと「自動取／水」「繁／殖」「温／水タンク」のように語の途中で
+     行が変わる。日本語の文節で折る指定を本文系にまとめて掛ける（Chrome 119+/Safari 17+。
+     未対応ブラウザでは今までどおりの折り返しに戻るだけで、崩れない） */
+  .memory__body,.uvcard__body,.feat .feat__body,.tanks__text,.tanks__note,
+  .hygiene__facttext,.hygiene__solvebody,.strips__card--3 .strips__label,
+  .extras__body,.app__lead,.faq__a,.detail__table td,.notice__body,.voice__quote p{
+    word-break:auto-phrase;
+  }
   /* 見出しの語の途中改行を避ける */
   .nobr{white-space:nowrap}
 
@@ -31,177 +64,215 @@
   }
 
   /* ============================ S01 hero ============================ */
-  /* DOM順は 写真 → (バッジ・見出し・サブ・チップ)。flex の order で
-     文字 → 写真 → チップ に並べ替える。.hero__inner は display:contents で器を消す */
-  .hero{display:flex;flex-direction:column;overflow:visible;background:#fff}
+  /* rev22-r3: 発注主指示「写真の中に文字が入っていない。文字だけ外にはみ出ている。ダメ」。
+     PC と同じく、文字を写真の上に重ねる形へ組み直した。
+     写真の高さ 460px の根拠（元画像 1800×874・実測）:
+       家族3人の顔 = 母 x870〜1000 / 娘 x1150〜1250 / 父 x1455〜1560、本体 x1215〜1403。
+       375px 幅で全部入れるには、元画像を横 690px 以上見せる必要がある。
+       cover は高さで拡大率が決まるので、見える横幅 = 375 ÷ (高さ÷874)。
+         高さ520 → 630px しか見えない（3人入らない）／高さ460 → 712px 見える（入る）。
+       ＝ 3人と本体を切らずに置ける最大の高さが 460px。指示の 520px は幾何的に不可能。
+     object-position 78.9%: 見せる範囲を元画像 x=858〜1570 に固定した値。
+       母の顔まで 12px・父の顔まで 10px の余裕があり、切れるのは左右の髪だけ（母68px・父70px で左右対称）。 */
+  .hero{position:relative;display:grid;background:#fff;
+    grid-template-columns:var(--pad) 1fr var(--pad);
+    grid-template-rows:28px auto 8px auto 10px auto 1fr auto}
   .hero__inner{display:contents}
-  .hero__bg{position:static;order:2;inset:auto;width:100%;height:62vw;
-    object-fit:cover;object-position:60% 40%}
-  .hero__badge{order:1;padding:28px 20px 0;font-size:12px;letter-spacing:.06em}
-  .hero__title{order:1;padding:0 20px;margin-top:10px;font-size:30px;line-height:1.32}
-  .hero__sub{order:1;padding:0 20px 16px;margin-top:10px;font-size:16px}
-  /* WD検収 B-2: 5枚横並びだとラベルが 9〜10px になるため、3＋2 の2段組（2段目は中央寄せ）にして
-     1枚 約111px・ラベル 12px を確保する */
-  .hero__chips{order:3;padding:14px 20px 0;margin-top:0;gap:8px;flex-wrap:wrap;justify-content:center}
-  .chip{flex:0 0 calc((100% - 16px) / 3);min-width:0;width:auto;height:92px;gap:6px;padding:0 4px;border-radius:10px}
+  .hero__bg{grid-column:1 / -1;grid-row:1 / 8;position:static;inset:auto;
+    width:100%;height:460px;object-fit:cover;object-position:78.9% 50%}
+  /* 文字を読ませるための白のかぶせ。上端から 250px（写真の54%）で消える。
+     文字の下端 155px の位置でまだ 35% 残り、顔の始まり（195px）では 22% まで抜けている */
+  .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:250px;z-index:1;
+    background:linear-gradient(180deg,rgba(255,255,255,.92) 0,rgba(255,255,255,.80) 90px,
+      rgba(255,255,255,.35) 165px,rgba(255,255,255,0) 250px);pointer-events:none}
+  .hero__badge{grid-column:2;grid-row:2;z-index:2;font-size:var(--t-note);letter-spacing:.06em}
+  .hero__title{grid-column:2;grid-row:4;z-index:2;margin-top:0;
+    font-size:26px;line-height:1.32}
+  .hero__sub{grid-column:2;grid-row:6;z-index:2;margin-top:0;
+    font-size:var(--t-body);font-weight:800;letter-spacing:.02em}
+  /* チップ5枚は写真の中に入れると家族の顔（写真の上から195〜300px）にかぶるため、
+     写真の直下（間0）に置く。2段の高さ 192px を写真の中に置くと下端が 460px なので
+     y=254〜460 を覆い、母の顔（195〜268）と娘の顔（250〜300）が隠れる＝置けない */
+  .hero__chips{grid-column:1 / -1;grid-row:8;z-index:2;margin:0;
+    padding:14px var(--pad) 0;gap:8px;flex-wrap:wrap;justify-content:center}
+  .chip{flex:0 0 calc((100% - 16px) / 3);min-width:0;width:auto;height:92px;gap:6px;
+    padding:0 4px;border-radius:10px}
   .chip img{width:34px;height:34px}
-  .chip span{font-size:12px;line-height:1.3}
+  .chip span{font-size:var(--t-note);line-height:1.3}
 
   /* ============================ S02 lead ============================ */
-  .lead{padding:56px 0 16px;gap:14px}
-  .lead__title{font-size:24px;letter-spacing:.16em;text-indent:.16em}
+  .lead{padding:var(--ch) 0 var(--hd);gap:14px}
+  .lead__title{font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
 
   /* ============================ S03 intro ============================ */
-  /* DOM順は パネル写真 → 見出し → 図。order で 見出し → 図 → パネル写真 に */
-  /* WD検収 B-3: 左右余白を 20px に統一（カード類は全部 20px、全面写真だけ 0、カルーセルだけ 30） */
-  .intro{display:flex;flex-direction:column;margin:0 20px 12px;border-radius:20px}
-  .intro__title{order:1;position:relative;padding:32px 20px 0;font-size:26px;line-height:1.5}
-  /* 統括検品: 図が左に寄って右に大きな空白が残っていたため、2列をブロックごと中央に置く */
-  .intro__figure{order:2;position:static;left:auto;top:auto;padding:28px 0 0;gap:40px;justify-content:center}
-  /* WD検収 B-9: このブロックだけ縦に長すぎた（約2.8画面）ので、本体写真を 104%→86% に詰める */
-  .intro__panel{order:3;position:relative;right:auto;bottom:auto;
-    width:86%;margin:4px auto -16px}
-  .figure-label{font-size:16px}
-  /* 温度バー 480 → 360（0.75倍）。列幅を明示して、目盛りの文字が右の取水量列に
-     かぶらないようにする（PC は gap:112px で逃がしていたぶん） */
-  .temp__body{width:110px;margin-top:20px;height:360px}
-  .temp__bar{width:24px;height:360px}
-  .temp__stops{width:110px}
-  .temp__stop{gap:10px}
-  .temp__stop i{width:12px;height:12px;margin-left:6px}
-  .temp__stop i::after{left:16px;top:5px;width:10px}
-  .temp__stop span{font-size:15px;margin-left:8px}
-  .temp__stop--hot{top:17px}
-  .temp__stop--sayu{top:98px}
-  .temp__stop--w40{top:179px}
-  .temp__stop--room{top:260px}
-  .temp__stop--cold{top:335px}
-  /* 取水量ルーラー 452 → 340 */
-  .amount__unit{font-size:12px;margin-top:6px}
-  .amount__ruler{margin-top:12px;height:340px;width:110px;
-    background:repeating-linear-gradient(180deg,#9db6d2 0,#9db6d2 1px,transparent 1px,transparent 17px);
-    background-size:10px 100%;background-repeat:no-repeat}
-  .amount__mark::before{width:18px}
-  .amount__mark em{left:28px;top:-9px;font-size:14px}
+  /* rev22-r3: 「温度バー／取水量の目盛り／本体写真」の3つを横に並べる（PCと同じ意味合い）。
+     本体写真は .intro__figure の兄弟なので、.intro をグリッドにして3列目に置く。
+     見出しが 18px なのは「欲しい水量がワンタッチですぐに。」16字が、カード内寸 295px に
+     20px では入らない（320px 必要）ため。18px なら 288px で PC と同じ2行に収まる */
+  .intro{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-items:end;
+    column-gap:10px; /* 取水量の数字と本体写真がぶつからないための隙間 */
+    margin:0 var(--pad) var(--it);padding:32px 0 20px;border-radius:20px}
+  .intro::after{display:none} /* PC の下側フェードは SP では不要（写真が下端に無い） */
+  .intro__title{grid-area:1 / 1 / 2 / 3;position:relative;padding:0 var(--pad);
+    font-size:18px;line-height:1.55}
+  .intro__figure{grid-area:2 / 1 / 3 / 2;position:static;left:auto;top:auto;
+    display:flex;align-items:flex-end;gap:10px;margin:var(--hd) 0 0 var(--pad);padding:0}
+  .temp{width:60px}
+  .amount{width:66px}
+  .figure-label{font-size:var(--t-note);letter-spacing:.08em}
+  /* 温度バー 480 → 210（0.4375倍）。ラベルの縦位置は PC の比率をそのまま使う */
+  .temp__body{width:60px;margin-top:8px;height:210px}
+  .temp__bar{width:16px;height:210px;border-radius:8px}
+  .temp__stops{width:60px}
+  .temp__stop{gap:6px}
+  .temp__stop i{width:10px;height:10px;margin-left:3px}
+  .temp__stop i::after{left:13px;top:4px;width:7px}
+  .temp__stop span{font-size:var(--t-note);margin-left:5px}
+  .temp__stop--hot{top:6px}
+  .temp__stop--sayu{top:53px}
+  .temp__stop--w40{top:100px}
+  .temp__stop--room{top:148px}
+  .temp__stop--cold{top:192px}
+  /* 取水量ルーラー 452 → 195 */
+  .amount__unit{font-size:var(--t-note);margin-top:4px}
+  .amount__ruler{margin-top:10px;height:195px;width:66px;
+    background:repeating-linear-gradient(180deg,#9db6d2 0,#9db6d2 1px,transparent 1px,transparent 9.75px);
+    background-size:8px 100%;background-repeat:no-repeat}
+  .amount__mark::before{width:14px}
+  .amount__mark em{left:20px;top:-8px;font-size:var(--t-note)}
+  /* 本体写真は3列目。下端でそろえる（元画像 830×1000・contain 相当の等倍） */
+  .intro__panel{grid-area:2 / 2 / 3 / 3;position:static;right:auto;bottom:auto;
+    align-self:end;justify-self:end;width:100%;height:auto;margin:var(--hd) 0 0 0}
 
-  /* ============================ S04 memory ============================ */
-  .memory-wrap{padding:0 20px 16px} /* WD検収 B-3: 余白 20px 統一 */
-  .memory{height:auto;flex-direction:column;border-radius:20px}
-  .memory__text{width:auto;padding:32px 24px 24px}
-  .memory__iconwrap{width:52px;height:52px;margin-bottom:18px}
-  .memory__icon{width:28px;height:28px}
-  .memory__title{font-size:24px;line-height:1.45}
-  .memory__sub{margin-top:12px;font-size:16px}
-  .memory__body{margin-top:14px;font-size:15px;line-height:1.85}
-  .memory__photo{position:static;right:auto;top:auto;width:100%;height:240px}
-  .memory__photo img{object-position:40% 30%}
-
-  /* ============================ S05 uvcard ============================ */
-  .uvcard-wrap{padding:0 20px 0} /* WD検収 B-3: 余白 20px 統一 */
-  .uvcard{height:auto;flex-direction:column;border-radius:20px}
-  .uvcard__text{width:auto;padding:32px 24px 24px}
-  .uvcard__icon{width:52px;height:52px;margin-bottom:18px}
-  .uvcard__title{font-size:24px;line-height:1.45}
-  .uvcard__sub{margin-top:12px;font-size:16px}
-  .uvcard__body{margin-top:14px;font-size:15px;line-height:1.85}
-  .uvcard__photo{position:static;right:auto;top:auto;width:100%;height:240px}
-  .uvcard__photo img{object-position:50% 40%}
+  /* ==================== S04 memory / S05 uvcard（同じ様式） ==================== */
+  .memory-wrap{padding:0 var(--pad) var(--it)}
+  .uvcard-wrap{padding:0 var(--pad) 0}
+  .memory,.uvcard{height:auto;flex-direction:column;border-radius:var(--r-card)}
+  .memory__text,.uvcard__text{width:auto;padding:var(--pad) var(--pad) 0}
+  .memory__iconwrap{width:40px;height:40px;margin-bottom:0}
+  .memory__icon{width:22px;height:22px}
+  .uvcard__icon{width:40px;height:40px;margin-bottom:0}
+  .memory__title,.uvcard__title{margin-top:var(--it);font-size:var(--t-card);line-height:1.4}
+  /* 「いつもの量が／すぐに出る」「出てくる直前まで、／きれいな水を。」の手動改行は
+     SP では外して1行に。20px で 11字=220px・16字=320px、内寸は 295px なので
+     uvcard だけ 18px（288px）に落とす（B-1 の「入らなければ18px」） */
+  .memory__title br,.uvcard__title br{display:none}
+  .uvcard__title{font-size:18px}
+  .memory__sub,.uvcard__sub{margin-top:8px;font-size:var(--t-body);font-weight:700}
+  .memory__body,.uvcard__body{margin-top:8px;font-size:var(--t-body);line-height:1.7}
+  .memory__photo,.uvcard__photo{position:static;right:auto;top:auto;
+    width:100%;height:var(--ph-l);margin-top:var(--pad)}
+  /* memory: 元画像 1200×800。娘 x5〜20% / 本体 x30〜48% / 母 x45〜70%（顔 x55〜62%）。
+     335×260 では横 169px（14%）が切れるので、左に寄せて娘の左端まで残す */
+  .memory__photo img{object-position:30% 50%}
+  /* uvcard: 元画像 1024×1024。熱水/冷水タンク y20〜35% / 出水口 y28〜40% / UVの光 y30〜60%。
+     335×260 では縦 229px（22%）が切れる。上を 25% 落として y5.6〜83% を見せる */
+  .uvcard__photo img{object-position:50% 25%}
 
   /* ============================ S06 because ============================ */
-  /* 背景の 白→淡青 の切替位置は「見出し帯の下端」。PC の 246px は
-     見出しが 38px＋余白54px のときの値なので、SP の見出し（26px）に合わせて 116px にする */
-  .because{margin-top:36px;padding-bottom:28px;
-    background:linear-gradient(180deg,#ffffff 0px,#ffffff 116px,#e3edf8 116px,#e0eaf5 55%,#e5ebf2 100%)}
-  /* 統括検品: 波が 01 の文字を横切っていたので、波の上端を 01〜02 の行間あたりまで下げる */
-  .because__water{top:150px;width:100%;height:auto;opacity:.6} /* WD検収 A-5: 文字にかかる波を薄く */
-  .because__lead{padding-top:44px;font-size:26px;letter-spacing:.16em;text-indent:.16em}
+  /* 背景の 白→淡青 の切替位置は「見出し帯の下端」。SP の見出し（24px）に合わせて 112px */
+  /* 章の変わり目 56 は margin-top で作る。帯（白→淡青）の切替は「バーの下端＋導入32」の
+     88px（見出し35 ＋ バーまで16 ＋ バー4 ＋ 32）。ここに .because__lead の上余白を足すと
+     56 が二重にかかるので、lead の padding-top は 0 にする */
+  .because{margin-top:var(--ch);padding-bottom:var(--hd);
+    background:linear-gradient(180deg,#ffffff 0px,#ffffff 88px,#e3edf8 88px,#e0eaf5 55%,#e5ebf2 100%)}
+  /* 波は帯の上端（88px）から 90px 下＝178px。文字にかからないよう不透明度 .5 */
+  .because__water{top:178px;width:100%;height:auto;opacity:.5}
+  .because__lead{padding-top:0;font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
   .because__leadbar{margin-top:16px}
-  /* 統括検品: 帯の上端と 01 が詰まりすぎ（30px）だったので 48px に */
-  .because__list{position:static;height:auto;margin-top:48px;padding:0 20px;
-    display:flex;flex-direction:column;gap:14px}
-  .because__item{position:static;left:auto;top:auto;gap:14px}
+  .because__list{position:static;height:auto;margin-top:var(--hd);padding:0 var(--pad);
+    display:flex;flex-direction:column;gap:10px}
+  .because__item{position:static;left:auto;top:auto;gap:var(--it)}
   .because__item--l1,.because__item--r1,.because__item--l2,
   .because__item--r2,.because__item--l3{left:auto;top:auto}
-  .because__item i{width:36px;height:36px;font-size:15px}
-  .because__item span{font-size:22px}
+  .because__item i{width:30px;height:30px;font-size:13px}
+  .because__item span{font-size:18px}
   .because__lower{position:relative;left:auto;top:auto;width:auto;height:auto;
-    margin-top:26px;display:flex;flex-direction:column}
+    margin-top:var(--ch);display:flex;flex-direction:column}
   .because__title{order:1;position:static;left:auto;top:auto;
-    padding:28px 20px 0;font-size:26px;line-height:1.5}
-  /* PC の左フェード（右端に置いた写真を左のテキストへ溶かすマスク）は、
-     全幅に置き直した SP では本体が写っている左半分を消してしまうので外す。
-     縦は 1100×1400 の縦長写真から本体の上部（操作パネル〜取水スペース）が入る位置を取る */
+    padding:0 var(--pad);font-size:22px;line-height:1.5}
+  /* PC の左フェード（右端の写真を左のテキストへ溶かすマスク）は、全幅に置き直した SP では
+     本体が写っている側を消してしまうので外す。
+     元画像 1100×1400。本体 y5〜75%（天面 y5% / 取水口の凹み y27〜40%）。
+     375×260 では縦 637px（46%）が切れる。上を 6% 落として y3〜57% を見せると
+     天面（70px）から取水口（560px）まで全部入る */
   .because__room{order:2;position:static;right:auto;top:auto;
-    width:100%;height:260px;margin-top:22px;object-fit:cover;object-position:50% 16%;
+    width:100%;height:var(--ph-l);margin-top:var(--it);object-fit:cover;object-position:50% 6%;
     -webkit-mask-image:none;mask-image:none}
   /* バッジは写真の右上に重ねる。top は .because__lower 上端からの実測値 */
-  .because__badge{order:3;right:16px;top:150px;width:88px;height:88px;font-size:14px;line-height:1.4}
+  .because__badge{order:3;right:16px;top:calc(22px + 33px + var(--it) + 16px);
+    width:76px;height:76px;font-size:13px;line-height:1.4}
+  /* rev22-r3: 5点の帯。左右の余白を本文と同じ 20px に合わせ、5枚を等幅（各1/5）で置く。
+     以前は左右 12px で 1枚 67px、「温度を合わせる」が 2行に折れ、下の行の右端が矢印の先端に
+     並んで文字の断片のように見えていた（実測 375px で「わ」の右端 x=361・矢印の先端 x=375） */
   .because__items{order:4;position:relative;left:auto;top:auto;
-    padding:24px 20px 0;gap:6px;align-items:flex-end} /* WD検収 A-6/B-3: 写真との間を空け、余白 20px */
-  /* rev22: PC と同じ考え（5枚とも同じ箱・同じ間隔・写真は下端で揃える）に統一。
-     figure を等幅にし、写真のスロットも 76px で共通にした（.wide の特別扱いは廃止） */
+    padding:var(--it) var(--pad) 0;gap:4px;align-items:flex-end}
   .because__items figure{flex:1 1 0;min-width:0;width:auto}
-  .because__arrow{left:0;right:0;width:auto;bottom:32px;height:90px}
-  .because__items img{width:100%;height:76px;object-fit:contain;object-position:50% 100%}
-  .because__items figcaption{margin-top:10px;font-size:11px;line-height:1.35;white-space:normal}
+  .because__arrow{left:0;right:0;width:auto;bottom:30px;height:86px}
+  .because__items img{width:100%;max-width:none;height:56px;object-fit:contain;object-position:50% 100%}
+  /* rev22-r3: キャプションは5つとも同じ扱いで必ず1行（§C-6 の 11px）。7文字の「温度を合わせる」は
+     11px で 77px あり 1枠 63.8px に入らないので、PC と同じ手（style.css の margin:16px -16px 0）で
+     左右へ 8px ずつ逃がして枠の中心を保つ。隣の「測る」との隙間 12.8px・右端 x=361.6 で
+     画面右端まで 13.4px 空く */
+  .because__items figcaption{margin:8px -8px 0;font-size:11px;line-height:1.4;white-space:nowrap}
 
   /* ============================ S07 kodawari ============================ */
-  .kodawari{padding:64px 20px 48px}
-  .kodawari__eyebrow{font-size:13px;letter-spacing:.28em;text-indent:.28em}
-  .kodawari__title{margin-top:16px;font-size:24px;letter-spacing:.04em}
-  .kodawari__title .num{font-size:32px}
+  .kodawari{padding:var(--ch) var(--pad) var(--hd)}
+  .kodawari__eyebrow{font-size:var(--t-note);letter-spacing:.28em;text-indent:.28em}
+  .kodawari__title{margin-top:16px;font-size:22px;letter-spacing:.04em}
+  .kodawari__title .num{font-size:26px}
   .kodawari__bar{margin-top:20px}
-  .kodawari__index{flex-direction:column;gap:12px;max-width:none;margin:32px 0 0} /* WD検収 B-3: 余白 20px 統一 */
-  .kodawari__index li{padding:12px 20px;justify-content:flex-start;gap:12px}
-  .kodawari__index i{width:32px;height:32px;font-size:14px}
-  .kodawari__index span{font-size:15px}
+  /* 目次ピルは中身の幅で横に並べ、入らないぶんだけ折り返す（横いっぱいに伸ばさない） */
+  .kodawari__index{flex-direction:row;flex-wrap:wrap;justify-content:center;
+    gap:8px;max-width:none;margin:var(--hd) 0 0}
+  .kodawari__index li{width:auto;height:34px;padding:0 14px;justify-content:center;gap:8px}
+  .kodawari__index i{width:22px;height:22px;font-size:11px;border-width:1.5px}
+  .kodawari__index span{font-size:13px}
 
   /* ======================= S08〜S10 feat 01/02/03 ======================= */
-  /* rev22: PC でカードにしたので、SP でも左右20px・角丸20px のカードとして扱う */
-  .feat{overflow:hidden;margin:0 20px;padding-bottom:24px;border-radius:20px}
-  .feat + .feat{margin-top:16px}
-  /* 薄水色の帯はセクション全面の背景に（下フェードのマスクはそのまま）。
-     PC では帯より後ろの要素が z-index:1 の絶対配置で上に来ていた。流し込みに戻すと
-     z-index が効かなくなり、帯（不透明）が文字と写真を隠す。帯を z-index:0 に落とし、
-     中身は position:relative のまま z-index:1 で上に置く */
+  .feat{overflow:hidden;margin:0 var(--pad);padding-bottom:var(--pad);border-radius:var(--r-card)}
+  .feat + .feat{margin-top:var(--it)}
+  /* 薄水色の帯はセクション全面の背景に。PC では帯より後ろの要素が z-index:1 の絶対配置で
+     上に来ていた。流し込みに戻すと z-index が効かなくなり、帯（不透明）が中身を隠す。
+     帯を z-index:0 に落とし、中身は position:relative のまま z-index:1 で上に置く */
   .feat .feat__panel{inset:0;width:auto;height:auto;z-index:0}
-  /* 左右 24px だと feat02 の本文（20字・17px＝340px）が 390px 幅に 1px 足りず
-     「出せ／る。」で折れる。基準の 20px にして 350px 確保する */
+  /* 1行目 = 番号（28px）＋ 見出し（20px）を同じ行・ベースラインそろえ。番号の下線は出さない */
   .feat .feat__text{position:relative;left:auto;top:auto;z-index:1;
-    width:auto;height:auto;padding:28px 20px 0}
-  /* カードの左右にすでに 20px あるので、中の写真の左右余白は 0 にして幅いっぱいに */
-  .feat02__photos{padding:0}
-  .feat .feat__num{position:static;left:auto;top:auto;font-size:44px;line-height:1}
-  .feat .feat__rule{position:static;left:auto;top:auto;margin-top:10px}
-  .feat .feat__head{position:static;left:auto;top:auto;margin-top:14px;
-    font-size:22px;line-height:1.4;letter-spacing:.02em;white-space:normal}
-  .feat .feat__body{position:static;left:auto;top:auto;margin-top:14px;
-    font-size:17px;line-height:1.8;letter-spacing:.02em}
-  /* 統括検品: 強調語「不要」が「不／要」と行をまたいで割れていたため、強調語の中では折らない */
+    width:auto;height:auto;padding:var(--pad) var(--pad) 0;
+    display:flex;flex-wrap:wrap;align-items:baseline}
+  .feat .feat__num{position:static;left:auto;top:auto;font-size:var(--t-num);line-height:1}
+  .feat .feat__rule{display:none}
+  .feat .feat__head{position:static;left:auto;top:auto;flex:1 1 auto;min-width:0;
+    margin:0 0 0 var(--it);font-size:var(--t-card);line-height:1.35;
+    letter-spacing:.02em;white-space:normal}
+  .feat .feat__head br{display:none}
+  .feat .feat__body{position:static;left:auto;top:auto;flex:0 0 100%;
+    margin-top:var(--it);font-size:var(--t-body);line-height:1.7;letter-spacing:.01em}
+  /* 強調語が行をまたいで割れないように */
   .feat__em{white-space:nowrap}
-  /* S08 動画 */
-  /* WD検収 B-4: 動画の上側に白い余白（約70px）が焼き込まれていて、本文→パネルが 123px 空いていた。
-     rev22-r2: 高さを px で固定していたため、画面が広いほど拡大率が上がり、上が切れていく。
-     実測（変更前の可視範囲の上端・動画の実寸座標）: 375px→162.0 / 390px→200.2 / 430px→287.6。
-     ＋−ボタンの上端は 283 なので 430px でボタンの頭が欠け、500px 相当まで広がると
-     液晶（上端 342）まで切れる。高さ固定をやめ、切り取る「範囲」を比で固定する。動画の実寸は 1294×1048。
-     見せる範囲は y=270〜950（＋−ボタンの上端 283／液晶 342〜510／アイコン列と注記 〜746／
-     Pure Next ロゴ 881〜924 を全部含む）。
-       aspect-ratio 1294/680 … 横 1294 に対して縦 680 だけ見せる
-       object-position 50% 73.4% … 上に捨てる 270 ÷ 捨てる合計 368 = 73.4%
-     これで画面幅がいくつでも「y=270〜950 が必ず全部入る」（切るのは上下の白い余白だけ） */
+  /* S08 動画。切り取る「範囲」を比で固定してあるので、画面幅が変わっても
+     液晶（y342〜510）・＋−ボタン（上端283）・ロゴ（881〜924）が必ず全部入る。
+     動画の実寸 1294×1048、見せる範囲 y=270〜950 → aspect-ratio 1294/680・
+     object-position 50% 73.4%（上に捨てる 270 ÷ 捨てる合計 368）。375px では高さ155px */
   .feat01__photo{position:relative;z-index:1;right:auto;top:auto;
-    width:100%;height:auto;aspect-ratio:1294/680;object-fit:cover;object-position:50% 73.4%;
-    margin-top:24px}
-  /* S09 写真2枚 */
-  /* WD検収 A-7: 明暗差の大きい2枚を隙間ゼロで突き合わせると中央に強い縦線が出るため、
-     6px の隙間と他の写真と同じ角丸を付ける（左右余白 20px） */
-  .feat02__photos{position:relative;z-index:1;left:auto;top:auto;width:100%;margin-top:20px;gap:6px;padding:0 20px}
-  .feat02__mug,.feat02__glass{width:calc(50% - 3px);height:auto;aspect-ratio:316/401;border-radius:12px}
-  /* S10 図（熱水1回＋冷水1回＝40℃）は PC の寸法のまま中央へ。
-     各要素の left から 392px・top から 140px を引いた 311×122 の箱にする */
+    width:calc(100% - var(--pad) * 2);margin:var(--pad) var(--pad) 0;
+    height:auto;aspect-ratio:1294/680;object-fit:cover;object-position:50% 73.4%;
+    border-radius:var(--r-photo)}
+  /* S09 写真2枚を横並び（S=140）。元画像はどちらも 700×850。
+     マグ: カップ上端 y408・ソーサー下端 y697 → 下寄せ 85% で 430px でも全部入る。
+     グラス: グラス上端 y204・下端 y595 → 35% で 430px でも全部入る */
+  .feat02__photos{position:relative;z-index:1;left:auto;top:auto;width:100%;
+    margin-top:var(--pad);gap:8px;padding:0 var(--pad)}
+  .feat02__mug,.feat02__glass{width:calc(50% - 4px);height:var(--ph-s);
+    object-fit:cover;border-radius:var(--r-photo)}
+  .feat02__mug{object-position:50% 85%}
+  .feat02__glass{object-position:50% 35%}
+  /* S10 図（熱水1回＋冷水1回＝40℃）は PC の寸法のまま 0.72 倍で中央に置く。
+     PC の各要素の left から 392px・top から 140px を引いた 311×122 の箱にしてから縮める */
   .feat03__diagram{position:relative;left:auto;top:auto;
-    width:311px;height:122px;margin:24px auto 0}
+    width:311px;height:122px;margin:var(--pad) auto 0;
+    transform:scale(.72);transform-origin:top center}
+  .feat03{--diagram-shrink:34px} /* 311×122 を 0.72 倍したぶんの高さの差（122-88） */
   .feat__drop{top:0}
   .feat__drop--hot{left:0}
   .feat__drop--cold{left:103px}
@@ -209,155 +280,163 @@
   .feat__op--plus{left:67px}
   .feat__op--eq{left:173px;top:43px}
   .feat__circle{left:212px;top:8px}
-  /* rev22-r2: こちらも高さ px 固定をやめる。写真の実寸は 700×800、カップの上端 y=185・
-     ソーサーの下端 y=590。見せる範囲を y=157〜637 に固定すると、上に 28px・下に 47px の
-     余裕を持ってカップとソーサーが必ず全部入る。
-     実測（変更前の可視範囲の上端）: 375px→168.8 / 390px→178.7 / 430px→201.5 で、
-     430px ではカップの上端 185 が 16.5px 欠けていた。
-       aspect-ratio 700/480 … 上に捨てる 157 ÷ 捨てる合計 320 = 49% */
+  /* S10 スープ写真。元画像 700×800、カップ上端 y185・ソーサー下端 y590。
+     見せる範囲を y=157〜608（451行）に比で固定すると、どの画面幅でも上に28px・下に18px
+     余裕を持ってカップとソーサーが入る。375px では高さ190px（＝M） */
   .feat03__photo{position:relative;z-index:1;right:auto;top:auto;
-    width:100%;height:auto;aspect-ratio:700/480;object-fit:cover;object-position:50% 49%;
-    margin-top:20px}
+    width:calc(100% - var(--pad) * 2);margin:calc(var(--it) - 34px) var(--pad) 0;
+    height:auto;aspect-ratio:700/451;object-fit:cover;object-position:50% 34.8%;
+    border-radius:var(--r-photo)}
 
   /* ============================ S11 voice ============================ */
-  .voice{padding:48px 0 40px;overflow:hidden;
+  .voice{padding:var(--ch) 0 var(--hd);overflow:hidden;
     background:linear-gradient(180deg,#ffffff 0px,#f2f5fb 46px,#f2f5fb calc(100% - 17px),#ffffff 100%)}
-  .voice__head{position:static;left:auto;top:auto;width:auto;height:auto;padding:0 20px;gap:12px}
+  .voice__head{position:static;left:auto;top:auto;width:auto;height:auto;padding:0 var(--pad);gap:12px}
   .voice__rule{flex:1 1 auto;min-width:16px}
-  .voice__title{font-size:20px;line-height:1.5;letter-spacing:.12em;white-space:normal;text-align:center}
+  .voice__title{font-size:var(--t-card);line-height:1.5;letter-spacing:.12em;
+    white-space:normal;text-align:center}
   /* カルーセル。--slide-w / --photo-h は main.js が実測して書き込む */
   .voice__stage{position:relative;left:auto;top:auto;width:100%;height:auto;
-    margin-top:28px;touch-action:pan-y;-webkit-user-select:none;user-select:none}
-  /* 写真の上から指（マウス）を引くと、ブラウザ標準の「画像のドラッグ」が始まって
-     pointercancel が飛び、スワイプが途中で死ぬ。画像のドラッグだけを止める */
+    margin-top:var(--hd);touch-action:pan-y;-webkit-user-select:none;user-select:none}
+  /* 写真の上から指を引くと標準の画像ドラッグが始まってスワイプが死ぬので、それだけ止める */
   .voice__stage img{-webkit-user-drag:none;user-drag:none}
   .voice__track{position:relative;height:auto;gap:12px}
-  /* 統括検品: 隣のカードの見え幅が 19px と細く「刺さって見える」ため、カード幅を 84%→80% にして
-     見え幅を約 27px に（main.js の 0.80 と対で変える） */
-  .voice__slide{flex:0 0 var(--slide-w,80vw);width:var(--slide-w,80vw);height:auto;border-radius:16px}
+  .voice__slide{flex:0 0 var(--slide-w,80vw);width:var(--slide-w,80vw);height:auto;
+    border-radius:var(--r-card)}
   .voice__photo{width:100%;height:auto;aspect-ratio:660/442}
-  .voice__quote{height:auto;padding:22px 20px 26px 44px}
-  .voice__quote p{font-size:16px;line-height:1.7;letter-spacing:.01em;white-space:normal}
-  .voice__quote p + p{margin-top:12px}
-  .voice__mark{font-size:40px}
-  .voice__mark--open{left:14px;top:14px}
-  .voice__mark--close{top:20px;margin-left:4px}
-  .voice__slide::after{border-radius:16px}
+  .voice__quote{height:auto;padding:20px 18px 22px 40px}
+  .voice__quote p{font-size:15px;line-height:1.7;letter-spacing:.01em;white-space:normal}
+  .voice__quote p + p{margin-top:10px}
+  .voice__mark{font-size:36px}
+  .voice__mark--open{left:12px;top:12px}
+  .voice__mark--close{top:18px;margin-left:4px}
+  .voice__slide::after{border-radius:var(--r-card)}
+  /* rev22-r3: 統括判断②。左右に覗いている隣のカードは「写真だけ」が見える状態にする。
+     非アクティブのカードの引用文・引用符（.voice__quote の中身すべて）を透明にする。
+     opacity なので高さは残り、カードの寸法とスライド量は1pxも変わらない。
+     .is-active は main.js の apply() が送りのたびに付け替えるので、
+     前後ボタン・スワイプのどちらでも 0.3 秒で文字が出入りする */
+  .voice__quote{transition:opacity .3s ease}
+  .voice__slide:not(.is-active) .voice__quote{opacity:0}
   /* 矢印は写真の縦中央（44px 以上のタップ対象） */
   .voice__nav{width:48px;height:48px;top:calc(var(--photo-h,150px) / 2 - 24px)}
   .voice__nav i{width:14px;height:14px;border-top-width:3px;border-right-width:3px}
-  .voice__nav--prev{left:20px;right:auto} /* WD検収 B-10: 矢印を中央カードの内側へ寄せる */
+  .voice__nav--prev{left:20px;right:auto}
   .voice__nav--prev i{margin-right:-5px}
   .voice__nav--next{left:auto;right:20px}
   .voice__nav--next i{margin-left:-5px}
   .voice__note{position:static;left:auto;top:auto;width:auto;
-    margin:28px 20px 0;font-size:14px;line-height:1.8}
-  /* 統括検品: 自然に流すと2行目だけ端まで伸びる三角形になり、リンクの範囲も読みにくかった。
-     この注記は PC の改行位置（作り方は、／参照❯や／お問い合わせください）が 14px でも収まるので、
-     PC の <br> をそのまま生かす */
+    margin:var(--hd) var(--pad) 0;font-size:var(--t-note);line-height:1.8}
+  /* 自然に流すと2行目だけ端まで伸びる三角形になるので、PC の改行位置をそのまま生かす */
   .voice__note .pc-br{display:inline}
+  /* 注記リンクの下線が太くて文字から離れ「区切り線」に見えていたので細く近づける */
+  .voice__note a{border-bottom-width:1.5px;padding-bottom:1px}
 
   /* ============================ S12 price ============================ */
-  .price{padding:72px 20px 56px}
+  .price{padding:var(--ch) var(--pad) var(--hd)}
   .price__row{top:0;padding-left:0;flex-wrap:nowrap}
   .price__label{margin-right:8px;top:-4px;font-size:22px}
   .price__num{font-size:64px}
   .price__yen{font-size:22px}
-  .price__tax{font-size:14px;margin-left:4px}
-  /* 64px の数字は行ボックスより字が下にはみ出すので、税込表記との間を 8→16px に空ける */
-  .price__taxnote{margin-top:16px;padding-left:0;font-size:13px}
-  /* 14字。幅なりに折らせると 390px では「毎日飲/める」、320px では「…飲め/る」と
-     語の途中で切れる。22px/.08em で 9字＝213.8px・10字＝237.6px なので、
-     max-width:226px にすると幅によらず必ず「安全で綺麗なお水が／毎日飲める」で折れる */
-  .price__title{margin-top:64px;font-size:22px;letter-spacing:.08em;text-indent:.08em;
-    max-width:226px;text-align:center}
-  .price__bar{margin-top:18px}
+  .price__tax{font-size:var(--t-body);margin-left:4px}
+  .price__taxnote{margin-top:12px;padding-left:0;font-size:var(--t-note)}
+  /* 14字 × 22px = 308px。内寸 335px に1行で収まる */
+  .price__title{margin-top:var(--hd);font-size:22px;letter-spacing:.02em;text-indent:.02em;
+    max-width:none;text-align:center;white-space:nowrap}
+  .price__bar{margin-top:16px}
 
   /* ================= S13 PFOS（現在は非表示。表示版へ流用する分） ================= */
   .pfos{padding-top:32px}
   .pfos__band{height:auto}
-  .pfos__inner{padding:40px 20px 44px}
-  .pfos__title{font-size:28px;line-height:1.5;letter-spacing:.05em}
-  .pfos__body{margin-top:16px;font-size:16px;line-height:1.9;letter-spacing:.05em}
-  /* 15字。24px だと 390px で「減ら／す。」と折れるので 22px（＝330px）に */
-  .pfos__so{margin:36px 0 0;width:auto;padding-left:0;font-size:22px;line-height:1.4}
+  .pfos__inner{padding:40px var(--pad) 44px}
+  .pfos__title{font-size:24px;line-height:1.5;letter-spacing:.05em}
+  .pfos__body{margin-top:16px;font-size:var(--t-body);line-height:1.7;letter-spacing:.05em}
+  .pfos__so{margin:32px 0 0;width:auto;padding-left:0;font-size:20px;line-height:1.4}
 
   /* ============= S14 安心の浄水性能（現在は非表示。表示版へ流用する分） ============= */
   .filter{display:flex;flex-direction:column;
     background:linear-gradient(180deg,#ffffff 0%,#ffffff 40%,#f2f8ff 100%)}
-  .filter__inner{order:1;padding:48px 20px 0}
-  .filter__photo{order:2;position:static;left:auto;top:auto;width:100%;height:auto;margin-top:24px;
+  .filter__inner{order:1;padding:48px var(--pad) 0}
+  .filter__photo{order:2;position:static;left:auto;top:auto;width:100%;height:auto;margin-top:var(--hd);
     -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 28px,#000 93%,transparent 100%);
     mask-image:linear-gradient(180deg,transparent 0,#000 28px,#000 93%,transparent 100%);
     -webkit-mask-composite:source-over;mask-composite:add}
-  .filter__title{font-size:28px;letter-spacing:.08em;line-height:1.3}
-  .filter__list{margin-top:24px;padding-left:0}
-  .filter__list li + li{margin-top:12px}
-  .filter__ltxt{font-size:16px;line-height:1.7}
+  .filter__title{font-size:var(--t-sec);letter-spacing:.08em;line-height:1.3}
+  .filter__list{margin-top:var(--hd);padding-left:0}
+  .filter__list li + li{margin-top:var(--it)}
+  .filter__ltxt{font-size:var(--t-body);line-height:1.7}
   .filter__check{width:20px;height:20px;margin-top:3px}
   .filter__check::after{left:5px;top:3px;width:5px;height:9px}
   .filter__box{position:static;left:auto;top:auto;width:auto;height:auto;
-    margin-top:14px;padding:16px 18px}
+    margin-top:var(--it);padding:16px 18px}
   .filter__box--1,.filter__box--2{top:auto;height:auto;padding-left:18px}
-  .filter__icon{width:44px;height:44px}
-  .filter__icon--doc{width:48px;height:48px}
-  .filter__boxtxt,.filter__box--2 .filter__boxtxt{margin-left:16px}
-  .filter__boxhead,.filter__box--2 .filter__boxhead{font-size:16px;line-height:1.5}
-  .filter__boxsub{margin-top:4px;font-size:14px;line-height:1.5}
+  .filter__icon{width:40px;height:40px}
+  .filter__icon--doc{width:44px;height:44px}
+  .filter__boxtxt,.filter__box--2 .filter__boxtxt{margin-left:var(--it)}
+  .filter__boxhead,.filter__box--2 .filter__boxhead{font-size:var(--t-body);line-height:1.5}
+  .filter__boxsub{margin-top:4px;font-size:var(--t-note);line-height:1.5}
 
   /* ============================ S16 hygiene ============================ */
-  .hygiene{padding:56px 0 40px}
-  .hygiene__lead{padding:0 20px}
-  /* flex:0 0 auto のままだと縮まず、320px で右にはみ出す。縮んで折り返せるようにする */
-  .hygiene__lead span{flex:0 1 auto;min-width:0;padding:0 12px;font-size:18px;line-height:1.5;
+  .hygiene{padding:var(--ch) 0 var(--hd)}
+  .hygiene__lead{padding:0 var(--pad)}
+  .hygiene__lead span{flex:0 1 auto;min-width:0;padding:0 12px;font-size:16px;line-height:1.5;
     white-space:normal;text-align:center}
-  /* 3カードは縦積み。シェブロンは下向きに */
-  .tanks{margin:40px 20px 0;display:flex;flex-direction:column;gap:28px}
-  .tanks__card{position:relative;left:auto;top:auto;width:auto;height:auto;padding:24px 16px 22px}
-  .tanks__card--1,.tanks__card--2,.tanks__card--3{left:auto;width:auto}
-  .tanks__chev{position:static;left:auto;top:auto;align-self:center;
-    transform:rotate(135deg);margin:-8px 0}
-  .tanks__chev--1,.tanks__chev--2{left:auto}
-  .tanks__name{font-size:22px}
-  .tanks__card--3 .tanks__name{padding-right:0}
-  .tanks__photo,.tanks__card--3 .tanks__photo{width:200px;height:auto;margin:14px auto 0}
-  .tanks__photo--wide{width:200px}
-  .tanks__text{margin-top:16px;font-size:16px}
-  .tanks__text--strong{margin-top:10px}
-  .tanks__note{margin-top:10px;padding:0;font-size:14px;white-space:normal} /* WD検収 B-6: 注記 14px に統一 */
-  .tanks__badge{right:12px;top:-14px;width:68px;height:68px;font-size:12px;line-height:1.3} /* WD検収 A-10 */
-  /* rev22: 吹き出し3つは縦積み（間隔16px）。ピルとシェブロンは PC と同じ */
-  /* rev22-r2: 吹き出し3つ → 白カード1枚の縦リストへ差し替え */
-  .hygiene__facts{margin:36px 20px 0;width:auto;padding:20px 18px}
+  /* rev22-r3: 熱水タンク／冷水タンクを2列横並び、出水口まわりのカードは全幅。
+     DOM は カード1 → シェブロン1 → カード2 → シェブロン2 → カード3 なので、
+     グリッドの行・列を明示して置き直す（1と2の間のシェブロンは横並びでは意味が無いので消す） */
+  .tanks{margin:var(--hd) var(--pad) 0;display:grid;
+    grid-template-columns:1fr 1fr;column-gap:var(--it);row-gap:0}
+  .tanks__card{position:relative;left:auto;top:auto;width:auto;height:auto;
+    padding:14px 14px 16px;border-radius:var(--r-card)}
+  .tanks__card--1{grid-area:1 / 1 / 2 / 2;left:auto;width:auto}
+  .tanks__card--2{grid-area:1 / 2 / 2 / 3;left:auto;width:auto}
+  .tanks__card--3{grid-area:3 / 1 / 4 / 3;left:auto;width:auto;padding:var(--pad)}
+  .tanks__chev--1{display:none}
+  .tanks__chev--2{grid-area:2 / 1 / 3 / 3;position:static;left:auto;top:auto;
+    justify-self:center;transform:rotate(135deg);margin:calc(var(--it) + 2px) 0}
+  .tanks__name{font-size:15px}
+  .tanks__card--3 .tanks__name{padding-right:0;font-size:18px}
+  .tanks__photo{width:100%;height:var(--ph-s);object-fit:contain;margin:10px auto 0}
+  /* 出水口まわりの写真だけ、切り取る範囲を比で固定する。元画像 640×640 で
+     出水口とUVの光 y32〜256・グラス y288〜576。y=30〜594（564行）を見せる比にすると
+     どの画面幅でもグラスの底（576）が切れない。375px では高さ260px（＝L） */
+  .tanks__photo--wide{width:100%;height:auto;aspect-ratio:640/564;object-fit:cover;
+    object-position:50% 39.5%;border-radius:var(--r-photo);margin-top:var(--it)}
+  .tanks__text{margin-top:var(--it);font-size:var(--t-body);line-height:1.7}
+  .tanks__text--strong{margin-top:var(--it)}
+  .tanks__note{margin-top:8px;padding:0;font-size:var(--t-note);line-height:1.7;white-space:normal}
+  .tanks__badge{right:12px;top:-14px;width:64px;height:64px;font-size:var(--t-note);line-height:1.3}
+  /* 事実の縦リスト → つなぎ線 → ピル → シェブロン → 解決カード */
+  .hygiene__facts{margin:var(--it) var(--pad) 0;width:auto;padding:18px 16px;border-radius:var(--r-card)}
   .hygiene__facts::after{bottom:-24px;height:24px}
   .hygiene__factshead{font-size:13px;letter-spacing:.04em}
-  .hygiene__fact{gap:12px;padding:12px 0}
-  .hygiene__factnum{width:30px;height:30px;font-size:12px}
-  .hygiene__facttext{font-size:15px;line-height:1.7}
-  .hygiene__so{margin-top:24px}
-  .hygiene__sopill{padding:10px 26px;font-size:16px}
+  .hygiene__fact{gap:var(--it);padding:10px 0}
+  .hygiene__factnum{width:26px;height:26px;font-size:11px}
+  .hygiene__facttext{font-size:var(--t-body);line-height:1.7}
+  .hygiene__so{margin-top:var(--hd)}
+  .hygiene__sopill{padding:9px 24px;font-size:15px}
   .hygiene__sochev{margin-top:10px}
-  .hygiene__solve{margin:40px 20px 0;width:auto;padding:28px 18px 24px;border-radius:20px} /* WD検収 B-3 */
-  .hygiene__solvetitle{font-size:21px;line-height:1.4}
-  .hygiene__solvebar{margin-top:16px;width:64px}
-  .hygiene__solvebody{margin-top:14px;font-size:16px;line-height:1.75}
-  .hygiene__solvephoto{margin-top:20px;width:100%;height:auto}
+  .hygiene__solve{margin:var(--it) var(--pad) 0;width:auto;padding:var(--pad);border-radius:var(--r-card)}
+  .hygiene__solvetitle{font-size:var(--t-card);line-height:1.4}
+  .hygiene__solvebar{margin-top:var(--it);width:64px}
+  .hygiene__solvebody{margin-top:var(--it);font-size:var(--t-body);line-height:1.7}
+  /* 解決カードの図。元画像 1300×2000（縦長）。2つのタンク y440〜800・
+     UVの光と出水口 y800〜1160。全高は出さず、上を 20% 落として y8.5〜66% を見せる */
+  .hygiene__solvephoto{margin-top:var(--pad);width:100%;height:var(--ph-l);
+    object-fit:cover;object-position:50% 20%;border-radius:var(--r-photo)}
 
   /* ============================ S18 spec ============================ */
-  .spec{padding-top:64px}
-  .spec__title{font-size:24px;letter-spacing:.16em;text-indent:.16em}
-  .spec__bar{margin-top:18px}
+  .spec{padding-top:var(--ch)}
+  .spec__title{font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
+  .spec__bar{margin-top:16px}
   /* 製品帯は 1024×880 の絶対配置図を、x=92〜980（888px）/ y=0〜880 を基準にした
-     相対配置(%)へ換算して、幅に合わせて丸ごと縮める。
-     rev22-r2: 帯の高さが 803→880 になったので aspect-ratio と縦の % を引き直した */
-  .spec__band{margin-top:40px;aspect-ratio:888/880}
+     相対配置(%)へ換算して、幅に合わせて丸ごと縮める */
+  .spec__band{margin-top:var(--hd);aspect-ratio:888/880}
   .spec__unit{height:88.636%}
   .spec__unit--white{left:6.757%;top:1.477%}
   .spec__unit--black{left:38.288%;top:1.250%}
 
-  /* rev22-r2 寸法表記（PCと同じ描き方のまま、矢じりと文字だけ SP 用に小さくする）。
-     ラベルの号数は幅なりに縮めると 7px 相当になって読めないので px で固定し、
-     ラベルが本体にかからないように寸法線のほうを本体寄りに詰めている */
+  /* 寸法表記（PCと同じ描き方のまま、矢じりと文字だけ SP 用に小さくする） */
   .spec__arw--h::before,.spec__arw--h::after,
   .spec__arw--v::before,.spec__arw--v::after{border-width:3px 6px}
   .spec__arw--h::before{border-width:3px 6px 3px 0;top:-2.25px}
@@ -367,193 +446,208 @@
   .spec__dimlabel{font-size:11px;line-height:1.35;letter-spacing:.01em}
   .spec__dimlabel em{font-size:8px}
 
-  /* 高さ: 白モデルの左（375px 幅で本体の左に約76px しかないので、
-     引き出し線を 5%（約19px）に詰めてラベルの場所を作る。ラベルは2行に折れる） */
+  /* 高さ: 白モデルの左 */
   .spec__ext--htop{left:14.5%;top:7.727%;width:6%}
   .spec__ext--hbot{left:14.5%;top:89.091%;width:6%}
   .spec__arw--height{left:16.2%;top:7.727%;height:81.364%}
   .spec__lbl--height{left:0.5%;top:44.4%;width:12.5%;white-space:normal;text-align:right}
-
-  /* 幅: 白モデルの下（帯の下端まで 40px しかないので引き出し線を 4% に詰める） */
+  /* 幅: 白モデルの下 */
   .spec__ext--wl{left:20.38%;top:89.77%;height:4%}
   .spec__ext--wr{left:41.55%;top:89.77%;height:4%}
   .spec__arw--width{left:20.38%;top:92.95%;width:21.17%}
   .spec__lbl--width{left:20.38%;top:94.5%;width:21.17%;text-align:center}
-
   /* 注水スペース: 黒モデルの右 */
   .spec__ext--ntop{left:73.65%;top:28.75%;width:3.5%}
   .spec__ext--nbot{left:73.65%;top:47.27%;width:3.5%}
   .spec__arw--noz{left:75.6%;top:28.75%;height:18.52%}
   .spec__lbl--noz{left:78.2%;top:34.5%}
-
-  /* 奥行: 黒モデルの右下角から 45°。ラベルは「奥行 / 370mm」の2行（320px 幅でも右端に収まる） */
+  /* 奥行: 黒モデルの右下角から 45° */
   .spec__ext--dtop{left:73.65%;top:82.95%;width:6%}
   .spec__ext--dbot{left:73.65%;top:88.86%;width:8.35%}
   .spec__arw--depth{left:75.68%;top:82.95%;width:8.28%}
   .spec__lbl--depth{left:82.4%;top:87.5%;width:13%;white-space:normal;text-align:left}
-  /* rev22: 「受け皿 奥行160mm」は削除されたので、その SP 指定も削除した */
-  /* 機能ストリップ1（番号 → ラベル → 写真の縦積み。引き出し線は非表示） */
-  .spec__strip{position:relative;margin:24px 20px 0;width:auto;height:auto;padding:20px 0 0}
-  .spec__num{position:static;left:auto;top:auto;padding:0 20px;font-size:40px;line-height:1}
-  .spec__numbar{position:static;left:auto;top:auto;display:block;margin:6px 0 0 20px}
-  .spec__label{position:static;left:auto;top:auto;margin-top:12px;padding:0 20px;
-    font-size:17px;line-height:1.5;white-space:normal}
+
+  /* 機能ストリップ1（番号＋見出しを1行、写真 M。引き出し線は出さない） */
+  .spec__strip{position:relative;margin:var(--it) var(--pad) 0;width:auto;height:auto;
+    padding:var(--pad) 0 0;border-radius:var(--r-card);
+    display:flex;flex-wrap:wrap;align-items:baseline}
+  .spec__num{position:static;left:auto;top:auto;padding:0 0 0 var(--pad);
+    font-size:var(--t-num);line-height:1}
+  .spec__numbar{display:none}
+  .spec__label{position:static;left:auto;top:auto;flex:1 1 auto;min-width:0;
+    margin:0 var(--pad) 0 var(--it);padding:0;font-size:18px;font-weight:700;
+    line-height:1.4;white-space:normal}
+  .spec__label br{display:none}
   .spec__lead{display:none}
-  .spec__photo{position:static;right:auto;top:auto;width:100%;height:190px;margin-top:14px}
+  /* 元画像 1400×700。取水口のクローズアップで被写体は中央 */
+  .spec__photo{position:static;right:auto;top:auto;flex:0 0 100%;
+    width:100%;height:var(--ph-m);object-position:50% 50%;margin-top:var(--pad)}
 
   /* ============================ S19 strips ============================ */
-  .strips{padding:16px 20px 0;display:flex;flex-direction:column;gap:16px}
-  .strips__card{position:relative;left:auto;top:auto;width:auto;height:auto;padding:20px 0 0}
+  .strips{padding:var(--it) var(--pad) 0;display:flex;flex-direction:column;gap:var(--it)}
+  .strips__card{position:relative;left:auto;top:auto;width:auto;height:auto;
+    padding:var(--pad) 0 0;border-radius:var(--r-card);
+    display:flex;flex-wrap:wrap;align-items:baseline}
   .strips__card--2,.strips__card--3,.strips__card--4{top:auto;height:auto}
-  .strips__num{position:static;left:auto;top:auto;padding:0 20px;font-size:40px;line-height:1}
-  .strips__numbar{position:static;left:auto;top:auto;display:block;margin:6px 0 0 20px}
-  .strips__label{position:static;left:auto;top:auto;margin-top:12px;padding:0 20px;
-    font-size:17px;line-height:1.5;white-space:normal}
-  /* rev22-r2: カード3の説明文は発注主指示で削除したので、その折り返し指定も削除した */
+  .strips__num{position:static;left:auto;top:auto;padding:0 0 0 var(--pad);
+    font-size:var(--t-num);line-height:1}
+  .strips__numbar{display:none}
+  .strips__label{position:static;left:auto;top:auto;flex:0 1 auto;min-width:0;
+    margin:0 0 0 var(--it);padding:0;font-size:18px;line-height:1.4;white-space:normal}
+  .strips__label br{display:none}
+  /* カード3の説明文は見出しではなく本文（14px）扱い。番号の右に置く。
+     写真2枚は次の行に落としたいので、高さ0の全幅ダミー（::before）を order で挟んで折り返す */
+  .strips__card--3 .strips__label{flex:1 1 0;min-width:0;margin-right:var(--pad);
+    font-size:var(--t-body);font-weight:500;line-height:1.7}
+  .strips__card--3 .strips__num{order:1}
+  .strips__card--3 .strips__label{order:2}
+  .strips__card--3::before{content:"";order:3;flex:0 0 100%;height:0}
+  .strips__card--3 .strips__photo--a{order:4}
+  .strips__card--3 .strips__photo--b{order:5}
   .strips__lead{display:none}
-  /* rev22: タグは絶対配置をやめて、ラベルの下に流し込む */
-  .strips__tag{position:static;left:auto;top:auto;margin:10px 0 0 20px;font-size:14px}
-  .strips__tag em{font-size:17px}
-  .strips__photo{position:static;left:auto;top:auto;width:100%;height:190px;margin-top:14px}
-  /* カード3は写真2枚を横並び50%ずつ。要素を足せないのでグリッドで割り付ける */
-  .strips__card--3{display:grid;grid-template-columns:1fr 1fr;align-items:start;column-gap:0}
-  .strips__card--3 .strips__num,
-  .strips__card--3 .strips__numbar{grid-column:1 / -1}
-  .strips__photo--half{width:100%;height:200px}
-  .strips__cap{display:none} /* rev22-QA: SP は写真が縦積みになり位置が変わるため非表示 */
-  .strips__photo--a,.strips__photo--b{left:auto}
+  /* 「奥行16cm」タグは見出しの右・同じ行に */
+  .strips__tag{position:static;left:auto;top:auto;margin:0 var(--pad) 0 var(--it);
+    padding:3px 12px;font-size:var(--t-note)}
+  .strips__tag em{font-size:var(--t-body)}
+  /* 元画像はどれも 1400×650。被写体（受け皿・鍋）は中央なので 50% でよい */
+  .strips__photo{position:static;left:auto;top:auto;flex:0 0 100%;
+    width:100%;height:var(--ph-m);object-position:50% 50%;margin-top:var(--pad)}
+  /* カード3は写真2枚を横並び（S=140）。元画像 700×650、ボトル上端 y20〜下端 y507。
+     上を 10% 落として、430px 幅でもキャップと受け皿が入るようにする */
+  .strips__photo--half{flex:1 1 0;min-width:0;width:auto;height:var(--ph-s);
+    object-position:50% 10%;border-radius:var(--r-photo)}
+  .strips__photo--a{margin:var(--pad) 4px 0 var(--pad)}
+  .strips__photo--b{margin:var(--pad) var(--pad) 0 4px}
 
   /* ============================ S19b extras ============================ */
-  /* rev22: 2枚のカードは縦積み（間隔16px）。アイコンは 64 → 52px */
-  .extras{padding:16px 20px 40px}
-  .extras__list{margin:0;width:auto;flex-direction:column;gap:16px}
-  .extras__item{padding:18px 18px;gap:16px}
-  .extras__ico{width:52px;height:52px}
-  .extras__ico svg{width:26px;height:26px}
-  .extras__head{font-size:17px;line-height:1.5}
-  .extras__body{margin-top:6px;font-size:14px;line-height:1.7}
+  .extras{padding:var(--hd) var(--pad) var(--hd)}
+  .extras__list{margin:0;width:auto;flex-direction:column;gap:var(--it)}
+  .extras__item{padding:16px;gap:var(--it);border-radius:var(--r-card)}
+  .extras__ico{width:40px;height:40px}
+  .extras__ico svg{width:22px;height:22px}
+  .extras__head{font-size:18px;line-height:1.4}
+  .extras__body{margin-top:6px;font-size:var(--t-body);line-height:1.7}
 
   /* ============================ S20 support ============================ */
-  .support{padding:56px 0 48px}
+  .support{padding:var(--ch) 0 var(--hd)}
   .support__head{position:static;left:auto;top:auto;width:auto}
-  .support__flowtitle{font-size:24px;letter-spacing:.16em;text-indent:.16em}
-  .support__flowbar{margin-top:18px}
+  .support__flowtitle{font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
+  .support__flowbar{margin-top:16px}
   .support__steps{position:static;left:auto;top:auto;width:auto;height:auto;
-    display:flex;align-items:stretch;gap:6px;padding:0 20px;margin-top:40px} /* WD検収 B-3: 余白 20px 統一 */
+    display:flex;align-items:stretch;gap:6px;padding:0 var(--pad);margin-top:var(--hd)}
   .support__step{position:static;left:auto;top:auto;flex:1 1 0;min-width:0;
     width:auto;height:auto;padding:18px 4px 16px}
   .support__step:nth-of-type(1),.support__step:nth-of-type(2),.support__step:nth-of-type(3){left:auto}
   .support__steprow{padding-top:0}
   .support__stepicon{width:56px;height:44px}
-  /* 「WEBで申し込み」が 1文字だけ次の行に落ちるのを避ける。13px・字送り.02em では
-     実測 95.8px 必要で、375px 幅のカード内寸 90.3px に入らない。12px・字送り0 で 86.7px */
-  .support__steplabel{margin-top:14px;font-size:12px;letter-spacing:0;line-height:1.45}
+  /* 「WEBで申し込み」が1文字だけ次の行に落ちるのを避ける（12px・字送り0で 86.7px） */
+  .support__steplabel{margin-top:14px;font-size:var(--t-note);letter-spacing:0;line-height:1.45}
   .support__chev{position:static;left:auto;top:auto;align-self:center;flex:none;margin:0}
   .support__chev:nth-of-type(1),.support__chev:nth-of-type(2){left:auto}
 
   /* ============================ S21 app ============================ */
-  /* HTML に要素を足せないので、グリッドの領域名で並べ替える。
-     空箱の .app__card（PC の白カード）は高さ0にして、淡青の地に直接置く */
-  /* WD検収 B-1: スマホ画面2枚を横並び（1枚 約150px）にすると中の文字が 5〜6px で読めないため、
-     1枚 72%（約250px）で縦に並べる。余白は 20px（B-3） */
-  .app{padding:48px 20px 40px;
+  /* rev22-r3: 説明3項目を先に、スマホ画面2枚は横並び（PCと同じ意味合い）。
+     HTML に要素を足せないのでグリッドの領域名で並べ替える */
+  .app{padding:var(--ch) var(--pad) var(--hd);
     background:linear-gradient(180deg,#f5faff 0 calc(100% - 24px),#ffffff calc(100% - 24px));
-    display:grid;grid-template-columns:1fr;
-    grid-template-areas:"title" "card" "home" "filter" "list"}
+    display:grid;grid-template-columns:1fr 1fr;column-gap:var(--it);
+    grid-template-areas:"title title" "card card" "list list" "home filter"}
   .app__title{grid-area:title;position:static;left:auto;top:auto;width:auto;
     font-size:22px;line-height:1.5}
   .app__card{grid-area:card;position:static;left:auto;top:auto;
     width:auto;height:0;background:none;box-shadow:none}
-  .app__phone{position:static;left:auto;top:auto;width:72%;margin:0 auto;padding:5px;border-radius:26px}
-  .app__phone--home{grid-area:home;left:auto}
-  .app__phone--filter{grid-area:filter;left:auto;margin-top:20px}
-  .app__screen{width:100%;height:auto;aspect-ratio:221/480;border-radius:18px}
-  .app__list{grid-area:list;position:static;left:auto;top:auto;width:auto;margin-top:28px}
-  .app__row{height:auto;padding:14px 0}
+  .app__list{grid-area:list;position:static;left:auto;top:auto;width:auto;margin-top:var(--hd)}
+  .app__row{height:auto;padding:10px 0}
   .app__row + .app__row{margin-top:0}
   .app__row:not(:last-child)::after{bottom:0;width:100%}
-  .app__ico{width:56px;height:56px}
-  .app__ico img{width:30px;height:30px}
-  .app__lead{margin-left:16px;font-size:15px;line-height:1.7}
+  .app__ico{width:40px;height:40px}
+  .app__ico img{width:22px;height:22px}
+  .app__lead{margin-left:var(--it);font-size:var(--t-body);line-height:1.7}
+  .app__lead br{display:none}
+  .app__phone{position:static;left:auto;top:auto;width:100%;margin:16px 0 0;
+    padding:4px;border-radius:20px}
+  .app__phone--home{grid-area:home;left:auto}
+  .app__phone--filter{grid-area:filter;left:auto;margin-top:16px}
+  .app__screen{width:100%;height:auto;aspect-ratio:221/480;border-radius:16px}
 
   /* ======================= S22a / S23a sechead ======================= */
-  .sechead{gap:18px}
-  .sechead__title{font-size:24px;letter-spacing:.16em;text-indent:.16em}
-  .sechead--detail{padding:64px 0 28px}
-  .sechead--faq{padding:64px 0 24px}
+  .sechead{gap:16px}
+  .sechead__title{font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
+  .sechead--detail{padding:var(--ch) 0 var(--hd)}
+  .sechead--faq{padding:var(--ch) 0 var(--hd)}
 
   /* ============================ S22 detail ============================ */
-  .detail{padding:40px 20px 40px; /* WD検収 B-3: 余白 20px 統一 */
-    background:linear-gradient(180deg,#ffffff 0 32px,#f5f8fd 32px)}
+  .detail{padding:0 var(--pad) var(--hd);
+    background:linear-gradient(180deg,#ffffff 0 0,#f5f8fd 0)}
   .detail__card{width:auto;padding:6px 0 8px}
   .detail__table{width:100%;table-layout:fixed}
   .detail__table th,.detail__table td{padding:12px 0;font-size:13px;line-height:1.7}
-  /* 統括検品: 「チャイルドロック」（8字×13px＝104px）が 96px の見出し列で語の途中で折れていたため
-     見出し列を 118px（border-box・左余白12px込み）に広げ、語の途中で折れないようにする */
-  .detail__table th{width:118px;padding-left:12px;word-break:keep-all}
-  .detail__table td{padding-left:14px;padding-right:12px;overflow-wrap:anywhere}
+  .detail__table th{width:100px;padding-left:12px;word-break:keep-all}
+  .detail__table td{padding-left:var(--it);padding-right:12px;overflow-wrap:anywhere}
 
   /* ============================ S23b notice ============================ */
-  .notice{padding:36px 20px 8px} /* WD検収 B-3: 余白 20px 統一 */
-  .notice__box{width:auto;padding:20px 14px}
-  .notice__head{font-size:16px;line-height:1.5}
-  .notice__body{margin-top:8px;font-size:14px;line-height:1.7} /* WD検収 B-6: 注記 14px に統一 */
+  .notice{padding:var(--hd) var(--pad) 0}
+  .notice__box{width:auto;padding:18px 14px}
+  .notice__head{font-size:var(--t-body);line-height:1.5}
+  .notice__body{margin-top:8px;font-size:var(--t-note);line-height:1.7}
 
   /* ============================ S23 faq ============================ */
-  .faq{padding:36px 0 32px;
-    background:linear-gradient(180deg,#ffffff 0 36px,#f6f9fe 36px)}
-  .faq__card{margin:0 12px;padding:14px 0 6px;border-radius:16px}
-  .faq__item{margin:0 8px 8px} /* WD検収 B-3: 白い項目の左右が 20px になる（12＋8） */
+  .faq{padding:0 0 var(--hd);
+    background:linear-gradient(180deg,#ffffff 0 0,#f6f9fe 0)}
+  .faq__card{margin:0 12px;padding:12px 0 4px;border-radius:var(--r-card)}
+  .faq__item{margin:0 8px 8px} /* 白い項目の左右が 20px になる（12＋8） */
   .faq__qbtn{height:auto;min-height:48px;padding:12px 44px 12px 0;align-items:center}
   .faq__q{margin-left:14px}
-  .faq__text{margin-left:12px;font-size:14px;line-height:1.5}
+  .faq__text{margin-left:var(--it);font-size:15px;line-height:1.5}
   .faq__chev{right:12px}
-  .faq__a{padding:0 16px 14px 47px;font-size:13.5px;line-height:1.8}
+  .faq__a{padding:0 16px 14px 47px;font-size:var(--t-body);line-height:1.8}
 
   /* ============================ S25 footer ============================ */
-  .footer{padding-top:32px;
-    background:linear-gradient(180deg,#ffffff 0 32px,#f6f9fd 32px)}
+  .footer{padding-top:var(--hd);
+    background:linear-gradient(180deg,#ffffff 0 24px,#f6f9fd 24px)}
   .footer__band{height:230px}
   .footer__bandimg{width:100%;height:230px;object-position:50% 45%}
-  .footer__copy{left:20px;top:40px}
+  .footer__copy{left:var(--pad);top:40px}
   .footer__lead{font-size:18px;line-height:1.6}
   .footer__logo{margin-top:6px;font-size:28px;line-height:1.3}
-  .footer__copyright{margin-top:16px;padding-bottom:24px;font-size:12px}
+  .footer__copyright{margin-top:16px;padding-bottom:24px;font-size:var(--t-note)}
 
   } /* /max-width:767.98px */
 
   /* ==========================================================================
      360px 未満（iPhone SE 第1世代・Android の小型機）だけの詰め直し。
-     文字を下限（本文15px / 注記12px）より小さくはしない。詰めるのは余白と見出しだけ
+     文字を下限（本文14px / 注記12px）より小さくはしない。詰めるのは余白と見出しだけ
      ========================================================================== */
   @media (max-width:359.98px){
     .hero__chips{padding-left:12px;padding-right:12px}
-    /* 統括検品(320px): 30px だと「毎日をラクにしてく／れる」と語の途中で折れる（11字×30=330 > 280）。
-       25px（275px）で1行に収める。サブコピーも 18字×16=288 > 280 なので 15px（270px）に */
-    .hero__title{font-size:25px}
-    .hero__sub{font-size:15px;letter-spacing:0} /* 字送り .04em ぶん（281px）でまだ「台」が落ちるため 0 に */
-    .because__item span{font-size:18px}
-    .because__item i{width:32px;height:32px;font-size:14px}
+    /* 26px だと「毎日をラクにしてく／れる」と語の途中で折れる（11字×26=286 > 280）。
+       24px（264px）で1行に収める */
+    .hero__title{font-size:24px}
+    .hero__sub{letter-spacing:0}
+    .because__item span{font-size:16px}
+    .because__item i{width:28px;height:28px;font-size:12px}
     .price__label{font-size:20px}
     .price__num{font-size:52px}
     .price__tax{font-size:12px}
-    .intro__figure{gap:26px;padding-left:20px}
-    .because__items figcaption{font-size:10px}
-    /* 罫線つきの小見出しは、320px だと最後の2〜3字だけ次の行に落ちる。1行に収める */
+    .price__title{font-size:20px}
+    .intro__figure{gap:8px}
+    /* 罫線つきの小見出しは、320px だと最後の2〜3字だけ次の行に落ちる */
     .voice__head{gap:8px}
     .voice__rule{min-width:8px}
     .voice__title{font-size:18px}
-    .hygiene__lead span{padding:0 6px;font-size:16px}
-    /* 「…繁殖しにくい環／境」と最後の1字だけ落ちるのを防ぐ */
-    .tanks__text{font-size:15px}
-    /* 22px だと「…ずっとラ／クに PureNextアプリ」と語の途中で折れる。20px＝280px で
-       「使い始めてからもずっとラクに」が1行に収まり、商品名が2行目に来る */
+    .hygiene__lead span{padding:0 6px;font-size:15px}
+    .tanks__name{font-size:14px}
+    /* 20px だと「使い始めてからもずっとラ／クに PureNextアプリ」と語の途中で折れる */
     .app__title{font-size:20px}
-    /* rev22: 機能カードに左右 20px のマージンが付いたぶん、320px では 40℃の図（311px）が
-       カードの内寸 280px に入らない。図だけ 0.85 倍にして収める（文字の大きさは 15px 相当を維持） */
-    .feat03__diagram{width:311px;margin:24px 0 0 8px;height:104px;
-      transform:scale(.85);transform-origin:top left}
-    /* rev22-r2: 320px では寸法ラベルの号数を1段落とす（設置面の図は削除したので指定も削除） */
+    /* 「毎日に寄り添う、3つの便利。」は 22px＋字送り.04em で 313px 必要。320px の内寸 280px に
+       入れるため、字送りを 0 にして 20px に落とす（274px） */
+    .kodawari__title{font-size:20px;letter-spacing:0}
+    .kodawari__title .num{font-size:24px}
+    /* 320px ではカードの内寸 240px。40℃の図（311px）を 0.65 倍にして収める */
+    .feat03__diagram{transform:scale(.65)}
+    .feat03__photo{margin-top:calc(var(--it) - 43px)}
+    /* 「出てくる直前まで、／きれいな水を。」は 18px でも 240px に入らないので改行を戻す */
+    .uvcard__title br{display:inline}
     .spec__dimlabel{font-size:10px}
     .spec__dimlabel em{font-size:8px}
   }
