@@ -376,25 +376,32 @@
   </article>
   </div>
 
-  <!-- 3. お悩み3つ（rev22: 発注主指示「3項目が目につきにくいから、お客さんの悩みとかで
-       よくあるような『課題感』のあるデザインにして、ピュアネクストなら、という表現から
-       『出水口までしっかり、、』とつなげてください」により、中黒の3行を吹き出し3つへ）
-       文言は現行の3行のまま（営業コピー人材の「お客さんの声」版に差し替えやすいよう、
-       1つの吹き出しに hygiene__issuetext を1文だけ入れてある） -->
-  <ul class="hygiene__issues">
-    <li class="hygiene__issue">
-      <span class="hygiene__issueicon" aria-hidden="true">!</span>
-      <p class="hygiene__issuetext">取水口は空気にも<br class="pc-br">水はねにもふれるから、<br class="pc-br">菌が入りそう。</p>
-    </li>
-    <li class="hygiene__issue">
-      <span class="hygiene__issueicon" aria-hidden="true">!</span>
-      <p class="hygiene__issuetext">タンクから出口までの<br class="pc-br">パイプに、水はずっと<br class="pc-br">残ったまま？</p>
-    </li>
-    <li class="hygiene__issue">
-      <span class="hygiene__issueicon" aria-hidden="true">!</span>
-      <p class="hygiene__issuetext">その残った水、<br class="pc-br">常温にもどるなら<br class="pc-br">菌が増えそうで心配。</p>
-    </li>
-  </ul>
+  <!-- 3. 出水口まわりで起きていること（rev22-r2・案1「縦の番号リスト＋つなぎ線」）
+       発注主指示「本当にユーザーの声みたいにしないで。この事実に関してユーザーが知ってるわけない
+       ので、こっちが教えてあげる内容。ただその下の『ピュアネクストなら』につなげたいから、
+       それがつながるようなデザインに」「上に3個のカードが並んでるのに、その下も横並びで3個の
+       吹き出しを並べるのはあり得ない」。
+       → rev22 の吹き出し3つ（横並び・お客さんの声風・注意色）をやめ、
+         ①文言を元の事実文に戻し ②1枚の白カードに縦3行で積み ③カードの下端から1本の青い縦線を
+         下ろして「ピュアネクストなら」→解決カードへ視線が落ちる形にした。
+       これに伴い :root の --caution 系（吹き出しの注意色）は未使用になった -->
+  <div class="hygiene__facts">
+    <p class="hygiene__factshead">出水口まわりで起きていること</p>
+    <ol class="hygiene__factslist">
+      <li class="hygiene__fact">
+        <span class="hygiene__factnum" aria-hidden="true">01</span>
+        <p class="hygiene__facttext">取水口からは空気中や水ハネから細菌が入りやすい</p>
+      </li>
+      <li class="hygiene__fact">
+        <span class="hygiene__factnum" aria-hidden="true">02</span>
+        <p class="hygiene__facttext">タンクから出水口までのパイプには常に残留水が存在する</p>
+      </li>
+      <li class="hygiene__fact">
+        <span class="hygiene__factnum" aria-hidden="true">03</span>
+        <p class="hygiene__facttext">残留水は常温になるので菌が繁殖しやすい</p>
+      </li>
+    </ol>
+  </div>
 
   <!-- 3b. 悩み → 解決 をつなぐラベル -->
   <div class="hygiene__so">
@@ -424,25 +431,35 @@
     <img class="spec__unit spec__unit--white" src="images/product_white.png" alt="PureNext 本体 ホワイト" loading="eager">
     <img class="spec__unit spec__unit--black" src="images/product_black.png" alt="PureNext 本体 ブラック" loading="eager">
 
-    <div class="spec__dimw"><i></i><span>幅280<em>mm</em></span><i></i></div>
+    <!-- rev22-r2: 発注主指示「サイズ表記の奥行のとこは、このファイルの奥行の示し方にして」。
+         見本 = FC製品資料 ch09_pA.png。細い両矢印（軸1.5px・矢じり8px）＋破線の引き出し線
+         （1px・4/3）で、高さ＝本体の左、幅＝本体の下、奥行＝本体の右下角から45°、という
+         製図の描き方に統一した。旧 spec__dimw（本体の上のT字端の幅線）・spec__dimh-line の
+         T字端・rev22 で入れた設置面の図（spec__floor*）は削除。色は LP の青のまま。 -->
 
-    <span class="spec__dimh-line"></span>
-    <p class="spec__dimh-label">高さ<br>1200<em>mm</em></p>
+    <!-- 高さ1200mm（白モデルの左・垂直の両矢印） -->
+    <span class="spec__ext spec__ext--h spec__ext--htop"></span>
+    <span class="spec__ext spec__ext--h spec__ext--hbot"></span>
+    <span class="spec__arw spec__arw--v spec__arw--height"></span>
+    <p class="spec__dimlabel spec__lbl--height">高さ1200<em>mm</em></p>
 
-    <!-- rev22: 発注主指示「足元の奥行は、奥行を示してるように見えないからデザインちゃんと
-         考えてやって」。斜線1本をやめ、上から見た設置面（幅280 × 奥行370）の図に置き換えた。
-         別案（床面に敷いた遠近つきの平行四辺形）は variants の spec_depth_B に置いてある -->
-    <div class="spec__floor">
-      <p class="spec__floor-w">幅280<em>mm</em></p>
-      <span class="spec__floor-wline"></span>
-      <span class="spec__floor-rect"></span>
-      <span class="spec__floor-dline"></span>
-      <p class="spec__floor-d">奥行370<em>mm</em></p>
-      <p class="spec__floor-cap">設置面<span class="sp-hide">（上から見た形）</span></p>
-    </div>
+    <!-- 幅280mm（白モデルの下・水平の両矢印） -->
+    <span class="spec__ext spec__ext--v spec__ext--wl"></span>
+    <span class="spec__ext spec__ext--v spec__ext--wr"></span>
+    <span class="spec__arw spec__arw--h spec__arw--width"></span>
+    <p class="spec__dimlabel spec__lbl--width">幅280<em>mm</em></p>
 
-    <span class="spec__dimn-line"></span>
-    <p class="spec__dimn-label">注水スペース<br>高さ250<em>mm</em></p>
+    <!-- 注水スペース 高さ250mm（黒モデルの右・垂直の両矢印） -->
+    <span class="spec__ext spec__ext--h spec__ext--ntop"></span>
+    <span class="spec__ext spec__ext--h spec__ext--nbot"></span>
+    <span class="spec__arw spec__arw--v spec__arw--noz"></span>
+    <p class="spec__dimlabel spec__lbl--noz">注水スペース<br>高さ250<em>mm</em></p>
+
+    <!-- 奥行370mm（黒モデルの右下角から45°の斜めの両矢印） -->
+    <span class="spec__ext spec__ext--h spec__ext--dtop"></span>
+    <span class="spec__ext spec__ext--h spec__ext--dbot"></span>
+    <span class="spec__arw spec__arw--h spec__arw--depth"></span>
+    <p class="spec__dimlabel spec__lbl--depth">奥行370<em>mm</em></p>
 
     <!-- rev22: 発注主指示「スペックのとこから、受け皿の奥行は削除」により
          spec__dimt-line / spec__dimt-label を削除（非表示ではなく削除） -->
@@ -476,8 +493,9 @@
   <article class="strips__card strips__card--3">
     <p class="strips__num">3</p>
     <span class="strips__numbar"></span>
-    <p class="strips__label">500mlペットボトルも<br class="pc-br">楽々の余白。受け皿を<br class="pc-br">外すと2Lペットボトル<br class="pc-br">も入る。</p>
-    <span class="strips__lead strips__lead--3"><i></i></span>
+    <!-- rev22-r2: 発注主指示「3番の500mlと2Lのとこは、文字での説明は不要。今回の画像いい感じ」
+         により、説明文（.strips__label）と引き出し線（.strips__lead--3）を削除。
+         番号「3」と下線、写真の上の注記ピルは残す -->
     <span class="strips__cap strips__cap--a">500ml・受け皿あり</span>
     <span class="strips__cap strips__cap--b">2L・受け皿を外して</span>
     <img class="strips__photo strips__photo--half strips__photo--a" src="images/strip3_500ml.png" alt="取水スペースに置いた500mlペットボトル" loading="eager">

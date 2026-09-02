@@ -181,10 +181,18 @@
   .feat__em{white-space:nowrap}
   /* S08 動画 */
   /* WD検収 B-4: 動画の上側に白い余白（約70px）が焼き込まれていて、本文→パネルが 123px 空いていた。
-     高さを固定して上側だけを切る（object-position 50% 100% ＝ 下端を基準に上を捨てる）。
-     下端の「Pure Next」ロゴは残る */
+     rev22-r2: 高さを px で固定していたため、画面が広いほど拡大率が上がり、上が切れていく。
+     実測（変更前の可視範囲の上端・動画の実寸座標）: 375px→162.0 / 390px→200.2 / 430px→287.6。
+     ＋−ボタンの上端は 283 なので 430px でボタンの頭が欠け、500px 相当まで広がると
+     液晶（上端 342）まで切れる。高さ固定をやめ、切り取る「範囲」を比で固定する。動画の実寸は 1294×1048。
+     見せる範囲は y=270〜950（＋−ボタンの上端 283／液晶 342〜510／アイコン列と注記 〜746／
+     Pure Next ロゴ 881〜924 を全部含む）。
+       aspect-ratio 1294/680 … 横 1294 に対して縦 680 だけ見せる
+       object-position 50% 73.4% … 上に捨てる 270 ÷ 捨てる合計 368 = 73.4%
+     これで画面幅がいくつでも「y=270〜950 が必ず全部入る」（切るのは上下の白い余白だけ） */
   .feat01__photo{position:relative;z-index:1;right:auto;top:auto;
-    width:100%;height:228px;aspect-ratio:auto;object-fit:cover;object-position:50% 100%;margin-top:24px}
+    width:100%;height:auto;aspect-ratio:1294/680;object-fit:cover;object-position:50% 73.4%;
+    margin-top:24px}
   /* S09 写真2枚 */
   /* WD検収 A-7: 明暗差の大きい2枚を隙間ゼロで突き合わせると中央に強い縦線が出るため、
      6px の隙間と他の写真と同じ角丸を付ける（左右余白 20px） */
@@ -201,8 +209,15 @@
   .feat__op--plus{left:67px}
   .feat__op--eq{left:173px;top:43px}
   .feat__circle{left:212px;top:8px}
+  /* rev22-r2: こちらも高さ px 固定をやめる。写真の実寸は 700×800、カップの上端 y=185・
+     ソーサーの下端 y=590。見せる範囲を y=157〜637 に固定すると、上に 28px・下に 47px の
+     余裕を持ってカップとソーサーが必ず全部入る。
+     実測（変更前の可視範囲の上端）: 375px→168.8 / 390px→178.7 / 430px→201.5 で、
+     430px ではカップの上端 185 が 16.5px 欠けていた。
+       aspect-ratio 700/480 … 上に捨てる 157 ÷ 捨てる合計 320 = 49% */
   .feat03__photo{position:relative;z-index:1;right:auto;top:auto;
-    width:100%;height:220px;object-fit:cover;margin-top:20px}
+    width:100%;height:auto;aspect-ratio:700/480;object-fit:cover;object-position:50% 49%;
+    margin-top:20px}
 
   /* ============================ S11 voice ============================ */
   .voice{padding:48px 0 40px;overflow:hidden;
@@ -312,11 +327,14 @@
   .tanks__note{margin-top:10px;padding:0;font-size:14px;white-space:normal} /* WD検収 B-6: 注記 14px に統一 */
   .tanks__badge{right:12px;top:-14px;width:68px;height:68px;font-size:12px;line-height:1.3} /* WD検収 A-10 */
   /* rev22: 吹き出し3つは縦積み（間隔16px）。ピルとシェブロンは PC と同じ */
-  .hygiene__issues{margin:36px 20px 0;flex-direction:column;gap:16px}
-  .hygiene__issue{padding:20px 18px 18px}
-  .hygiene__issueicon{left:-8px;top:-10px;width:32px;height:32px;font-size:18px}
-  .hygiene__issuetext{font-size:15px;line-height:1.75}
-  .hygiene__so{margin-top:34px}
+  /* rev22-r2: 吹き出し3つ → 白カード1枚の縦リストへ差し替え */
+  .hygiene__facts{margin:36px 20px 0;width:auto;padding:20px 18px}
+  .hygiene__facts::after{bottom:-24px;height:24px}
+  .hygiene__factshead{font-size:13px;letter-spacing:.04em}
+  .hygiene__fact{gap:12px;padding:12px 0}
+  .hygiene__factnum{width:30px;height:30px;font-size:12px}
+  .hygiene__facttext{font-size:15px;line-height:1.7}
+  .hygiene__so{margin-top:24px}
   .hygiene__sopill{padding:10px 26px;font-size:16px}
   .hygiene__sochev{margin-top:10px}
   .hygiene__solve{margin:40px 20px 0;width:auto;padding:28px 18px 24px;border-radius:20px} /* WD検収 B-3 */
@@ -329,42 +347,50 @@
   .spec{padding-top:64px}
   .spec__title{font-size:24px;letter-spacing:.16em;text-indent:.16em}
   .spec__bar{margin-top:18px}
-  /* 製品帯は 1024×803 の絶対配置図を、x=92〜980（888px）/ y=0〜803 を基準にした
-     相対配置(%)へ換算して、幅に合わせて丸ごと縮める */
-  .spec__band{margin-top:40px;aspect-ratio:888/803}
-  .spec__unit{height:97%}
-  .spec__unit--white{left:6.757%;top:1.619%}
-  .spec__unit--black{left:38.288%;top:1.370%}
-  .spec__dimw{left:22.185%;top:4.234%;width:19.144%}
-  .spec__dimw span{padding:0 5px;font-size:12px}
-  .spec__dimw em{font-size:9px}
-  .spec__dimw i:first-child::before,.spec__dimw i:last-child::after{top:-5px;height:12px}
-  .spec__dimh-line{left:15.541%;top:10.336%;height:85.554%}
-  .spec__dimh-line::before,.spec__dimh-line::after{left:-5px;width:12px}
-  .spec__dimh-label{left:0.4%;top:41.5%;width:13.6%;font-size:12px;line-height:1.4}
-  .spec__dimh-label em{font-size:9px}
-  /* rev22: 奥行370mm は「上から見た設置面」の図に置き換えた。
-     図の中の文字は幅なりに縮めると 6px 相当になって読めないので、SP では文字を 11px に固定し、
-     図のほうを px 指定にして帯の右端から 6px の位置へ寄せる（本体写真の右側の空きは
-     375px 幅で約100px・320px 幅で約86px）。注記の「（上から見た形）」は入らないので SP では隠す。 */
-  .sp-hide{display:none}
-  .spec__floor{left:auto;right:6px;top:60%;width:92px;height:auto}
-  .spec__floor-w,.spec__floor-d{font-size:11px}
-  .spec__floor-w em,.spec__floor-d em{font-size:8px}
-  .spec__floor-w{left:0;top:0;width:34px}
-  .spec__floor-wline{left:0;top:16px;width:34px}
-  .spec__floor-wline::before,.spec__floor-wline::after{top:-4px;height:10px}
-  .spec__floor-rect{left:0;top:26px;width:34px;height:45px;border-width:1.5px;border-radius:4px}
-  .spec__floor-dline{left:42px;top:26px;height:45px}
-  .spec__floor-dline::before,.spec__floor-dline::after{left:-4px;width:10px}
-  /* 「奥行370mm」は横1行だと 58.5px あり、本体写真の右の空きに入らない。
-     寸法線の右で「奥行 / 370mm」の2行に折る（36px 幅）と 84px に収まる */
-  .spec__floor-d{left:46px;top:34px;width:36px;white-space:normal;line-height:1.3}
-  .spec__floor-cap{left:0;top:78px;width:34px;font-size:11px}
-  .spec__dimn-line{left:76.802%;top:31.507%;height:20.299%}
-  .spec__dimn-line::before,.spec__dimn-line::after{left:-4px;width:10px}
-  .spec__dimn-label{left:78.6%;top:37.5%;font-size:11px;line-height:1.4}
-  .spec__dimn-label em{font-size:8px}
+  /* 製品帯は 1024×880 の絶対配置図を、x=92〜980（888px）/ y=0〜880 を基準にした
+     相対配置(%)へ換算して、幅に合わせて丸ごと縮める。
+     rev22-r2: 帯の高さが 803→880 になったので aspect-ratio と縦の % を引き直した */
+  .spec__band{margin-top:40px;aspect-ratio:888/880}
+  .spec__unit{height:88.636%}
+  .spec__unit--white{left:6.757%;top:1.477%}
+  .spec__unit--black{left:38.288%;top:1.250%}
+
+  /* rev22-r2 寸法表記（PCと同じ描き方のまま、矢じりと文字だけ SP 用に小さくする）。
+     ラベルの号数は幅なりに縮めると 7px 相当になって読めないので px で固定し、
+     ラベルが本体にかからないように寸法線のほうを本体寄りに詰めている */
+  .spec__arw--h::before,.spec__arw--h::after,
+  .spec__arw--v::before,.spec__arw--v::after{border-width:3px 6px}
+  .spec__arw--h::before{border-width:3px 6px 3px 0;top:-2.25px}
+  .spec__arw--h::after{border-width:3px 0 3px 6px;top:-2.25px}
+  .spec__arw--v::before{border-width:0 3px 6px 3px;left:-2.25px}
+  .spec__arw--v::after{border-width:6px 3px 0 3px;left:-2.25px}
+  .spec__dimlabel{font-size:11px;line-height:1.35;letter-spacing:.01em}
+  .spec__dimlabel em{font-size:8px}
+
+  /* 高さ: 白モデルの左（375px 幅で本体の左に約76px しかないので、
+     引き出し線を 5%（約19px）に詰めてラベルの場所を作る。ラベルは2行に折れる） */
+  .spec__ext--htop{left:14.5%;top:7.727%;width:6%}
+  .spec__ext--hbot{left:14.5%;top:89.091%;width:6%}
+  .spec__arw--height{left:16.2%;top:7.727%;height:81.364%}
+  .spec__lbl--height{left:0.5%;top:44.4%;width:12.5%;white-space:normal;text-align:right}
+
+  /* 幅: 白モデルの下（帯の下端まで 40px しかないので引き出し線を 4% に詰める） */
+  .spec__ext--wl{left:20.38%;top:89.77%;height:4%}
+  .spec__ext--wr{left:41.55%;top:89.77%;height:4%}
+  .spec__arw--width{left:20.38%;top:92.95%;width:21.17%}
+  .spec__lbl--width{left:20.38%;top:94.5%;width:21.17%;text-align:center}
+
+  /* 注水スペース: 黒モデルの右 */
+  .spec__ext--ntop{left:73.65%;top:28.75%;width:3.5%}
+  .spec__ext--nbot{left:73.65%;top:47.27%;width:3.5%}
+  .spec__arw--noz{left:75.6%;top:28.75%;height:18.52%}
+  .spec__lbl--noz{left:78.2%;top:34.5%}
+
+  /* 奥行: 黒モデルの右下角から 45°。ラベルは「奥行 / 370mm」の2行（320px 幅でも右端に収まる） */
+  .spec__ext--dtop{left:73.65%;top:82.95%;width:6%}
+  .spec__ext--dbot{left:73.65%;top:88.86%;width:8.35%}
+  .spec__arw--depth{left:75.68%;top:82.95%;width:8.28%}
+  .spec__lbl--depth{left:82.4%;top:87.5%;width:13%;white-space:normal;text-align:left}
   /* rev22: 「受け皿 奥行160mm」は削除されたので、その SP 指定も削除した */
   /* 機能ストリップ1（番号 → ラベル → 写真の縦積み。引き出し線は非表示） */
   .spec__strip{position:relative;margin:24px 20px 0;width:auto;height:auto;padding:20px 0 0}
@@ -383,9 +409,7 @@
   .strips__numbar{position:static;left:auto;top:auto;display:block;margin:6px 0 0 20px}
   .strips__label{position:static;left:auto;top:auto;margin-top:12px;padding:0 20px;
     font-size:17px;line-height:1.5;white-space:normal}
-  /* 統括検品: カード3の説明は自然に流すと「受／け皿」で語が割れる。PC の改行位置（各行10〜11字）は
-     17px でも収まるので、PC の <br> をそのまま生かす */
-  .strips__card--3 .strips__label .pc-br{display:inline}
+  /* rev22-r2: カード3の説明文は発注主指示で削除したので、その折り返し指定も削除した */
   .strips__lead{display:none}
   /* rev22: タグは絶対配置をやめて、ラベルの下に流し込む */
   .strips__tag{position:static;left:auto;top:auto;margin:10px 0 0 20px;font-size:14px}
@@ -394,8 +418,7 @@
   /* カード3は写真2枚を横並び50%ずつ。要素を足せないのでグリッドで割り付ける */
   .strips__card--3{display:grid;grid-template-columns:1fr 1fr;align-items:start;column-gap:0}
   .strips__card--3 .strips__num,
-  .strips__card--3 .strips__numbar,
-  .strips__card--3 .strips__label{grid-column:1 / -1}
+  .strips__card--3 .strips__numbar{grid-column:1 / -1}
   .strips__photo--half{width:100%;height:200px}
   .strips__cap{display:none} /* rev22-QA: SP は写真が縦積みになり位置が変わるため非表示 */
   .strips__photo--a,.strips__photo--b{left:auto}
@@ -526,13 +549,13 @@
     /* 22px だと「…ずっとラ／クに PureNextアプリ」と語の途中で折れる。20px＝280px で
        「使い始めてからもずっとラクに」が1行に収まり、商品名が2行目に来る */
     .app__title{font-size:20px}
-    /* 320px では本体写真の右の空きが約86px しかないので、設置面の図をひと回り詰める */
     /* rev22: 機能カードに左右 20px のマージンが付いたぶん、320px では 40℃の図（311px）が
        カードの内寸 280px に入らない。図だけ 0.85 倍にして収める（文字の大きさは 15px 相当を維持） */
     .feat03__diagram{width:311px;margin:24px 0 0 8px;height:104px;
       transform:scale(.85);transform-origin:top left}
-    .spec__floor{width:80px;right:4px}
-    .spec__floor-d{left:44px;width:34px}
+    /* rev22-r2: 320px では寸法ラベルの号数を1段落とす（設置面の図は削除したので指定も削除） */
+    .spec__dimlabel{font-size:10px}
+    .spec__dimlabel em{font-size:8px}
   }
 
 } /* /max-width:1023.98px */
