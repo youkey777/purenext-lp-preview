@@ -797,6 +797,17 @@ img{display:block}
   display:block;margin:24px auto 0;width:620px;height:950px;
   object-fit:contain;
 }
+/* rev22-r13(2026-09-03): 第三者機関の試験結果（99.9%）。発注主「しっかり目立つように。これを打ち出したい」 */
+.hygiene__proof{
+  margin:32px auto 0;width:836px;padding:30px 32px 26px;box-sizing:border-box;text-align:center;
+  background:#eef5fd;border:1.5px solid #c9dcf3;border-radius:20px;
+}
+.hygiene__prooflead{margin:0;font-size:22px;font-weight:700;line-height:1.4;letter-spacing:.04em;color:#1d3350}
+.hygiene__proofnum{margin:4px 0 0;font-size:28px;font-weight:900;line-height:1.2;color:#16273e;
+  display:flex;align-items:baseline;justify-content:center;gap:4px;flex-wrap:wrap}
+.hygiene__proofnum em{font-style:normal;font-size:84px;font-weight:900;line-height:1;letter-spacing:-.03em;color:#1e6ade}
+.hygiene__proofpct{font-size:40px;font-weight:900;color:#1e6ade;margin-right:8px}
+.hygiene__proofnote{margin:14px 0 0;font-size:13px;font-weight:500;line-height:1.6;color:#4a5f75}
 
 /* ============================================================
    S17  タンク3カード   高さ 520px
@@ -1369,8 +1380,7 @@ img{display:block}
 .footer__copy{position:absolute;left:58px;top:78px}
 .footer__lead{font-size:29px;font-weight:800;line-height:46px;color:#1d3853;letter-spacing:.01em}
 .footer__logo{
-  margin-top:9px;font-family:"Quicksand",sans-serif;font-weight:500;
-  font-size:42px;line-height:52px;letter-spacing:.01em;color:#7fd0e8;
+  display:block;margin-top:14px;width:240px;height:auto; /* rev22-r14: 文字ロゴ → カラーのロゴ画像 */
 }
 /* rev16(修正6): フッターのブランド表記は「Pure Ne<span>X</span>t」と span で X だけ大きくしていた。
    統一先が PureNext（x は小文字）になったため span ごと撤去（.footer__logo-x を削除） */

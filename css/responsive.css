@@ -771,7 +771,7 @@
   .footer__bandimg{width:100%;height:230px;object-position:50% 45%}
   .footer__copy{left:var(--pad);top:40px}
   .footer__lead{font-size:18px;line-height:1.6}
-  .footer__logo{margin-top:6px;font-size:28px;line-height:1.3}
+  .footer__logo{margin-top:10px;width:160px;height:auto} /* rev22-r14: ロゴ画像 */
   .footer__copyright{margin-top:16px;padding-bottom:24px;font-size:var(--t-note)}
 
   } /* /max-width:1023.98px（rev22-r4 で 767.98 から広げた。中身は SP 用のまま） */
@@ -1170,4 +1170,19 @@
   .feat03 .feat__droptext{font-size:19px;line-height:26px}
   .feat03 .feat__circlelabel{font-size:16px;top:63px;left:0;width:99px}
   .feat03 .feat__circletemp{font-size:29px}
+}
+
+/* rev22-r13(2026-09-03): 99.9% の証明ブロック（スマホ・タブレット） */
+@media (max-width:1023.98px){
+  .hygiene__proof{margin:var(--hd) 0 0;width:auto;padding:20px 16px 18px;border-radius:var(--r-card)}
+  .hygiene__prooflead{font-size:15px}
+  .hygiene__proofnum{font-size:var(--t-card);margin-top:2px}
+  .hygiene__proofnum em{font-size:56px}
+  .hygiene__proofpct{font-size:28px;margin-right:6px}
+  .hygiene__proofnote{margin-top:10px;font-size:var(--t-note);line-height:1.6}
+}
+@media (min-width:600px) and (max-width:1023.98px){
+  .hygiene__proof{max-width:560px;margin-left:auto;margin-right:auto;padding:24px 24px 20px}
+  .hygiene__proofnum em{font-size:72px}
+  .hygiene__proofpct{font-size:34px}
 }

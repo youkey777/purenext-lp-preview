@@ -17,9 +17,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Noto+Serif+JP:wght@400;500;600;700&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 <!-- rev22-r3b(2026-09-03): CSS/JS に版番号を付ける。公開サーバーはファイルごとに10分キャッシュされるため、
      更新直後に「新しいHTML＋古いCSS」が混ざって崩れる（Fold 7 で発生）。版を上げるたびに v= の値も上げる -->
-<link rel="stylesheet" href="css/style.css?v=20260903r12">
-<link rel="stylesheet" href="css/responsive.css?v=20260903r12">
-<script src="js/main.js?v=20260903r12" defer></script>
+<link rel="stylesheet" href="css/style.css?v=20260903r14">
+<link rel="stylesheet" href="css/responsive.css?v=20260903r14">
+<script src="js/main.js?v=20260903r14" defer></script>
 </head>
 <body>
 <div class="page">
@@ -420,6 +420,12 @@
     <span class="hygiene__solvebar"></span>
     <p class="hygiene__solvebody">PureNextではこの残留水や出水口部分にUV殺菌LEDを照射。<br class="pc-br">出てくる水の綺麗さにまでこだわり安全な水をお届けします。</p>
     <img class="hygiene__solvephoto" src="images/uv_inside.png" alt="サーバー内部の熱水タンクと冷水タンクから合流管を通り、出水口へ紫のUV殺菌LEDが照射される様子" loading="eager">
+    <!-- rev22-r13(2026-09-03): 発注主指示「図の下に『第三者機関の試験で99.9%の殺菌を証明』を目立つように。出典も」 -->
+    <div class="hygiene__proof">
+      <p class="hygiene__prooflead">第三者機関の試験で</p>
+      <p class="hygiene__proofnum"><em>99.9</em><span class="hygiene__proofpct">%</span><span class="hygiene__prooftail">の殺菌を証明</span></p>
+      <p class="hygiene__proofnote">出典：第三者試験機関による出水口の殺菌試験成績書<br class="pc-br">（緑膿菌をはじめとするその他細菌に対する殺菌効果）</p>
+    </div>
   </div>
 
 </section>
@@ -654,10 +660,6 @@
         <tr><th>温度</th><td>温水 約85℃／白湯 約60℃／冷水 約6℃／40℃／常温水</td></tr>
         <tr><th>消費電力</th><td>冷却 0.8A／加熱 350W</td></tr>
         <tr><th>定格電圧</th><td>AC100V 50/60Hz</td></tr>
-        <tr><th>冷媒</th><td>R-600a／15g</td></tr>
-        <tr><th>設置場所</th><td>室内用</td></tr>
-        <tr><th>防水等級</th><td>IPX1</td></tr>
-        <tr><th>原産国</th><td>韓国</td></tr>
         <!-- rev22(2026-09-02): 発注主指示によりチャイルドロックの行を削除（表は7行） -->
       </tbody>
     </table>
@@ -720,7 +722,8 @@
     <img class="footer__bandimg" src="images/footer_band.png" width="1024" height="251" alt="キッチンカウンターに置かれた卓上型 PureNext とグラスを取る手" loading="eager">
     <div class="footer__copy">
       <p class="footer__lead">毎日をラクにしてくれる<br>わたしの味方</p>
-      <p class="footer__logo">PureNext</p>
+      <!-- rev22-r14(2026-09-03): 発注主指示「PureNext はカラーのロゴをちゃんと入れる」。文字 → ロゴ画像（1264×220） -->
+      <img class="footer__logo" src="images/logo_purenext.png" alt="PureNext" width="240" height="42">
     </div>
   </div>
   <nav class="footer__nav">
