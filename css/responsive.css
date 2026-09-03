@@ -83,13 +83,23 @@
     grid-template-columns:var(--pad) 1fr var(--pad);
     grid-template-rows:28px auto 8px auto 10px auto 1fr auto}
   .hero__inner{display:contents}
+  /* rev22-r5 §1: 発注主指示「家族が寄りすぎ。もっと引いて、本体も写す」。
+     高さ460px固定（＝見える横幅 712px）をやめ、枠を 幅:高さ = 5:4 にした。
+     375px なら 375×300。cover の拡大率は高さで決まるので、見える横幅 =
+     375 ÷ (300÷874) = 1092.7px ＝ これまでの 712px の 1.53 倍まで引いた画になる。
+     切り取り位置は 85%（元画像 x=601〜1694 が見える）:
+       母 870〜1000（左端から 269px）／娘 1150〜1250／本体 1215〜1403／
+       父 1455〜1560（右端まで 134px）＝ 家族3人と本体が余裕を持って全部入る。
+     指示書の 100%（右端基準）と 67.9%（x480〜1571）は実際に3枚並べて比べて外した——
+       100% は母の左腕が画面の左端で切れ、67.9% は父の顔が右端で半分切れる。
+       85% がどちらも切らずに一番引いて見える（左のソファだけは 31px 手前で入らない）。 */
   .hero__bg{grid-column:1 / -1;grid-row:1 / 8;position:static;inset:auto;
-    width:100%;height:460px;object-fit:cover;object-position:78.9% 50%}
-  /* 文字を読ませるための白のかぶせ。上端から 250px（写真の54%）で消える。
-     文字の下端 155px の位置でまだ 35% 残り、顔の始まり（195px）では 22% まで抜けている */
-  .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:250px;z-index:1;
-    background:linear-gradient(180deg,rgba(255,255,255,.92) 0,rgba(255,255,255,.80) 90px,
-      rgba(255,255,255,.35) 165px,rgba(255,255,255,0) 250px);pointer-events:none}
+    width:100%;height:auto;aspect-ratio:5 / 4;object-fit:cover;object-position:85% 50%}
+  /* 白のかぶせ。写真が 460→300px（375px幅）に低くなったので、同じ比率で 250→200px に。
+     文字の下端 155px の位置でまだ 35% 残り、顔の始まり（写真の下半分）では 0 まで抜けている */
+  .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:200px;z-index:1;
+    background:linear-gradient(180deg,rgba(255,255,255,.92) 0,rgba(255,255,255,.80) 72px,
+      rgba(255,255,255,.35) 132px,rgba(255,255,255,0) 200px);pointer-events:none}
   .hero__badge{grid-column:2;grid-row:2;z-index:2;font-size:var(--t-note);letter-spacing:.06em}
   .hero__title{grid-column:2;grid-row:4;z-index:2;margin-top:0;
     font-size:26px;line-height:1.32}
@@ -114,7 +124,12 @@
      本体写真は .intro__figure の兄弟なので、.intro をグリッドにして3列目に置く。
      見出しが 18px なのは「欲しい水量がワンタッチですぐに。」16字が、カード内寸 295px に
      20px では入らない（320px 必要）ため。18px なら 288px で PC と同じ2行に収まる */
-  .intro{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-items:end;
+  /* rev22-r5 §8: 発注主指摘「温度・取水量の目盛りが左下に行く。左上に」。
+     下ぞろえ（align-items:end）だと、本体写真のほうが背が高くなる幅（内寸 202px 超＝
+     おおむね 410px 以上）で目盛りが列の下へ押し下げられていた。実測 508px で
+     目盛りの上端が写真の上端より 120.8px 下。列の上ぞろえに変え、目盛りは見出しの直下から始める。
+     本体写真だけは今までどおり下ぞろえ（.intro__panel の align-self:end）＝375/390 の描画は変わらない */
+  .intro{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-items:start;
     column-gap:10px; /* 取水量の数字と本体写真がぶつからないための隙間 */
     margin:0 var(--pad) var(--it);padding:32px 0 20px;border-radius:20px}
   .intro::after{display:none} /* PC の下側フェードは SP では不要（写真が下端に無い） */
@@ -153,16 +168,22 @@
   .memory-wrap{padding:0 var(--pad) var(--it)}
   .uvcard-wrap{padding:0 var(--pad) 0}
   .memory,.uvcard{height:auto;flex-direction:column;border-radius:var(--r-card)}
-  .memory__text,.uvcard__text{width:auto;padding:var(--pad) var(--pad) 0}
-  .memory__iconwrap{width:40px;height:40px;margin-bottom:0}
+  /* rev22-r5 §2: 発注主指示「アイコンの右がガラガラ」。アイコン（40px）と見出しを同じ行に置き、
+     サブ見出し・本文はその下（全幅）に落とす。折り返しの単位を flex-basis で決める */
+  .memory__text,.uvcard__text{width:auto;padding:var(--pad) var(--pad) 0;
+    display:flex;flex-wrap:wrap;align-items:center;column-gap:var(--it)}
+  .memory__iconwrap{width:40px;height:40px;margin-bottom:0;flex:0 0 40px}
   .memory__icon{width:22px;height:22px}
-  .uvcard__icon{width:40px;height:40px;margin-bottom:0}
-  .memory__title,.uvcard__title{margin-top:var(--it);font-size:var(--t-card);line-height:1.4}
-  /* 「いつもの量が／すぐに出る」「出てくる直前まで、／きれいな水を。」の手動改行は
-     SP では外して1行に。20px で 11字=220px・16字=320px、内寸は 295px なので
-     uvcard だけ 18px（288px）に落とす（B-1 の「入らなければ18px」） */
+  .uvcard__icon{width:40px;height:40px;margin-bottom:0;flex:0 0 40px}
+  /* rev22-r5 §3: 2枚の見出しを同じ大きさ（--t-card）に統一。入らないときは縮めず
+     読点「、」の後で2行に折る（HTML 側の .nobr が語を守る） */
+  .memory__title,.uvcard__title{flex:1 1 0;min-width:0;
+    margin-top:0;font-size:var(--t-card);line-height:1.4}
+  .memory__sub,.uvcard__sub,.memory__body,.uvcard__body{flex:0 0 100%}
+  /* PC の手動改行は外す。折り返しは HTML の .nobr（読点までを1かたまりにする）に任せる。
+     rev22-r5 §3: 以前ここにあった `.uvcard__title{font-size:18px}`（入らないので縮める）は廃止。
+     縮めずに「出てくる直前まで、／きれいな水を。」の2行に折る */
   .memory__title br,.uvcard__title br{display:none}
-  .uvcard__title{font-size:18px}
   .memory__sub,.uvcard__sub{margin-top:8px;font-size:var(--t-body);font-weight:700}
   .memory__body,.uvcard__body{margin-top:8px;font-size:var(--t-body);line-height:1.7}
   .memory__photo,.uvcard__photo{position:static;right:auto;top:auto;
@@ -179,47 +200,89 @@
   /* 章の変わり目 56 は margin-top で作る。帯（白→淡青）の切替は「バーの下端＋導入32」の
      88px（見出し35 ＋ バーまで16 ＋ バー4 ＋ 32）。ここに .because__lead の上余白を足すと
      56 が二重にかかるので、lead の padding-top は 0 にする */
+  /* rev22-r5 §4: 発注主指示「『だから』の青い帯が 01 に被っている」。
+     実測（375px）: 青バーの下端 55px・帯の切替 88px・01 の上端 79px ＝ 帯の境界線が
+     01 の行の中を通っていた（−9px）。切替を 55+--hd = 79px に上げ、01 を
+     さらに --hd 下（55+--hd×2 = 103px）へ落として、帯の上端 → 01 の上端を --hd（24px）確保する */
   .because{margin-top:var(--ch);padding-bottom:var(--hd);
-    background:linear-gradient(180deg,#ffffff 0px,#ffffff 88px,#e3edf8 88px,#e0eaf5 55%,#e5ebf2 100%)}
-  /* 波は帯の上端（88px）から 90px 下＝178px。文字にかからないよう不透明度 .5 */
-  .because__water{top:178px;width:100%;height:auto;opacity:.5}
+    background:linear-gradient(180deg,#ffffff 0px,#ffffff 79px,#e3edf8 79px,#e0eaf5 55%,#e5ebf2 100%)}
+  /* rev22-r5 §4: 波は 01〜05 の文字にかからない位置へ。01〜05 の下端は 103+190=293px なので
+     その下（300px）から描く。不透明度 .5 はそのまま */
+  .because__water{top:300px;width:100%;height:auto;opacity:.5}
   .because__lead{padding-top:0;font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
   .because__leadbar{margin-top:16px}
-  .because__list{position:static;height:auto;margin-top:var(--hd);padding:0 var(--pad);
+  .because__list{position:static;height:auto;margin-top:calc(var(--hd) * 2);padding:0 var(--pad);
     display:flex;flex-direction:column;gap:10px}
   .because__item{position:static;left:auto;top:auto;gap:var(--it)}
   .because__item--l1,.because__item--r1,.because__item--l2,
   .because__item--r2,.because__item--l3{left:auto;top:auto}
   .because__item i{width:30px;height:30px;font-size:13px}
   .because__item span{font-size:18px}
-  .because__lower{position:relative;left:auto;top:auto;width:auto;height:auto;
-    margin-top:var(--ch);display:flex;flex-direction:column}
-  .because__title{order:1;position:static;left:auto;top:auto;
-    padding:0 var(--pad);font-size:22px;line-height:1.5}
-  /* PC の左フェード（右端の写真を左のテキストへ溶かすマスク）は、全幅に置き直した SP では
-     本体が写っている側を消してしまうので外す。
-     元画像 1100×1400。本体 y5〜75%（天面 y5% / 取水口の凹み y27〜40%）。
-     375×260 では縦 637px（46%）が切れる。上を 6% 落として y3〜57% を見せると
-     天面（70px）から取水口（560px）まで全部入る */
-  .because__room{order:2;position:static;right:auto;top:auto;
-    width:100%;height:var(--ph-l);margin-top:var(--it);object-fit:cover;object-position:50% 6%;
-    -webkit-mask-image:none;mask-image:none}
-  /* バッジは写真の右上に重ねる。top は .because__lower 上端からの実測値 */
-  .because__badge{order:3;right:16px;top:calc(22px + 33px + var(--it) + 16px);
-    width:76px;height:76px;font-size:13px;line-height:1.4}
-  /* rev22-r3: 5点の帯。左右の余白を本文と同じ 20px に合わせ、5枚を等幅（各1/5）で置く。
-     以前は左右 12px で 1枚 67px、「温度を合わせる」が 2行に折れ、下の行の右端が矢印の先端に
-     並んで文字の断片のように見えていた（実測 375px で「わ」の右端 x=361・矢印の先端 x=375） */
-  .because__items{order:4;position:relative;left:auto;top:auto;
-    padding:var(--it) var(--pad) 0;gap:4px;align-items:flex-end}
-  .because__items figure{flex:1 1 0;min-width:0;width:auto}
-  .because__arrow{left:0;right:0;width:auto;bottom:30px;height:86px}
-  .because__items img{width:100%;max-width:none;height:56px;object-fit:contain;object-position:50% 100%}
-  /* rev22-r3: キャプションは5つとも同じ扱いで必ず1行（§C-6 の 11px）。7文字の「温度を合わせる」は
-     11px で 77px あり 1枠 63.8px に入らないので、PC と同じ手（style.css の margin:16px -16px 0）で
-     左右へ 8px ずつ逃がして枠の中心を保つ。隣の「測る」との隙間 12.8px・右端 x=361.6 で
-     画面右端まで 13.4px 空く */
-  .because__items figcaption{margin:8px -8px 0;font-size:11px;line-height:1.4;white-space:nowrap}
+  /* ======================================================================
+     rev22-r5 §5〜7（発注主指摘）: 「今までかけていた手間が、なくなる。」の下段を
+     縦積み（見出し → 写真 → 5点）から、PC と同じ構図
+     （左＝見出し＋矢印の5点 ・ 右＝本体写真）に戻す。
+
+     やり方：この下段を「幅 1024px のキャンバス」とみなし、PC の座標をそのまま使って
+     画面幅に合わせて丸ごと縮める。1u = 画面幅の 1/1024 （＝PC の 1px）。
+       --u:0.09765625cqw  ⇐ 1cqw = .because__lower の幅の 1%
+     文字だけは縮めず、max() で下限を入れる（見出し 20px ・ キャプション 11px ・
+     バッジ 11px）。幅 1024px では max() の右側（PC の値）が必ず勝つので、
+     1023px と 1024px の見え方が連続する。 */
+  .because__lower{position:relative;left:auto;top:auto;
+    width:100%;height:auto;aspect-ratio:1024 / 647;margin-top:var(--ch);
+    display:block;container-type:inline-size;
+    --u:0.09765625cqw;         /* 1u = 幅÷1024。PC の 1px と同じ意味 */
+    --w5:max(220px, calc(556 * var(--u)))}  /* 5点の帯の幅。PC は 556u */
+  /* 見出し。PC は left:64 / top:80 / 41px。2行目「手間が、なくなる。」9字×20px=180px が
+     入る幅（190px）を下限にする */
+  .because__title{position:absolute;left:calc(64 * var(--u));top:calc(80 * var(--u));
+    width:max(calc(430 * var(--u)), 190px);margin:0;padding:0;z-index:2;
+    font-size:max(20px, calc(41 * var(--u)));line-height:1.55}
+  /* 本体写真。PC は right:0 / top:6 / 470×641、左端から 140px のフェード。
+     幅を狭めるのは「文字を縮めない」分だけ。内訳:
+       ・写真の左端から本体の輪郭まで = 879.75u − 写真幅/2（実測で導いた式。
+         元画像 1100×1400 を高さ 641u で cover したときの本体の位置）
+       ・5点の帯の右端 = 56u + --w5
+     この2つの間に 24px 以上あけると、キャプション「温度を合わせる」が本体に触れない。
+     430px 以上では常に PC と同じ 470u（比例どおり）が選ばれる */
+  .because__room{position:absolute;right:0;top:calc(6 * var(--u));
+    width:min(calc(470 * var(--u)), calc(1647.5 * var(--u) - 2 * var(--w5) - 24px));
+    height:calc(641 * var(--u));margin:0;
+    object-fit:cover;object-position:50% 50%;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 calc(140 * var(--u)));
+    mask-image:linear-gradient(90deg,transparent 0,#000 calc(140 * var(--u)))}
+  /* バッジ。PC は right:64 / top:196 / 128×128 / 16px。
+     中の「ワンタッチ」5字×11px = 55px が入る 62px を下限にする */
+  .because__badge{position:absolute;left:auto;right:calc(64 * var(--u));top:calc(196 * var(--u));
+    width:max(62px, calc(128 * var(--u)));height:max(62px, calc(128 * var(--u)));
+    font-size:max(11px, calc(16 * var(--u)));line-height:1.4;z-index:3}
+  /* 5点の帯。PC は left:56 / top:268、枚 92px ・ 間隔 24px（合計 556px）。
+     rev22-r5: 幅を --w5、枚を flex で均等割り付けにした。最後の「温度を合わせる」は
+     キャプションが 11px で 77px と長いので、その枚だけ flex:2（他の2倍幅）にする。
+     これで隣の「測る」との中心間距離が --w5/4 になり、両キャプションの半幅の和
+     （(77+22)/2 = 49.5px）を常に上回る（--w5 の下限 220px → 55px）。
+     揃えは flex-start。写真の高さを 96u で固定しているので、キャプションが
+     （360px 未満で）2行になっても 5つの絵の上下はずれない */
+  .because__items{position:absolute;left:calc(56 * var(--u));top:calc(268 * var(--u));
+    width:var(--w5);padding:0;margin:0;gap:0;align-items:flex-start;
+    justify-content:space-between;z-index:1}
+  /* 枠の幅は「写真（84u）とキャプションの広いほう」。余りは4つの隙間へ等分されるので、
+     キャプションどうしの間が幅によらず 8.8px 以上あく（375px 実測 8.8 / 430px 10.5 / 508px 22.2） */
+  .because__items figure{flex:0 0 auto;min-width:0;width:auto}
+  .because__items img{width:auto;max-width:calc(84 * var(--u));height:calc(96 * var(--u));
+    object-fit:contain;object-position:50% 100%}
+  /* 矢印。PC は left:-16 / bottom:48 / 566×158（帯の高さ 133 基準）。
+     キャプションの行数で位置が動かないよう、bottom ではなく top（133−48−158=−73u）で置く */
+  .because__arrow{left:calc(-16 * var(--u));right:auto;top:calc(-73 * var(--u));bottom:auto;
+    width:calc(var(--w5) + 10 * var(--u));height:calc(158 * var(--u))}
+  /* キャプションは 11px を下限に必ず1行。枚に入らない分は PC と同じ手で
+     左右に逃がして中心を保つ（マイナスの外余白） */
+  /* キャプションは 11px を下限に必ず1行。PC のように枠の外へ逃がす（マイナスの外余白）のはやめた——
+     枠の幅を「写真とキャプションの広いほう」で決めているので、逃がすとそのぶん隣に近づく
+     （実測 375px で 隣との隙間 8.8px → 4.5px）。逃がさないほうが等間隔になる */
+  .because__items figcaption{margin:calc(16 * var(--u)) 0 0;
+    font-size:max(11px, calc(15 * var(--u)));line-height:1.4;white-space:nowrap}
 
   /* ============================ S07 kodawari ============================ */
   .kodawari{padding:var(--ch) var(--pad) var(--hd)}
@@ -272,12 +335,23 @@
     object-fit:cover;border-radius:var(--r-photo)}
   .feat02__mug{object-position:50% 85%}
   .feat02__glass{object-position:50% 35%}
-  /* S10 図（熱水1回＋冷水1回＝40℃）は PC の寸法のまま 0.72 倍で中央に置く。
-     PC の各要素の left から 392px・top から 140px を引いた 311×122 の箱にしてから縮める */
-  .feat03__diagram{position:relative;left:auto;top:auto;
-    width:311px;height:122px;margin:var(--pad) auto 0;
-    transform:scale(.72);transform-origin:top center}
-  .feat03{--diagram-shrink:34px} /* 311×122 を 0.72 倍したぶんの高さの差（122-88） */
+  /* rev22-r5 §9: 発注主指摘「スープだけ大きすぎる」。PC と同じ
+     「左に図（熱水＋冷水＝40℃）、右にスープ」の2列に戻す。
+     図の縮小は transform ではなく zoom（場所の幅も一緒に縮む）。
+     zoom は文字も縮めるので、一番小さい「設定温度」15px が 11px を割らないよう
+     キャンバス上の文字を先に大きくしておく（下の feat03 の3行）。
+     0.42 倍 → 図の場所は 311×122 → 130.6×51.2px。375px なら右の写真列は 152px */
+  .feat03{display:grid;grid-template-columns:auto minmax(0,1fr);
+    column-gap:var(--it);padding:0 var(--pad) var(--pad);align-items:center}
+  .feat03 .feat__text{grid-column:1 / -1;padding:var(--pad) 0 0}
+  .feat03__diagram{position:relative;left:auto;top:auto;grid-column:1;
+    width:311px;height:122px;margin:var(--pad) 0 0;transform:none;zoom:.42}
+  /* 縮めた分を文字で戻す（19×.42=8.0 → 28×.42=11.8px / 15×.42=6.3 → 28×.42=11.8px） */
+  .feat03 .feat__droptext{font-size:28px;line-height:34px}
+  /* 「設定温度」4字×28px = 112px は 円の幅 99px に入らないので、ラベルの器だけ左右へ
+     16px ずつ広げる（中心は 49.5px のまま）。円からはみ出すのは文字ではなく透明な器 */
+  .feat03 .feat__circlelabel{font-size:28px;top:60px;left:-16px;width:131px;white-space:nowrap}
+  .feat03 .feat__circletemp{font-size:34px}
   .feat__drop{top:0}
   .feat__drop--hot{left:0}
   .feat__drop--cold{left:103px}
@@ -288,14 +362,11 @@
   /* S10 スープ写真。元画像 700×800、カップ上端 y185・ソーサー下端 y590。
      見せる範囲を y=157〜608（451行）に比で固定すると、どの画面幅でも上に28px・下に18px
      余裕を持ってカップとソーサーが入る。375px では高さ190px（＝M） */
-  /* rev22-r4: object-position 34.8% → 45%。34.8% では見えていた範囲が y121〜572 で、
-     受け皿の底（y590）が18px切れていた（上のコメントの「y157〜608」と実際がずれていた）。
-     45% にすると実際に y157〜608 になり、上28px・下18px の余裕でカップと受け皿が入る。
-     写真の枠の大きさは変わらないので、この差分はこの矩形の中で閉じる（下の要素は動かない）。
-     統括判断（2026-09-03）で 375/390 の描画変更を承認済み */
-  .feat03__photo{position:relative;z-index:1;right:auto;top:auto;
-    width:calc(100% - var(--pad) * 2);margin:calc(var(--it) - 34px) var(--pad) 0;
-    height:auto;aspect-ratio:700/451;object-fit:cover;object-position:50% 45%;
+  /* rev22-r5 §9: 右列へ。スマホ層は 1:1（幅は右列いっぱい、375px で 152px）。
+     切り取り位置 45% は rev22-r4 の実測どおり（カップ y185・受け皿の底 y590 が入る） */
+  .feat03__photo{position:relative;z-index:1;right:auto;top:auto;grid-column:2;
+    width:100%;max-width:240px;margin:var(--pad) 0 0;justify-self:center;
+    height:auto;aspect-ratio:1 / 1;object-fit:cover;object-position:50% 45%;
     border-radius:var(--r-photo)}
 
   /* ============================ S11 voice ============================ */
@@ -436,10 +507,13 @@
   .hygiene__solvetitle{font-size:var(--t-card);line-height:1.4}
   .hygiene__solvebar{margin-top:var(--it);width:64px}
   .hygiene__solvebody{margin-top:var(--it);font-size:var(--t-body);line-height:1.7}
-  /* 解決カードの図。元画像 1300×2000（縦長）。2つのタンク y440〜800・
-     UVの光と出水口 y800〜1160。全高は出さず、上を 20% 落として y8.5〜66% を見せる */
-  .hygiene__solvephoto{margin-top:var(--pad);width:100%;height:var(--ph-l);
-    object-fit:cover;object-position:50% 20%;border-radius:var(--r-photo)}
+  /* rev22-r5 §10: 発注主指摘「UV 図が見切れている」。元画像 1300×2000 の実測は
+     本体上端 y60 / タンク y390〜830 / UVの継手 y840〜1000 / 出水口 y1000〜1180 /
+     光の先 y1250。高さ 260px 固定（3/2 相当）では下が切れていた。
+     枠を 1:1 にすると、どの幅でも縦 1300行ぶんが見えるので、上を 18% 落として
+     y=126〜1426 を出す ＝ 本体の上端から光の先まで全部入る（下に 176行の余裕） */
+  .hygiene__solvephoto{margin-top:var(--pad);width:100%;height:auto;aspect-ratio:1 / 1;
+    object-fit:cover;object-position:50% 18%;border-radius:var(--r-photo)}
 
   /* ============================ S18 spec ============================ */
   .spec{padding-top:var(--ch)}
@@ -568,8 +642,13 @@
     background:linear-gradient(180deg,#f5faff 0 calc(100% - 24px),#ffffff calc(100% - 24px));
     display:grid;grid-template-columns:1fr 1fr;column-gap:var(--it);
     grid-template-areas:"title title" "card card" "list list" "home filter"}
+  /* rev22-r5 §11: 発注主指摘「語の途中で折れる」。1024px 未満では
+     「PureNextアプリ」の前で必ず改行し、その語自体は折らない。
+     前半「使い始めてからもずっとラクに」は日本語の文節で折る（auto-phrase） */
   .app__title{grid-area:title;position:static;left:auto;top:auto;width:auto;
-    font-size:22px;line-height:1.5}
+    font-size:22px;line-height:1.5;word-break:auto-phrase}
+  /* display:block だと蛍光ペンの下線が行いっぱいに伸びるので、幅は文字ぶんだけにして中央に置く */
+  .app__title-em{display:block;width:fit-content;margin-left:auto;margin-right:auto;white-space:nowrap}
   .app__card{grid-area:card;position:static;left:auto;top:auto;
     width:auto;height:0;background:none;box-shadow:none}
   .app__list{grid-area:list;position:static;left:auto;top:auto;width:auto;margin-top:var(--hd)}
@@ -676,7 +755,9 @@
   .uvcard-wrap{padding-left:0;padding-right:0}
 
   /* (b) 自分の padding で内側に入っていたもの（左右の padding を 0 にしてから中央へ） */
-  .because__list,.because__title,.because__items,.voice__head,.hygiene__lead,
+  /* rev22-r5: .because__title / .because__items は下段のキャンバス（1024px 換算の絶対配置）へ
+     移したので、この中央寄せの対象から外した */
+  .because__list,.voice__head,.hygiene__lead,
   .strips,.support__steps,.hero__chips{
     width:min(100% - var(--pad) * 2, var(--content-max));
     margin-left:auto;margin-right:auto;padding-left:0;padding-right:0;
@@ -694,8 +775,11 @@
      object-fit / object-position は SP の実測値をそのまま継承する（下で直す1件を除く） */
 
   /* L: memory・uvcard・リビング写真・解決カードのUV図 */
-  .because__room,.hygiene__solvephoto{
-    height:auto;aspect-ratio:3 / 2;max-height:480px;
+  /* rev22-r5: .because__room は下段のキャンバス側（641u 固定＝PC と同じ比）に移したので外した。
+     §10: 「出水口までしっかり殺菌」の図は 3/2 だと出水口とUVの光の下端が切れるため、
+     元画像 1300×2000 の y=126〜1426（＝本体上端から光の先まで）が入る 1/1 にする */
+  .hygiene__solvephoto{
+    height:auto;aspect-ratio:1 / 1;max-width:560px;margin-left:auto;margin-right:auto;
   }
   /* memory / uvcard は「囲みの div ＋ 中の img」の二重構造。囲みに縦横比を掛けると、
      中の img（height:100%）が先に正方形の高さで場所を取り、囲みが中身の高さに
@@ -705,11 +789,8 @@
   .memory__photo img,.uvcard__photo img{
     display:block;height:auto;aspect-ratio:3 / 2;max-height:480px;
   }
-  /* 解決カードの図だけ object-position を直す。元画像 1300×2000 で見せたいのは
-     タンク y440〜800 と UVの光/出水口 y800〜1160。3/2 の枠だと 20% のままでは
-     720px 幅で見える範囲が y226〜1093 になり、出水口（1160）が 67px 切れる。
-     28% にすると y317〜1184 で、下に 24px の余裕を持って全部入る */
-  .hygiene__solvephoto{object-position:50% 28%}
+  /* rev22-r5 §10: 枠を 1:1 にしたので切り取り位置は SP と同じ 18% でよい（上のルールに統合）。
+     幅の上限 560px・中央寄せはこの層のルール（③写真）で掛けている */
 
   /* M: ストリップ1・ストリップ2/4 の写真 */
   .spec__photo,.strips__photo{
@@ -731,15 +812,21 @@
      そこで上限は「その高さになる幅」に掛ける（＝比も見える範囲も SP と同じまま守れる）。
        機能01  420 × 1294/680 = 799px ／ スープ 420 × 700/451 = 651px ／ 出水口 420 × 640/564 = 476px */
   .feat01__photo{width:min(100% - var(--pad) * 2, 799px);margin-left:auto;margin-right:auto}
-  /* 切り取り位置 45% は SP 側で直したのでここでは触らない（幅の上限だけ掛ける） */
-  .feat03__photo{width:min(100% - var(--pad) * 2, 651px);margin-left:auto;margin-right:auto}
+  /* rev22-r5 §9: スープ写真はタブレット層で 4/3・高さ上限 260px（＝幅 346.7px）にする。
+     ここは「③写真」の節なので比と上限だけ。位置（右列）は下の S08〜S10 feat で決める */
+  .feat03__photo{aspect-ratio:4 / 3;max-width:calc(260px * 4 / 3)}
   /* 比と切り取りは SP 側で直したので、ここでは幅の上限（高さ420px相当）だけ掛ける */
   .tanks__card--3 .tanks__photo--wide{width:min(100%, 476px);margin-left:auto;margin-right:auto}
 
   /* --- S01 hero ---------------------------------------------------------- */
   /* 文字は内容の最大幅の中へ。写真は全面のまま 16/10・上限600px */
   .hero{grid-template-columns:minmax(var(--pad),1fr) minmax(0,var(--content-max)) minmax(var(--pad),1fr)}
-  .hero__bg{height:auto;aspect-ratio:16 / 10;max-height:600px}
+  /* rev22-r5 §1: タブレット層は今までどおり 16:10・切り取り 78.9%（本体まで入っている）。
+     白のかぶせも 250px に戻す（写真が 450〜600px と背が高いので 200px では足りない） */
+  .hero__bg{height:auto;aspect-ratio:16 / 10;max-height:600px;object-position:78.9% 50%}
+  .hero::before{height:250px;
+    background:linear-gradient(180deg,rgba(255,255,255,.92) 0,rgba(255,255,255,.80) 90px,
+      rgba(255,255,255,.35) 165px,rgba(255,255,255,0) 250px)}
   /* rev22-r4（統括判断 2026-09-03）: 見出しは 26 → 30px、サブは 15（--t-body）→ 16px。
      写真が 450〜600px に育つぶん、スマホのままの見出しでは写真に負けて小さく見えていた。
      チップの文字は変えない（--t-note 13px のまま） */
@@ -779,19 +866,24 @@
 
   /* --- S06 because ------------------------------------------------------- */
   /* 白→淡青の切替は「見出し35 ＋ バーまで16 ＋ バー4 ＋ 導入28」= 92px（SP は 88px） */
-  .because{background:linear-gradient(180deg,#ffffff 0px,#ffffff 92px,#e3edf8 92px,#e0eaf5 55%,#e5ebf2 100%)}
-  .because__water{top:182px}
+  /* rev22-r5 §4: 実測（720px）で 青バーの下端 60px・01 の上端 88px・帯の切替 92px
+     ＝ 帯が 01 の行を通っていた。切替を 60+--hd = 88px に上げ、01 を 60+--hd×2 = 116px へ落とす。
+     波は 01〜05 の下端（116+200=316px）より下から描く */
+  .because{background:linear-gradient(180deg,#ffffff 0px,#ffffff 88px,#e3edf8 88px,#e0eaf5 55%,#e5ebf2 100%)}
+  .because__water{top:324px}
   .because__item span{font-size:var(--t-card)}
-  /* 5点の帯: 写真 56→72px・キャプション 11→13px（1行固定のまま）。
-     矢印は SP と同じ関係（高さ＝写真の約1.55倍／下端＝写真の約0.53倍）で伸ばす */
-  .because__items img{height:72px}
-  .because__items figcaption{margin:8px -10px 0;font-size:var(--t-note)}
-  .because__arrow{bottom:38px;height:110px}
+  /* rev22-r5: 5点の帯・矢印・見出し・写真・バッジは下段のキャンバス（1024px 換算）で
+     幅に比例して決まるので、タブレット層の上書きは全部やめた。
+     720px なら 1u=0.703px ＝ 写真 67px・キャプション 11px・矢印 111px 相当になる */
 
   /* --- S08〜S10 feat ----------------------------------------------------- */
-  /* 40℃の図は 0.72 → 0.9 倍。縮んだぶんの高さ（122 − 122×0.9 = 12.2px）を写真の上に戻す */
-  .feat03__diagram{transform:scale(.9)}
-  .feat03__photo{margin-top:calc(var(--it) - 12px);margin-left:auto;margin-right:auto}
+  /* rev22-r5 §9: 40℃の図は 0.9 倍（PC の 9割）。この大きさなら一番小さい「設定温度」も
+     15×0.9 = 13.5px あるので、SP 層で入れた文字の先出し（28px 等）は元に戻す。
+     図の場所は 311×122 → 279.9×109.8px。600px 幅でも左列に収まる（内寸 472px） */
+  .feat03__diagram{zoom:.9}
+  .feat03 .feat__droptext{font-size:19px;line-height:26px}
+  .feat03 .feat__circlelabel{font-size:15px;top:63px;left:0;width:99px}
+  .feat03 .feat__circletemp{font-size:29px}
 
   /* --- S11 voice --------------------------------------------------------- */
   /* カード幅は main.js が min(80%, 560px) で実測して --slide-w に書き込む。
@@ -831,9 +923,42 @@
   /* /min-width:600px（rev22-r4 タブレット層） */
 
   /* ==========================================================================
+     rev22-r5 §9: 460〜599px だけの中間の詰め直し。
+     スマホ層の 40℃の図は 0.42 倍（130.6px）に固定してあるが、この幅ではカードの内寸が
+     380〜519px あり、右のスープ写真だけが上限（240px）まで育って「スープだけ大きい」に戻る。
+     図を 0.62 倍（192.8px）へ上げて、写真と 1:1.2 前後の関係にする。
+     0.62 倍だと PC の文字がそのまま使えるので、スマホ層で先に大きくした3つを戻す
+     （「設定温度」だけは 15×0.62 = 9.3px と下限割れなので 18px＝11.2px にする）
+     ========================================================================== */
+  @media (min-width:460px) and (max-width:599.98px){
+    .feat03__diagram{zoom:.62}
+    .feat03 .feat__droptext{font-size:19px;line-height:26px}
+    .feat03 .feat__circlelabel{font-size:18px;top:62px;left:-10px;width:119px}
+    .feat03 .feat__circletemp{font-size:29px}
+    .feat03 .feat__op--plus{font-size:29px}
+    .feat03 .feat__op--eq{font-size:28px}
+  }
+
+  /* ==========================================================================
      360px 未満（iPhone SE 第1世代・Android の小型機）だけの詰め直し。
      文字を下限（本文14px / 注記12px）より小さくはしない。詰めるのは余白と見出しだけ
      ========================================================================== */
+  /* ==========================================================================
+     rev22-r5 §5〜7: 368px 未満だけ、5点の帯の「温度を合わせる」を2行（「温度を／合わせる」。
+     HTML の .nobr で折る位置を固定）にする。
+     理由は2つ:
+       ①1行（11px で 77px）のままだと隣の「測る」との間が 320px で 1.4px しかあかない
+       ②帯の幅の下限（220px）が画面幅に対して大きくなりすぎ、右の本体写真が
+         360px で 115px（画面の32%。PC は 45.9%）まで痩せる
+     2行にすると帯が 556u（PC と同じ比）で足り、写真も PC と同じ 470u に戻る。
+     実測 360px: キャプション間 最小 1.4→9.6px ／ 本体写真 115.2→164.9px
+     ========================================================================== */
+  @media (max-width:367.98px){
+    .because__lower{--w5:calc(556 * var(--u))}
+    .because__items figure:last-of-type{flex:0 1 auto;max-width:48px}
+    .because__items figure:last-of-type figcaption{white-space:normal;line-height:1.35}
+  }
+
   @media (max-width:359.98px){
     .hero__chips{padding-left:12px;padding-right:12px}
     /* 26px だと「毎日をラクにしてく／れる」と語の途中で折れる（11字×26=286 > 280）。
@@ -859,13 +984,23 @@
        入れるため、字送りを 0 にして 20px に落とす（274px） */
     .kodawari__title{font-size:20px;letter-spacing:0}
     .kodawari__title .num{font-size:24px}
-    /* 320px ではカードの内寸 240px。40℃の図（311px）を 0.65 倍にして収める */
-    .feat03__diagram{transform:scale(.65)}
-    .feat03__photo{margin-top:calc(var(--it) - 43px)}
-    /* 「出てくる直前まで、／きれいな水を。」は 18px でも 240px に入らないので改行を戻す */
-    .uvcard__title br{display:inline}
+    /* rev22-r5 §9: 320px はカードの内寸 240px。図 130.6px ＋ 隙間 12px ＝ 右の写真が 97px。
+       写真がこれ以上小さくならないよう、図をもう一段（0.36 倍＝112.0px）縮める。
+       文字は 28×0.36 = 10.1px になるので、キャンバス側を 32px に上げて 11.5px を保つ */
+    .feat03__diagram{zoom:.36}
+    .feat03 .feat__droptext{font-size:32px;line-height:38px}
+    .feat03 .feat__circlelabel{font-size:32px;top:58px;left:-16px;width:131px}
+    .feat03 .feat__circletemp{font-size:38px}
     .spec__dimlabel{font-size:10px}
     .spec__dimlabel em{font-size:8px}
+    /* rev22-r5 §5〜7: 320〜359px だけ、5点の帯の幅を PC 比どおり（556u）に戻す。
+       下限 220px のままだと本体写真が 51px の細帯になってしまうため。
+       そのぶん「温度を合わせる」は 2行に折る（HTML の .nobr で「温度を／合わせる」に固定）。
+       写真の高さは 96u で固定しているので、2行になっても5つの絵の上下はそろう。
+       実測 320px: 帯 173.8px・中心間 43.4px・「測る」と「合わせる」の半幅の和 33px ＝ 10.4px 空く */
+    /* zoom .36 だと「＋」「＝」が 10.1〜10.4px になるので、キャンバス側を上げて 11px 以上に */
+    .feat03 .feat__op--plus{font-size:32px}
+    .feat03 .feat__op--eq{font-size:31px}
   }
 
 } /* /max-width:1023.98px */
