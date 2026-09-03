@@ -381,7 +381,7 @@ img{display:block}
 
 /* --- S10 中央の図（熱水1回 ＋ 冷水1回 ＝ 40℃設定温度） --- */
 /* rev22: 中の要素の絶対座標を1つも触らずに図全体の見た目の位置を保つため、器を -9px 動かす */
-.feat03__diagram{position:absolute;left:-9px;top:0;width:717px;height:100%;z-index:1}
+.feat03__diagram{position:absolute;left:-33px;top:0;width:717px;height:100%;z-index:1} /* rev22-r12: 発注主指摘「写真にくっつきすぎ」→ 文字と写真の間の中央（x 368〜679）へ 24px 左に */
 
 .feat__drop{position:absolute;top:140px;width:73px;height:122px}
 .feat__dropline{position:absolute;left:0;top:0;display:block}

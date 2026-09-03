@@ -1105,9 +1105,13 @@
        幅 191.5vw（375px で 718px＝拡大率 .399。元画像の横 940px ぶん＝ソファ〜父まで）
        左 −75.7vw（元画像 x≈712 から）／上 +24px（頭の上に余裕。上の 24px は白のかぶせの下）
        写真の枠の高さ 90.7vw（375px で 340px）→ 写真の下 33px（テーブル）が切れる */
-  .hero{overflow:hidden}
-  .hero::after{content:"";grid-column:1 / -1;grid-row:1 / 8;height:90.7vw;min-height:0}
-  .hero__bg{position:absolute;left:-75.7vw;top:24px;width:191.5vw;height:auto;max-width:none;
+  /* rev22-r12: 発注主指示「もっと引いて人を小さく」「文字は少し下げて写真の中に」「チップが写真に食い込まない」。
+     写真: 幅 163vw（375px で 612px＝拡大率 .34。元画像の横 1103px ぶん＝ソファ〜観葉植物まで）、
+     左 −54.4vw（元画像 x≈600 から）、上 +34px。写真の枠の高さは写真そのもの（79.2vw）＋34px で、
+     チップはその直下に来る（写真と重ならない） */
+  .hero{overflow:hidden;grid-template-rows:34px auto 6px auto 6px auto 1fr auto}
+  .hero::after{content:"";grid-column:1 / -1;grid-row:1 / 8;height:calc(79.2vw + 34px);min-height:0}
+  .hero__bg{position:absolute;left:-54.4vw;top:34px;width:163vw;height:auto;max-width:none;
     aspect-ratio:auto;min-height:0;object-fit:fill;z-index:0}
   .hero__chips{padding-bottom:16px}
   .hero::before{height:200px;
