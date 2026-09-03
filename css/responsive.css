@@ -91,9 +91,12 @@
        ② 枠 5:4 → 8:7（375px で 300 → 328.1px）。顔の上端は 131 → 143.3px
           ＝ 7.7px 空く。見出し「わたしの味方」の下端も 121.6 → 109.6 で髪より上に出る
      タブレット層（600px 以上）は写真が 450px あり元から離れているので行の高さは元に戻す */
+  /* rev22-r8: 発注主指示「もっと引いて本体まで写す。ご飯（下）は切れてよく、上（顔）を出す」。
+     文字ブロックを写真の下側（テーブル＝切ってよい領域）に移し、写真は上端基準で下を切る。
+     行: 1fr（写真の上側を空ける）→ バッジ → 見出し → サブ → 18px → チップ */
   .hero{position:relative;display:grid;background:#fff;
     grid-template-columns:var(--pad) 1fr var(--pad);
-    grid-template-rows:18px auto 6px auto 6px auto 1fr auto}
+    grid-template-rows:1fr auto 6px auto 6px auto 18px auto}
   .hero__inner{display:contents}
   /* rev22-r5 §1: 発注主指示「家族が寄りすぎ。もっと引いて、本体も写す」。
      高さ460px固定（＝見える横幅 712px）をやめ、枠を 幅:高さ = 5:4 にした。
@@ -114,17 +117,21 @@
      見える横幅は 1092.7 → 998.9px。3人と本体（元画像 x=870〜1560 の 690px）は
      320px でも 852px 見えていて余裕（左 64.6px・右 97.9px）で入る。
      「寄りすぎ」と言われた 712px よりまだ 40% 広い画のまま */
+  /* 写真: 高さ 340px 固定（375px で拡大率 .43 → 見える横幅 872px・縦 782px。下 92px＝テーブルが切れる）。
+     位置 80%／0% → 元画像 x≈742〜1614（母 870〜1000・娘・本体 1215〜1403・父 〜1560 が入る）、上端から */
   .hero__bg{grid-column:1 / -1;grid-row:1 / 8;position:static;inset:auto;
-    width:100%;height:auto;aspect-ratio:7 / 6;min-height:328px;
-    object-fit:cover;object-position:85% 50%}
+    width:100%;height:340px;aspect-ratio:auto;min-height:0;
+    object-fit:cover;object-position:80% 0%}
   /* 白のかぶせ。写真が 460→300px（375px幅）に低くなったので、同じ比率で 250→200px に。
      文字の下端 155px の位置でまだ 35% 残り、顔の始まり（写真の下半分）では 0 まで抜けている */
   /* rev22-r6: 発注主指摘「ママの髪とサブコピーが被って読みにくい」。
      かぶせを文字ブロックの下端（約140px）まで .88 以上で保ち、そこから 230px で抜く。
      さらに文字自体に白いにじみ（text-shadow）を付けて、髪の上でも読めるようにする */
-  .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:230px;z-index:1;
-    background:linear-gradient(180deg,rgba(255,255,255,.96) 0,rgba(255,255,255,.90) 140px,
-      rgba(255,255,255,.55) 180px,rgba(255,255,255,0) 230px);pointer-events:none}
+  /* rev22-r8: かぶせを下から上へ（文字が写真の下側に移ったため）。グリッドの項目として写真の下端に揃える */
+  .hero::before{content:"";position:static;grid-column:1 / -1;grid-row:1 / 8;align-self:end;z-index:1;
+    width:100%;height:175px;pointer-events:none;
+    background:linear-gradient(0deg,rgba(255,255,255,.96) 0,rgba(255,255,255,.92) 112px,
+      rgba(255,255,255,.5) 142px,rgba(255,255,255,0) 175px)}
   .hero__badge,.hero__title,.hero__sub{text-shadow:0 0 6px #fff,0 0 12px #fff,0 0 18px #fff}
   .hero__badge{grid-column:2;grid-row:2;z-index:2;font-size:var(--t-note);letter-spacing:.06em}
   .hero__title{grid-column:2;grid-row:4;z-index:2;margin-top:0;
@@ -138,10 +145,18 @@
   .hero{overflow:visible}
   .hero__chips{grid-column:1 / -1;grid-row:8;z-index:2;margin:0;
     padding:14px var(--pad) 12px;gap:8px;flex-wrap:wrap;justify-content:center}
-  .chip{flex:0 0 calc((100% - 16px) / 3);min-width:0;width:auto;height:92px;gap:6px;
+  /* rev22-r8: 発注主指示「チップが大きすぎる。5つ並びに収めるか小さく」。
+     420px 以上は5つ横一列（高さ 74px・アイコン 26px・文字 11px）、未満は 3+2 で高さ 80px */
+  .chip{flex:0 0 calc((100% - 16px) / 3);min-width:0;width:auto;height:80px;gap:5px;
     padding:0 4px;border-radius:10px}
-  .chip img{width:34px;height:34px}
-  .chip span{font-size:var(--t-note);line-height:1.3}
+  .chip img{width:30px;height:30px}
+  .chip span{font-size:var(--t-note);line-height:1.25}
+  @media (min-width:420px){
+    .hero__chips{flex-wrap:nowrap;gap:6px}
+    .chip{flex:1 1 0;height:74px;gap:4px;padding:0 2px}
+    .chip img{width:26px;height:26px}
+    .chip span{font-size:11px;line-height:1.2}
+  }
 
   /* ============================ S02 lead ============================ */
   .lead{padding:var(--ch) 0 var(--hd);gap:14px}
@@ -260,6 +275,7 @@
   .because__item--l1,.because__item--r1,.because__item--l2,
   .because__item--r2,.because__item--l3{left:auto;top:auto}
   .because__item--r1,.because__item--r2{margin-top:22px}
+  .because__item--r2{position:relative;top:6px} /* rev22-r8: 発注主指示「04 をわずかに下げる」。他の間隔は不変 */
   .because__item--l3{grid-column:1 / -1}
   .because__item i{width:26px;height:26px;font-size:12px}
   .because__item span{font-size:15px;font-weight:700}
@@ -303,8 +319,8 @@
   /* バッジ。PC は right:64 / top:196 / 128×128 / 16px。
      中の「ワンタッチ」5字×11px = 55px が入る 62px を下限にする */
   .because__badge{position:absolute;left:auto;right:calc(64 * var(--u));top:calc(196 * var(--u));
-    width:max(62px, calc(128 * var(--u)));height:max(62px, calc(128 * var(--u)));
-    font-size:max(11px, calc(16 * var(--u)));line-height:1.4;z-index:3}
+    width:max(76px, calc(128 * var(--u)));height:max(76px, calc(128 * var(--u))); /* rev22-r8: 5字×11px が入る 76px に */
+    font-size:max(11px, calc(16 * var(--u)));line-height:1.4;z-index:3;white-space:nowrap} /* rev22-r8: 「ワンタッ/チ」の変な改行を防ぐ */
   /* 5点の帯。PC は left:56 / top:268、枚 92px ・ 間隔 24px（合計 556px）。
      rev22-r5: 幅を --w5、枚を flex で均等割り付けにした。最後の「温度を合わせる」は
      キャプションが 11px で 77px と長いので、その枚だけ flex:2（他の2倍幅）にする。
@@ -317,7 +333,8 @@
     justify-content:space-between;z-index:1}
   /* 枠の幅は「写真（84u）とキャプションの広いほう」。余りは4つの隙間へ等分されるので、
      キャプションどうしの間が幅によらず 8.8px 以上あく（375px 実測 8.8 / 430px 10.5 / 508px 22.2） */
-  .because__items figure{flex:0 0 auto;min-width:0;width:auto}
+  /* rev22-r8: 発注主指摘「温度を合わせる が長くて絵の間隔がずれる」→ 5枚を等幅にし、キャプションは2行可 */
+  .because__items figure{flex:1 1 0;min-width:0;width:auto;text-align:center}
   .because__items img{width:auto;max-width:calc(84 * var(--u));height:calc(96 * var(--u));
     object-fit:contain;object-position:50% 100%}
   /* 矢印。PC は left:-16 / bottom:48 / 566×158（帯の高さ 133 基準）。
@@ -330,7 +347,7 @@
      枠の幅を「写真とキャプションの広いほう」で決めているので、逃がすとそのぶん隣に近づく
      （実測 375px で 隣との隙間 8.8px → 4.5px）。逃がさないほうが等間隔になる */
   .because__items figcaption{margin:calc(16 * var(--u)) 0 0;
-    font-size:max(11px, calc(15 * var(--u)));line-height:1.4;white-space:nowrap}
+    font-size:max(11px, calc(15 * var(--u)));line-height:1.3;white-space:normal;word-break:keep-all}
 
   /* ============================ S07 kodawari ============================ */
   .kodawari{padding:var(--ch) var(--pad) var(--hd)}
@@ -464,7 +481,7 @@
   .voice__note a{border-bottom-width:1.5px;padding-bottom:1px}
 
   /* ============================ S12 price ============================ */
-  .price{padding:var(--ch) var(--pad) var(--hd)} /* rev22-r7: --ch/--hd の拡大でここも広がる */
+  .price{padding:calc(var(--ch) - var(--hd)) var(--pad) var(--hd)} /* rev22-r8: 上の余白 = 前章の --hd + ここ = --ch */
   .price__row{top:0;padding-left:0;flex-wrap:nowrap}
   .price__label{margin-right:8px;top:-4px;font-size:22px}
   .price__num{font-size:64px}
@@ -472,7 +489,7 @@
   .price__tax{font-size:var(--t-body);margin-left:4px}
   .price__taxnote{margin-top:12px;padding-left:0;font-size:var(--t-note)}
   /* 14字 × 22px = 308px。内寸 335px に1行で収まる */
-  .price__title{margin-top:calc(var(--hd) * 2);font-size:22px; /* rev22-r7: 月額との間を倍に */letter-spacing:.02em;text-indent:.02em;
+  .price__title{margin-top:var(--ch);font-size:22px; /* rev22-r8: 税込 → 見出し = --ch（上の余白と同じ） */letter-spacing:.02em;text-indent:.02em;
     max-width:none;text-align:center;white-space:nowrap}
   .price__bar{margin-top:16px}
 
@@ -670,7 +687,7 @@
   .extras__body{margin-top:6px;font-size:var(--t-body);line-height:1.7}
 
   /* ============================ S20 support ============================ */
-  .support{padding:var(--ch) 0 var(--hd)}
+  .support{padding:var(--ch) 0 var(--ch)} /* rev22-r8: 下の白余白を --ch に */
   .support__head{position:static;left:auto;top:auto;width:auto}
   .support__flowtitle{font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
   .support__flowbar{margin-top:16px}
@@ -689,7 +706,7 @@
   /* ============================ S21 app ============================ */
   /* rev22-r3: 説明3項目を先に、スマホ画面2枚は横並び（PCと同じ意味合い）。
      HTML に要素を足せないのでグリッドの領域名で並べ替える */
-  .app{padding:var(--ch) var(--pad) var(--hd);
+  .app{padding:calc(var(--hd) * 1.5) var(--pad) var(--hd); /* rev22-r8: 水色の上余白を減らす（96→48） */
     background:linear-gradient(180deg,#f5faff 0 calc(100% - 24px),#ffffff calc(100% - 24px));
     display:grid;grid-template-columns:1fr 1fr;column-gap:var(--it);
     grid-template-areas:"title title" "card card" "list list" "home filter"}
@@ -1016,8 +1033,7 @@
      ========================================================================== */
   @media (max-width:367.98px){
     .because__lower{--w5:calc(556 * var(--u))}
-    .because__items figure:last-of-type{flex:0 1 auto;max-width:48px}
-    .because__items figure:last-of-type figcaption{white-space:normal;line-height:1.35}
+    /* rev22-r8: 等幅化に伴い最後の枚の特別扱いを廃止 */
   }
 
   @media (max-width:359.98px){
