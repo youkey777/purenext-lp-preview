@@ -263,7 +263,7 @@
     background:linear-gradient(180deg,#ffffff 0px,#ffffff 79px,#e3edf8 79px,#e0eaf5 55%,#e5ebf2 100%)}
   /* rev22-r5 §4: 波は 01〜05 の文字にかからない位置へ。01〜05 の下端は 103+190=293px なので
      その下（300px）から描く。不透明度 .5 はそのまま */
-  .because__water{top:300px;width:100%;height:auto;opacity:.5}
+  .because__water{top:140px;width:100%;height:auto;opacity:.35} /* rev22-r10: 発注主指摘で 300→140（見出しに被らない） */
   .because__lead{padding-top:0;font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
   .because__leadbar{margin-top:16px}
   /* rev22-r7: 発注主指示「縦一列は散らばせて。文字は小さくていい」。
@@ -1097,23 +1097,37 @@
    写真: 高さ 300px・位置 80%/50% → 元画像の横幅 1093px ぶん（ソファ・母・娘・本体・父）が全部入る。
    Fold（600〜1023）と PC はこのブロックの外なので r7 の状態のまま */
 @media (max-width:599.98px){
-  .hero{grid-template-rows:18px auto 6px auto 6px auto 14px auto;
-    background:linear-gradient(180deg,#f5f8fc 0,#e9f1fa 100%)}
-  .hero::before{display:none}
-  .hero__badge,.hero__title,.hero__sub{text-shadow:none}
-  .hero__bg{grid-column:1 / -1;grid-row:8;height:300px;min-height:0;aspect-ratio:auto;
-    object-fit:cover;object-position:80% 50%}
-  .hero__chips{grid-row:9;background:#fff}
+  /* rev22-r10: 発注主指示「文字は写真の中（上）。写真の外に出すな」。r9 の帯方式を撤回。
+     文字は写真の上部に重ねる（r7 と同じ）。写真は高さ 372px・位置 80%/0% で引き、
+     元画像の横幅 875px ぶん（母・娘・本体・父）が入る。白のかぶせは 160px までで顔を残す */
+  .hero__bg{grid-column:1 / -1;grid-row:1 / 8;height:372px;min-height:0;aspect-ratio:auto;
+    object-fit:cover;object-position:80% 0%}
+  .hero::before{height:200px;
+    background:linear-gradient(180deg,rgba(255,255,255,.95) 0,rgba(255,255,255,.88) 118px,
+      rgba(255,255,255,.45) 160px,rgba(255,255,255,0) 200px)}
   /* 2. 「温度を合わせなくていい」→「今までかけていた手間」の間をスマホだけ詰める */
   .because__lower{margin-top:var(--hd)}
   /* 3. 「3つの便利」の目次ピルの間隔を広く */
-  .kodawari__index{gap:12px 12px;margin-top:calc(var(--hd) + 4px)}
+  .kodawari__index{gap:12px 12px;margin-top:calc(var(--hd) * 1.5)}
+  .kodawari{padding-bottom:calc(var(--hd) * 1.5)} /* rev22-r10: バー→目次 = 目次→カード = 48px */
   .kodawari__index li{padding:0 18px;height:38px}
   /* 4. 価格: 月額を中心に上下の余白を同じに（上=前章末 32 + 48 = 80 / 下=80） */
-  .price{padding:calc(var(--hd) * 1.5) var(--pad) var(--hd)}
-  .price__title{margin-top:calc(var(--hd) * 2.5)}
+  /* 価格の余白は下の共通ルール（≤1023）で定義 */
 }
 /* 5. ストリップ1〜4のカードの高さを揃える: 3 の写真2枚を縦長（8:9）にし、1・2・4 の 16:9 と同じ高さに */
 @media (max-width:1023.98px){
   .strips__photo--half{aspect-ratio:8 / 9;height:auto;max-height:none}
+}
+
+/* rev22-r10(2026-09-03): 価格ブロック。発注主指示「月額3,300円を中心に上下の余白を同じにし、両方とも広く。
+   タブレットにも適用」。上 = 前章の下余白(--hd) + ここ(112) ／ 下 = 税込の下(12) + 見出しの上(116) ＝ どちらも約 144px */
+@media (max-width:1023.98px){
+  .price{padding:112px var(--pad) var(--hd)}
+  .price__title{margin-top:116px}
+}
+/* rev22-r10: タブレット層の 40℃モード。スープ写真が図（熱水＋冷水＝40℃）に重なっていた。
+   図の列を 300px 固定、写真は右列の右寄せ・幅は列の残り */
+@media (min-width:600px) and (max-width:1023.98px){
+  .feat03{grid-template-columns:300px minmax(0,1fr);column-gap:var(--hd)}
+  .feat03__photo{justify-self:end;max-width:100%}
 }
