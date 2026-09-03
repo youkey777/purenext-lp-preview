@@ -1128,15 +1128,17 @@ img{display:block}
 /* rev22: 上＝製品詳細の帯の下端→バナー 112（見出し→中身）／
    下＝バナー下端→よくあるご質問の文字が 216 になるよう、8px ＋ .sechead--faq の 208px */
 .notice{width:1024px;padding:var(--sp-head) 0 8px;background:#fff}
+/* rev22-r6(2026-09-03): 発注主指示「もうちょっと目立つように」。淡い箱 → 青地・白文字に */
 .notice__box{
-  margin:0 auto;width:872px;padding:30px 20px 28px;text-align:center;
-  background:#eef5fd;border:1px solid #c9dcf3;border-radius:14px;
+  margin:0 auto;width:872px;padding:32px 20px 30px;text-align:center;
+  background:#1e6ade;border:2px solid #134a9e;border-radius:16px;
+  box-shadow:0 8px 24px rgba(30,106,222,.22);
 }
 .notice__head{
-  margin:0;font-size:24px;font-weight:800;letter-spacing:.03em;color:#134a9e;
+  margin:0;font-size:28px;font-weight:900;letter-spacing:.04em;color:#fff;
 }
 .notice__body{
-  margin:10px 0 0;font-size:17px;font-weight:500;letter-spacing:.03em;color:#3c5573;
+  margin:10px 0 0;font-size:17px;font-weight:600;letter-spacing:.03em;color:rgba(255,255,255,.92);
 }
 
 /* ============================================================

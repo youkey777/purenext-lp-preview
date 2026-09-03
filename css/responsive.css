@@ -119,9 +119,13 @@
     object-fit:cover;object-position:85% 50%}
   /* 白のかぶせ。写真が 460→300px（375px幅）に低くなったので、同じ比率で 250→200px に。
      文字の下端 155px の位置でまだ 35% 残り、顔の始まり（写真の下半分）では 0 まで抜けている */
-  .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:200px;z-index:1;
-    background:linear-gradient(180deg,rgba(255,255,255,.92) 0,rgba(255,255,255,.80) 72px,
-      rgba(255,255,255,.35) 132px,rgba(255,255,255,0) 200px);pointer-events:none}
+  /* rev22-r6: 発注主指摘「ママの髪とサブコピーが被って読みにくい」。
+     かぶせを文字ブロックの下端（約140px）まで .88 以上で保ち、そこから 230px で抜く。
+     さらに文字自体に白いにじみ（text-shadow）を付けて、髪の上でも読めるようにする */
+  .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:230px;z-index:1;
+    background:linear-gradient(180deg,rgba(255,255,255,.96) 0,rgba(255,255,255,.90) 140px,
+      rgba(255,255,255,.55) 180px,rgba(255,255,255,0) 230px);pointer-events:none}
+  .hero__badge,.hero__title,.hero__sub{text-shadow:0 0 6px #fff,0 0 12px #fff,0 0 18px #fff}
   .hero__badge{grid-column:2;grid-row:2;z-index:2;font-size:var(--t-note);letter-spacing:.06em}
   .hero__title{grid-column:2;grid-row:4;z-index:2;margin-top:0;
     font-size:26px;line-height:1.32}
@@ -130,8 +134,10 @@
   /* チップ5枚は写真の中に入れると家族の顔（写真の上から195〜300px）にかぶるため、
      写真の直下（間0）に置く。2段の高さ 192px を写真の中に置くと下端が 460px なので
      y=254〜460 を覆い、母の顔（195〜268）と娘の顔（250〜300）が隠れる＝置けない */
+  /* rev22-r6: 発注主指摘「チップの下線が見切れている」。下に 12px の余白を足し、影を切らない */
+  .hero{overflow:visible}
   .hero__chips{grid-column:1 / -1;grid-row:8;z-index:2;margin:0;
-    padding:14px var(--pad) 0;gap:8px;flex-wrap:wrap;justify-content:center}
+    padding:14px var(--pad) 12px;gap:8px;flex-wrap:wrap;justify-content:center}
   .chip{flex:0 0 calc((100% - 16px) / 3);min-width:0;width:auto;height:92px;gap:6px;
     padding:0 4px;border-radius:10px}
   .chip img{width:34px;height:34px}
@@ -622,8 +628,9 @@
   .strips__label br{display:none}
   /* カード3の説明文は見出しではなく本文（14px）扱い。番号の右に置く。
      写真2枚は次の行に落としたいので、高さ0の全幅ダミー（::before）を order で挟んで折り返す */
+  /* rev22-r6: 発注主指示で 1・2・4 と同じ見出しの大きさ・太さに（本文扱いをやめる） */
   .strips__card--3 .strips__label{flex:1 1 0;min-width:0;margin-right:var(--pad);
-    font-size:var(--t-body);font-weight:500;line-height:1.7}
+    font-size:18px;font-weight:700;line-height:1.4}
   .strips__card--3 .strips__num{order:1}
   .strips__card--3 .strips__label{order:2}
   .strips__card--3::before{content:"";order:3;flex:0 0 100%;height:0}
@@ -718,7 +725,7 @@
   /* ============================ S23b notice ============================ */
   .notice{padding:var(--hd) var(--pad) 0}
   .notice__box{width:auto;padding:18px 14px}
-  .notice__head{font-size:var(--t-body);line-height:1.5}
+  .notice__head{font-size:var(--t-card);line-height:1.5} /* rev22-r6: 目立たせる */
   .notice__body{margin-top:8px;font-size:var(--t-note);line-height:1.7}
 
   /* ============================ S23 faq ============================ */
@@ -935,7 +942,7 @@
   /* --- S18 spec / S19 strips --------------------------------------------- */
   .spec__label{font-size:var(--t-card)}
   .strips__label{font-size:var(--t-card)}
-  .strips__card--3 .strips__label{font-size:var(--t-body)}
+  .strips__card--3 .strips__label{font-size:var(--t-card)} /* rev22-r6: 1・2・4 と同寸 */
 
   /* --- S19b extras ------------------------------------------------------- */
   /* エコボタン／チャイルドロックは2列横並び */

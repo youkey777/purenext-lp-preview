@@ -17,9 +17,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Noto+Serif+JP:wght@400;500;600;700&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 <!-- rev22-r3b(2026-09-03): CSS/JS に版番号を付ける。公開サーバーはファイルごとに10分キャッシュされるため、
      更新直後に「新しいHTML＋古いCSS」が混ざって崩れる（Fold 7 で発生）。版を上げるたびに v= の値も上げる -->
-<link rel="stylesheet" href="css/style.css?v=20260903r5b">
-<link rel="stylesheet" href="css/responsive.css?v=20260903r5b">
-<script src="js/main.js?v=20260903r5b" defer></script>
+<link rel="stylesheet" href="css/style.css?v=20260903r6">
+<link rel="stylesheet" href="css/responsive.css?v=20260903r6">
+<script src="js/main.js?v=20260903r6" defer></script>
 </head>
 <body>
 <div class="page">
@@ -37,8 +37,8 @@
         <li class="chip"><img src="images/icon_cup.png" alt=""><span>常温水</span></li>
         <li class="chip"><img src="images/icon_mug.png" alt=""><span>白湯</span></li>
         <li class="chip"><img src="images/icon_thermo40.png" alt=""><span>40℃モード</span></li>
-        <li class="chip"><img src="images/icon_bottle.png" alt=""><span>10ml単位の<br>指定量取水</span></li>
-        <li class="chip"><img src="images/icon_uvnozzle.png" alt=""><span>取水口<br>UV殺菌</span></li>
+        <li class="chip"><img src="images/icon_bottle.png" alt=""><span>10ml単位で<br>量指定</span></li>
+        <li class="chip"><img src="images/icon_uvnozzle.png" alt=""><span>徹底した<br>安全管理</span></li>
       </ul>
     </div>
   </header>
@@ -499,7 +499,8 @@
     <!-- rev22-r3: 発注主指示（第3ラウンド）で、rev22-r2 に削除した説明文（.strips__label）と
          引き出し線（.strips__lead--3）を復活させた。代わりに rev22-QA で入れていた写真の上の
          注記ピル（.strips__cap--a / --b）は HTML・CSS とも削除（PC・SP 両方）。 -->
-    <p class="strips__label">500mlペットボトルも<br class="pc-br">楽々の余白。<span class="nobr">受け皿</span>を<br class="pc-br">外すと<span class="nobr">2Lペットボトル</span><br class="pc-br">も入る。</p>
+    <!-- rev22-r6(2026-09-03): 発注主指示で文言を短く「500mlボトルも楽々。受け皿を外すと2Lボトルも」。全幅で 1・2・4 と同じ見出し扱い -->
+    <p class="strips__label">500mlボトルも楽々。<br class="pc-br"><span class="nobr">受け皿</span>を外すと<br class="pc-br"><span class="nobr">2Lボトル</span>も</p>
     <span class="strips__lead strips__lead--3"><i></i></span>
     <img class="strips__photo strips__photo--half strips__photo--a" src="images/strip3_500ml.png" alt="取水スペースに置いた500mlペットボトル" loading="eager">
     <img class="strips__photo strips__photo--half strips__photo--b" src="images/strip3_2l.png" alt="受け皿を外して置いた2Lペットボトル" loading="eager">
@@ -532,7 +533,7 @@
         </svg>
       </span>
       <div class="extras__txt">
-        <h3 class="extras__head">かしこく節電、<br>エコボタン</h3>
+        <h3 class="extras__head">かしこく節電<br>エコボタン</h3>
         <p class="extras__body">ボタンひとつで、<br class="pc-br">毎日の電気代をおさえられます。</p>
       </div>
     </li>
@@ -643,13 +644,20 @@
         <!-- rev22-r3: SP（375px以下）で td の幅が足りず「浄水型ウ／ォーターサーバー」と
              小書きの「ォ」が行頭に来ていた。語をひとまとまりにして防ぐ。
              PC は1行に収まるので描画は変わらない -->
+        <!-- rev22-r6: 発注主提供の定格ラベル（PNX-01-ST）を元に更新。サブタンクは発注主指示で 1L のまま -->
         <tr><th>製品名</th><td>PureNext（浄水型<span class="nobr">ウォーターサーバー</span>）</td></tr>
+        <tr><th>型番</th><td>PNX-01-ST</td></tr>
         <tr><th>浄水方式</th><td>カートリッジ式・2段階ろ過</td></tr>
         <tr><th>全体サイズ</th><td>H1200mm × W280mm × D370mm</td></tr>
         <tr><th>重さ</th><td>約21.0kg（浄水カートリッジ含む）</td></tr>
         <tr><th>タンク容量</th><td>給水タンク4L／サブタンク1L／温水タンク1.7L／冷水タンク2.0L</td></tr>
-        <tr><th>温度</th><td>温水 約85℃前後／白湯 約60℃／冷水 約6℃／40℃／常温水</td></tr>
-        <tr><th>消費電力</th><td>冷却80W／加熱350W（定格電圧 AC100V 50/60Hz）</td></tr>
+        <tr><th>温度</th><td>温水 約85℃／白湯 約60℃／冷水 約6℃／40℃／常温水</td></tr>
+        <tr><th>消費電力</th><td>冷却 0.8A／加熱 350W</td></tr>
+        <tr><th>定格電圧</th><td>AC100V 50/60Hz</td></tr>
+        <tr><th>冷媒</th><td>R-600a／15g</td></tr>
+        <tr><th>設置場所</th><td>室内用</td></tr>
+        <tr><th>防水等級</th><td>IPX1</td></tr>
+        <tr><th>原産国</th><td>韓国</td></tr>
         <!-- rev22(2026-09-02): 発注主指示によりチャイルドロックの行を削除（表は7行） -->
       </tbody>
     </table>
