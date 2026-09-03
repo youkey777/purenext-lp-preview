@@ -303,6 +303,8 @@ img{display:block}
 .feat01{height:529px}
 .feat02{height:411px}
 .feat03{height:444px}
+/* rev22-r11(2026-09-03): 発注主指摘「03 だけ真ん中の色が変わる」→ 帯をカード全幅に（写真が右を覆う） */
+.feat03 .feat__panel{width:100%}
 
 /* 左の薄水色の縦帯（rev22: グラデーションとマスクをやめて単色・高さ100%に） */
 .feat__panel{
