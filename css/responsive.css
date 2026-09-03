@@ -96,7 +96,7 @@
      行: 1fr（写真の上側を空ける）→ バッジ → 見出し → サブ → 18px → チップ */
   .hero{position:relative;display:grid;background:#fff;
     grid-template-columns:var(--pad) 1fr var(--pad);
-    grid-template-rows:1fr auto 6px auto 6px auto 18px auto}
+    grid-template-rows:18px auto 6px auto 6px auto 1fr auto}
   .hero__inner{display:contents}
   /* rev22-r5 §1: 発注主指示「家族が寄りすぎ。もっと引いて、本体も写す」。
      高さ460px固定（＝見える横幅 712px）をやめ、枠を 幅:高さ = 5:4 にした。
@@ -120,18 +120,17 @@
   /* 写真: 高さ 340px 固定（375px で拡大率 .43 → 見える横幅 872px・縦 782px。下 92px＝テーブルが切れる）。
      位置 80%／0% → 元画像 x≈742〜1614（母 870〜1000・娘・本体 1215〜1403・父 〜1560 が入る）、上端から */
   .hero__bg{grid-column:1 / -1;grid-row:1 / 8;position:static;inset:auto;
-    width:100%;height:340px;aspect-ratio:auto;min-height:0;
-    object-fit:cover;object-position:80% 0%}
+    width:100%;height:auto;aspect-ratio:7 / 6;min-height:328px;
+    object-fit:cover;object-position:85% 50%}
   /* 白のかぶせ。写真が 460→300px（375px幅）に低くなったので、同じ比率で 250→200px に。
      文字の下端 155px の位置でまだ 35% 残り、顔の始まり（写真の下半分）では 0 まで抜けている */
   /* rev22-r6: 発注主指摘「ママの髪とサブコピーが被って読みにくい」。
      かぶせを文字ブロックの下端（約140px）まで .88 以上で保ち、そこから 230px で抜く。
      さらに文字自体に白いにじみ（text-shadow）を付けて、髪の上でも読めるようにする */
   /* rev22-r8: かぶせを下から上へ（文字が写真の下側に移ったため）。グリッドの項目として写真の下端に揃える */
-  .hero::before{content:"";position:static;grid-column:1 / -1;grid-row:1 / 8;align-self:end;z-index:1;
-    width:100%;height:175px;pointer-events:none;
-    background:linear-gradient(0deg,rgba(255,255,255,.96) 0,rgba(255,255,255,.92) 112px,
-      rgba(255,255,255,.5) 142px,rgba(255,255,255,0) 175px)}
+  .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:230px;z-index:1;
+    background:linear-gradient(180deg,rgba(255,255,255,.96) 0,rgba(255,255,255,.90) 140px,
+      rgba(255,255,255,.55) 180px,rgba(255,255,255,0) 230px);pointer-events:none}
   .hero__badge,.hero__title,.hero__sub{text-shadow:0 0 6px #fff,0 0 12px #fff,0 0 18px #fff}
   .hero__badge{grid-column:2;grid-row:2;z-index:2;font-size:var(--t-note);letter-spacing:.06em}
   .hero__title{grid-column:2;grid-row:4;z-index:2;margin-top:0;
@@ -1090,4 +1089,31 @@
   .spec__label,.strips__label,.strips__card--3 .strips__label,
   .tanks__name,.tanks__card--3 .tanks__name,.extras__head{
     font-size:var(--t-card);font-weight:900;line-height:1.45;font-family:inherit}
+}
+
+/* rev22-r9(2026-09-03): スマホ層（≤599）だけのヒーロー。発注主指示「文字は上。もっと引いて本体まで写す。
+   家族の顔が見えるように」。文字を写真に重ねると 375px 幅では顔と必ず重なるため、
+   文字は写真の上の淡い帯（写真の壁と同じ色味）に置き、その直下に写真を「引き」で置く。
+   写真: 高さ 300px・位置 80%/50% → 元画像の横幅 1093px ぶん（ソファ・母・娘・本体・父）が全部入る。
+   Fold（600〜1023）と PC はこのブロックの外なので r7 の状態のまま */
+@media (max-width:599.98px){
+  .hero{grid-template-rows:18px auto 6px auto 6px auto 14px auto;
+    background:linear-gradient(180deg,#f5f8fc 0,#e9f1fa 100%)}
+  .hero::before{display:none}
+  .hero__badge,.hero__title,.hero__sub{text-shadow:none}
+  .hero__bg{grid-column:1 / -1;grid-row:8;height:300px;min-height:0;aspect-ratio:auto;
+    object-fit:cover;object-position:80% 50%}
+  .hero__chips{grid-row:9;background:#fff}
+  /* 2. 「温度を合わせなくていい」→「今までかけていた手間」の間をスマホだけ詰める */
+  .because__lower{margin-top:var(--hd)}
+  /* 3. 「3つの便利」の目次ピルの間隔を広く */
+  .kodawari__index{gap:12px 12px;margin-top:calc(var(--hd) + 4px)}
+  .kodawari__index li{padding:0 18px;height:38px}
+  /* 4. 価格: 月額を中心に上下の余白を同じに（上=前章末 32 + 48 = 80 / 下=80） */
+  .price{padding:calc(var(--hd) * 1.5) var(--pad) var(--hd)}
+  .price__title{margin-top:calc(var(--hd) * 2.5)}
+}
+/* 5. ストリップ1〜4のカードの高さを揃える: 3 の写真2枚を縦長（8:9）にし、1・2・4 の 16:9 と同じ高さに */
+@media (max-width:1023.98px){
+  .strips__photo--half{aspect-ratio:8 / 9;height:auto;max-height:none}
 }
