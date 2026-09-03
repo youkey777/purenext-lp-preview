@@ -33,8 +33,8 @@
   .page{width:100%;max-width:1024px;
     /* rev22-r3: SP の物差し。生の px を各ルールに直書きせず、必ずこの変数を経由させる */
     --pad:20px;          /* 左右の余白 */
-    --ch:56px;           /* 章の境目 */
-    --hd:24px;           /* 見出し → 中身 */
+    --ch:96px;           /* 章の境目。rev22-r7: 発注主指示「余白を感じる上質なページに」で 56→96 */
+    --hd:32px;           /* 見出し → 中身。rev22-r7: 24→32 */
     --it:12px;           /* 要素同士・カード同士 */
     --r-card:16px;       /* カードの角丸 */
     --r-photo:12px;      /* カードの中の写真の角丸 */
@@ -42,7 +42,7 @@
     --ph-m:190px;        /* 写真 M（カードの中） */
     --ph-s:140px;        /* 写真 S（2枚横並び） */
     --t-sec:24px;        /* 章見出し */
-    --t-card:20px;       /* カード見出し */
+    --t-card:18px;       /* カード見出し。rev22-r7: 発注主指示で「選べる5つの温度」(18px) と同寸に */
     --t-body:14px;       /* 本文 */
     --t-note:12px;       /* 注記 */
     --t-num:28px;        /* 番号 */
@@ -252,13 +252,17 @@
   .because__water{top:300px;width:100%;height:auto;opacity:.5}
   .because__lead{padding-top:0;font-size:var(--t-sec);letter-spacing:.12em;text-indent:.12em}
   .because__leadbar{margin-top:16px}
+  /* rev22-r7: 発注主指示「縦一列は散らばせて。文字は小さくていい」。
+     PC と同じ 2列の互い違い（左 01・03・05／右 02・04 を半段下げ）。05 は長いので2列ぶち抜き */
   .because__list{position:static;height:auto;margin-top:calc(var(--hd) * 2);padding:0 var(--pad);
-    display:flex;flex-direction:column;gap:10px}
-  .because__item{position:static;left:auto;top:auto;gap:var(--it)}
+    display:grid;grid-template-columns:1fr 1fr;column-gap:8px;row-gap:14px;align-items:start}
+  .because__item{position:static;left:auto;top:auto;gap:8px}
   .because__item--l1,.because__item--r1,.because__item--l2,
   .because__item--r2,.because__item--l3{left:auto;top:auto}
-  .because__item i{width:30px;height:30px;font-size:13px}
-  .because__item span{font-size:18px}
+  .because__item--r1,.because__item--r2{margin-top:22px}
+  .because__item--l3{grid-column:1 / -1}
+  .because__item i{width:26px;height:26px;font-size:12px}
+  .because__item span{font-size:15px;font-weight:700}
   /* ======================================================================
      rev22-r5 §5〜7（発注主指摘）: 「今までかけていた手間が、なくなる。」の下段を
      縦積み（見出し → 写真 → 5点）から、PC と同じ構図
@@ -277,9 +281,12 @@
     --w5:max(220px, calc(556 * var(--u)))}  /* 5点の帯の幅。PC は 556u */
   /* 見出し。PC は left:64 / top:80 / 41px。2行目「手間が、なくなる。」9字×20px=180px が
      入る幅（190px）を下限にする */
-  .because__title{position:absolute;left:calc(64 * var(--u));top:calc(80 * var(--u));
-    width:max(calc(430 * var(--u)), 190px);margin:0;padding:0;z-index:2;
-    font-size:max(20px, calc(41 * var(--u)));line-height:1.55}
+  /* rev22-r7: 発注主指示「見出しはもっと目立つように」「実機で改行して『買う』と被る」。
+     見出しと5点の帯を絶対配置から流し込みに変え、見出しが伸びても帯が下に逃げるようにする。
+     行は nowrap で必ず2行。文字は 24px を下限（PC 41u）。写真とバッジは絶対配置のまま */
+  .because__title{position:relative;left:auto;top:auto;
+    width:auto;margin:calc(80 * var(--u)) 0 0 calc(64 * var(--u));padding:0;z-index:2;
+    font-size:max(24px, calc(41 * var(--u)));line-height:1.45;white-space:nowrap;font-weight:900}
   /* 本体写真。PC は right:0 / top:6 / 470×641、左端から 140px のフェード。
      幅を狭めるのは「文字を縮めない」分だけ。内訳:
        ・写真の左端から本体の輪郭まで = 879.75u − 写真幅/2（実測で導いた式。
@@ -305,8 +312,8 @@
      （(77+22)/2 = 49.5px）を常に上回る（--w5 の下限 220px → 55px）。
      揃えは flex-start。写真の高さを 96u で固定しているので、キャプションが
      （360px 未満で）2行になっても 5つの絵の上下はずれない */
-  .because__items{position:absolute;left:calc(56 * var(--u));top:calc(268 * var(--u));
-    width:var(--w5);padding:0;margin:0;gap:0;align-items:flex-start;
+  .because__items{position:relative;left:auto;top:auto;
+    width:var(--w5);padding:0;margin:calc(28 * var(--u)) 0 0 calc(56 * var(--u));gap:0;align-items:flex-start;
     justify-content:space-between;z-index:1}
   /* 枠の幅は「写真（84u）とキャプションの広いほう」。余りは4つの隙間へ等分されるので、
      キャプションどうしの間が幅によらず 8.8px 以上あく（375px 実測 8.8 / 430px 10.5 / 508px 22.2） */
@@ -382,7 +389,9 @@
      zoom は文字も縮めるので、一番小さい「設定温度」15px が 11px を割らないよう
      キャンバス上の文字を先に大きくしておく（下の feat03 の3行）。
      0.42 倍 → 図の場所は 311×122 → 130.6×51.2px。375px なら右の写真列は 152px */
-  .feat03{display:grid;grid-template-columns:auto minmax(0,1fr);
+  /* rev22-r7: 発注主指摘「スマホによっては図と文字がはみ出る」。図の列を 131px 固定にし、
+     写真の列は残り幅（min 0）で縮む。図は写真の上に重ならない */
+  .feat03{display:grid;grid-template-columns:131px minmax(0,1fr);
     column-gap:var(--it);padding:0 var(--pad) var(--pad);align-items:center}
   .feat03 .feat__text{grid-column:1 / -1;padding:var(--pad) 0 0}
   .feat03__diagram{position:relative;left:auto;top:auto;grid-column:1;
@@ -406,7 +415,7 @@
   /* rev22-r5 §9: 右列へ。スマホ層は 1:1（幅は右列いっぱい、375px で 152px）。
      切り取り位置 45% は rev22-r4 の実測どおり（カップ y185・受け皿の底 y590 が入る） */
   .feat03__photo{position:relative;z-index:1;right:auto;top:auto;grid-column:2;
-    width:100%;max-width:240px;margin:var(--pad) 0 0;justify-self:center;
+    width:100%;max-width:200px;min-width:0;margin:var(--pad) 0 0;justify-self:center;
     height:auto;aspect-ratio:1 / 1;object-fit:cover;object-position:50% 45%;
     border-radius:var(--r-photo)}
 
@@ -455,7 +464,7 @@
   .voice__note a{border-bottom-width:1.5px;padding-bottom:1px}
 
   /* ============================ S12 price ============================ */
-  .price{padding:var(--ch) var(--pad) var(--hd)}
+  .price{padding:var(--ch) var(--pad) var(--hd)} /* rev22-r7: --ch/--hd の拡大でここも広がる */
   .price__row{top:0;padding-left:0;flex-wrap:nowrap}
   .price__label{margin-right:8px;top:-4px;font-size:22px}
   .price__num{font-size:64px}
@@ -463,7 +472,7 @@
   .price__tax{font-size:var(--t-body);margin-left:4px}
   .price__taxnote{margin-top:12px;padding-left:0;font-size:var(--t-note)}
   /* 14字 × 22px = 308px。内寸 335px に1行で収まる */
-  .price__title{margin-top:var(--hd);font-size:22px;letter-spacing:.02em;text-indent:.02em;
+  .price__title{margin-top:calc(var(--hd) * 2);font-size:22px; /* rev22-r7: 月額との間を倍に */letter-spacing:.02em;text-indent:.02em;
     max-width:none;text-align:center;white-space:nowrap}
   .price__bar{margin-top:16px}
 
@@ -773,8 +782,8 @@
   /* --- ① 物差し（SP の変数をこの帯だけ上書きする。生の px は各ルールに直書きしない） --- */
   .page{
     --pad:32px;          /* 左右の余白・カードの内側（SP 20） */
-    --ch:72px;           /* 章の境目（SP 56） */
-    --hd:28px;           /* 見出し → 中身（SP 24） */
+    --ch:112px;          /* 章の境目（SP 96）。rev22-r7 */
+    --hd:36px;           /* 見出し → 中身（SP 32）。rev22-r7 */
     --it:16px;           /* 要素同士・カード同士（SP 12） */
     --r-card:20px;       /* カードの角丸（SP 16） */
     --r-photo:14px;      /* 写真の角丸（SP 12） */
@@ -1056,3 +1065,13 @@
   }
 
 } /* /max-width:1023.98px */
+
+/* rev22-r7(2026-09-03): 発注主指示「出水口までしっかり殺菌・水はねしにくい取水口・エコボタン・
+   チャイルドロック・10ml単位・常温水/白湯 なども、すべて『選べる5つの温度』と同じフォントと大きさに」。
+   スマホ層 18px／タブレット層 22px（--t-card）・太さ 900・書体は本文と同じ Noto Sans JP */
+@media (max-width:1023.98px){
+  .intro__title,.memory__title,.uvcard__title,.feat .feat__head,.hygiene__solvetitle,
+  .spec__label,.strips__label,.strips__card--3 .strips__label,
+  .tanks__name,.tanks__card--3 .tanks__name,.extras__head{
+    font-size:var(--t-card);font-weight:900;line-height:1.45;font-family:inherit}
+}
