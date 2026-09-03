@@ -79,9 +79,21 @@
        ＝ 3人と本体を切らずに置ける最大の高さが 460px。指示の 520px は幾何的に不可能。
      object-position 78.9%: 見せる範囲を元画像 x=858〜1570 に固定した値。
        母の顔まで 12px・父の顔まで 10px の余裕があり、切れるのは左右の髪だけ（母68px・父70px で左右対称）。 */
+  /* rev22-r5b §3: 第三者検品「サブコピーが母の顔にかかる」。375px の実測（文字を消して撮り、
+     10px 刻みの物差しを引いて読んだ値）:
+       母の髪の上端 y=104 ／ 前髪の下の地肌（顔）の上端 y=131 ／ 目 y=143
+       サブコピーの箱 y=131.6〜151.6 ＝ ちょうど顔の上端から目までを横切っていた。
+     写真は cover の拡大率が高さで決まり、375px では拡大後の高さ＝枠の高さなので
+     縦の余りが 0。object-position の縦（50%）を動かしても写真は 1px も動かせない。
+     そこで①文字ブロックを 16px 上げ ②写真を少し高くして家族を下げる、の2つで離す。
+       ① 上端 28→18 ／ バッジ→見出し 8→6 ／ 見出し→サブ 10→6（合計 −16px）
+          ＝ サブの下端 151.6 → 135.6px
+       ② 枠 5:4 → 8:7（375px で 300 → 328.1px）。顔の上端は 131 → 143.3px
+          ＝ 7.7px 空く。見出し「わたしの味方」の下端も 121.6 → 109.6 で髪より上に出る
+     タブレット層（600px 以上）は写真が 450px あり元から離れているので行の高さは元に戻す */
   .hero{position:relative;display:grid;background:#fff;
     grid-template-columns:var(--pad) 1fr var(--pad);
-    grid-template-rows:28px auto 8px auto 10px auto 1fr auto}
+    grid-template-rows:18px auto 6px auto 6px auto 1fr auto}
   .hero__inner{display:contents}
   /* rev22-r5 §1: 発注主指示「家族が寄りすぎ。もっと引いて、本体も写す」。
      高さ460px固定（＝見える横幅 712px）をやめ、枠を 幅:高さ = 5:4 にした。
@@ -93,8 +105,18 @@
      指示書の 100%（右端基準）と 67.9%（x480〜1571）は実際に3枚並べて比べて外した——
        100% は母の左腕が画面の左端で切れ、67.9% は父の顔が右端で半分切れる。
        85% がどちらも切らずに一番引いて見える（左のソファだけは 31px 手前で入らない）。 */
+  /* rev22-r5b §3: 枠を 5:4 → 7:6 ＋ 高さの下限 328px に。下限が要るのは、文字ブロックの
+     高さが px 固定で幅に付いてこないため——比だけだと 320px で写真が 274px まで縮み、
+     顔がまた文字の高さまで上がってくる（比だけの試算で 顔の上端 122.3px < サブの下端 130.4px）。
+     下限 328px は 320〜382px の機種に効き、375px はちょうど 328px（整数。以下は 375px の実測）:
+       顔（前髪の下の地肌）の上端 131 → 143px ／ 目 143 → 154px ／ 髪の上端 104 → 113px
+       ＝ サブの下端 135.6px との差は 顔まで 7.4px・目まで 18.4px（変更前は顔・目の上を通っていた）
+     見える横幅は 1092.7 → 998.9px。3人と本体（元画像 x=870〜1560 の 690px）は
+     320px でも 852px 見えていて余裕（左 64.6px・右 97.9px）で入る。
+     「寄りすぎ」と言われた 712px よりまだ 40% 広い画のまま */
   .hero__bg{grid-column:1 / -1;grid-row:1 / 8;position:static;inset:auto;
-    width:100%;height:auto;aspect-ratio:5 / 4;object-fit:cover;object-position:85% 50%}
+    width:100%;height:auto;aspect-ratio:7 / 6;min-height:328px;
+    object-fit:cover;object-position:85% 50%}
   /* 白のかぶせ。写真が 460→300px（375px幅）に低くなったので、同じ比率で 250→200px に。
      文字の下端 155px の位置でまだ 35% 残り、顔の始まり（写真の下半分）では 0 まで抜けている */
   .hero::before{content:"";position:absolute;left:0;top:0;width:100%;height:200px;z-index:1;
@@ -163,6 +185,19 @@
   /* 本体写真は3列目。下端でそろえる（元画像 830×1000・contain 相当の等倍） */
   .intro__panel{grid-area:2 / 2 / 3 / 3;position:static;right:auto;bottom:auto;
     align-self:end;justify-self:end;width:100%;height:auto;margin:var(--hd) 0 0 0}
+
+  /* rev22-r5b §1: 第三者検品「本体写真の下端が切れて宙に浮いて見える（508/720/800）」。
+     実測すると CSS は写真を1ピクセルも切っていない（375〜800 の全幅で全体が出ている。
+     contain / height:auto どちらの層でも同じ）。切れて見えるのは元画像 830×1000 の
+     下端そのもの＝台座の途中で終わっている素材で、その断面がカードの下辺より
+     21.7px 上（全幅で一定）に浮いていたため。写真が 203.6px（375）のうちは目立たないが、
+     420px（720/800）では断面の灰色が 2.06 倍の大きさで見えて「切れて浮いている」になる。
+     直し方は PC と同じ「下辺への裁ち落とし」。カードの下パディング（20px）ぶんだけ
+     負のマージンで下げ、断面をカードの下辺に接地させる（PC は bottom:-28px で同じ処理）。
+     375/390 は今の見え方が基準なので触らない＝460px 以上だけに掛ける */
+  @media (min-width:460px){
+    .intro__panel{margin-bottom:-20px} /* 20px = .intro の padding-bottom */
+  }
 
   /* ==================== S04 memory / S05 uvcard（同じ様式） ==================== */
   .memory-wrap{padding:0 var(--pad) var(--it)}
@@ -820,7 +855,10 @@
 
   /* --- S01 hero ---------------------------------------------------------- */
   /* 文字は内容の最大幅の中へ。写真は全面のまま 16/10・上限600px */
-  .hero{grid-template-columns:minmax(var(--pad),1fr) minmax(0,var(--content-max)) minmax(var(--pad),1fr)}
+  .hero{grid-template-columns:minmax(var(--pad),1fr) minmax(0,var(--content-max)) minmax(var(--pad),1fr);
+    /* rev22-r5b §3: 行の高さはタブレットでは元のまま（写真 450px で顔は y=196.5、
+       サブの下端 168.2px と 28px 離れており、詰める理由がない） */
+    grid-template-rows:28px auto 8px auto 10px auto 1fr auto}
   /* rev22-r5 §1: タブレット層は今までどおり 16:10・切り取り 78.9%（本体まで入っている）。
      白のかぶせも 250px に戻す（写真が 450〜600px と背が高いので 200px では足りない） */
   .hero__bg{height:auto;aspect-ratio:16 / 10;max-height:600px;object-position:78.9% 50%}
@@ -902,6 +940,13 @@
   /* --- S19b extras ------------------------------------------------------- */
   /* エコボタン／チャイルドロックは2列横並び */
   .extras__list{display:grid;grid-template-columns:1fr 1fr;gap:var(--it)}
+  /* rev22-r5b §2: 720px で右カードだけ本文が3行になり、2枚のカードは同じ高さ（176.1px）に
+     伸びるのに中身が上下中央（align-items:center）だったため、左の見出しだけ 12.7px 下がって
+     見出し行が半行ずれていた。カード内を上ぞろえにして、見出しの上端を
+     「カード上端＋padding 16px」で必ずそろえる（実測 720px: 左 28.7/右 16.0 → 両方 16.0）。
+     800px は元から2行ずつで見出しはそろっていたが、アイコンだけ上下中央（上から 55.3px）
+     だったのが 16.0px＝見出しと同じ高さに上がる。720px と同じ「アイコンと見出しが並ぶ」形になる */
+  .extras__item{align-items:flex-start}
   .extras__head{font-size:var(--t-card)}
 
   /* --- S21 app ----------------------------------------------------------- */
