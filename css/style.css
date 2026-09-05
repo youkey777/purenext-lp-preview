@@ -96,7 +96,7 @@ img{display:block}
 }
 /* rev22-r15: 見出しの下の一言（メモリ機能の .memory__sub と同じ様式＝青・太字）。
    見出し2行の下端（88+46×1.55×2≒231px）と図の上端 320px の間に置く */
-.intro__sub{position:relative;z-index:1;margin:6px 0 0 56px;font-size:20px;font-weight:800;color:var(--blue);letter-spacing:.02em}
+.intro__sub{position:relative;z-index:1;margin:13px 0 0 56px; /* 第三者検品: .memory__sub と同じインク間隔 31px に */font-size:20px;font-weight:800;color:var(--blue);letter-spacing:.02em}
 .intro__figure{position:absolute;left:80px;top:320px;display:flex;gap:112px;z-index:1}
 .figure-label{font-size:20px;font-weight:800;color:var(--blue);letter-spacing:.1em}
 /* 温度バー */

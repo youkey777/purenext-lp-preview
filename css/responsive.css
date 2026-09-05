@@ -177,7 +177,7 @@
   .intro::after{display:none} /* PC の下側フェードは SP では不要（写真が下端に無い） */
   .intro__title{grid-area:1 / 1 / 2 / 3;position:relative;padding:0 var(--pad);
     font-size:18px;line-height:1.55}
-  .intro__sub{grid-area:2 / 1 / 3 / 3;margin:8px 0 0;padding:0 var(--pad);font-size:var(--t-body);font-weight:800;color:var(--blue);line-height:1.6} /* rev22-r15 */
+  .intro__sub{grid-area:2 / 1 / 3 / 3;margin:8px 0 0;padding:0 var(--pad);font-size:var(--t-body);font-weight:700;color:var(--blue);line-height:1.6} /* rev22-r15 */
   .intro__figure{grid-area:3 / 1 / 4 / 2;position:static;left:auto;top:auto;
     display:flex;align-items:flex-end;gap:10px;margin:var(--hd) 0 0 var(--pad);padding:0}
   .temp{width:60px}
