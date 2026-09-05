@@ -171,13 +171,14 @@
      おおむね 410px 以上）で目盛りが列の下へ押し下げられていた。実測 508px で
      目盛りの上端が写真の上端より 120.8px 下。列の上ぞろえに変え、目盛りは見出しの直下から始める。
      本体写真だけは今までどおり下ぞろえ（.intro__panel の align-self:end）＝375/390 の描画は変わらない */
-  .intro{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-items:start;
+  .intro{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;align-items:start; /* rev22-r15: 2行目に一言を追加 */
     column-gap:10px; /* 取水量の数字と本体写真がぶつからないための隙間 */
     margin:0 var(--pad) var(--it);padding:32px 0 20px;border-radius:20px}
   .intro::after{display:none} /* PC の下側フェードは SP では不要（写真が下端に無い） */
   .intro__title{grid-area:1 / 1 / 2 / 3;position:relative;padding:0 var(--pad);
     font-size:18px;line-height:1.55}
-  .intro__figure{grid-area:2 / 1 / 3 / 2;position:static;left:auto;top:auto;
+  .intro__sub{grid-area:2 / 1 / 3 / 3;margin:8px 0 0;padding:0 var(--pad);font-size:var(--t-body);font-weight:800;color:var(--blue);line-height:1.6} /* rev22-r15 */
+  .intro__figure{grid-area:3 / 1 / 4 / 2;position:static;left:auto;top:auto;
     display:flex;align-items:flex-end;gap:10px;margin:var(--hd) 0 0 var(--pad);padding:0}
   .temp{width:60px}
   .amount{width:66px}
@@ -203,7 +204,7 @@
   .amount__mark::before{width:14px}
   .amount__mark em{left:20px;top:-8px;font-size:var(--t-note)}
   /* 本体写真は3列目。下端でそろえる（元画像 830×1000・contain 相当の等倍） */
-  .intro__panel{grid-area:2 / 2 / 3 / 3;position:static;right:auto;bottom:auto;
+  .intro__panel{grid-area:3 / 2 / 4 / 3;position:static;right:auto;bottom:auto;
     align-self:end;justify-self:end;width:100%;height:auto;margin:var(--hd) 0 0 0}
 
   /* rev22-r5b §1: 第三者検品「本体写真の下端が切れて宙に浮いて見える（508/720/800）」。
@@ -481,6 +482,7 @@
 
   /* ============================ S12 price ============================ */
   .price{padding:calc(var(--ch) - var(--hd)) var(--pad) var(--hd)} /* rev22-r8: 上の余白 = 前章の --hd + ここ = --ch */
+  .price__solve{margin:0 0 var(--hd);font-size:var(--t-card);letter-spacing:.03em;text-indent:.03em;line-height:1.5} /* rev22-r15 */
   .price__row{top:0;padding-left:0;flex-wrap:nowrap}
   .price__label{margin-right:8px;top:-4px;font-size:22px}
   .price__num{font-size:64px}

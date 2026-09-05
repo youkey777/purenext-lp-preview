@@ -94,6 +94,9 @@ img{display:block}
   padding:88px 0 0 56px;
   font-size:46px;font-weight:900;line-height:1.55;letter-spacing:.02em;color:var(--navy);
 }
+/* rev22-r15: 見出しの下の一言（メモリ機能の .memory__sub と同じ様式＝青・太字）。
+   見出し2行の下端（88+46×1.55×2≒231px）と図の上端 320px の間に置く */
+.intro__sub{position:relative;z-index:1;margin:6px 0 0 56px;font-size:20px;font-weight:800;color:var(--blue);letter-spacing:.02em}
 .intro__figure{position:absolute;left:80px;top:320px;display:flex;gap:112px;z-index:1}
 .figure-label{font-size:20px;font-weight:800;color:var(--blue);letter-spacing:.1em}
 /* 温度バー */
@@ -343,7 +346,7 @@ img{display:block}
 .feat01 .feat__num{top:30px}
 .feat01 .feat__rule{top:114px}
 .feat01 .feat__head{top:137px;font-size:32px;line-height:1.3;letter-spacing:.05em;white-space:normal}
-.feat01 .feat__body{top:242px;font-size:24px;line-height:48px;letter-spacing:.023em}
+.feat01 .feat__body{top:242px;font-size:24px;line-height:44px;letter-spacing:.023em} /* rev22-r15: 5行→6行になったので 48→44（242+44×6=506 ≦ 527） */
 
 /* 02 */
 .feat02 .feat__num{top:45px}
@@ -554,6 +557,10 @@ img{display:block}
      バー下端→淡色パネルの上端 32（発注主指示「次の青い背景のブロックにもう少し近づけて」） */
   padding:245px 0 var(--sp-lead);
 }
+/* rev22-r15: お客様の声 → 価格の間の一言。章の変わり目（216）はそのまま、この見出しが 216 の位置に入り、
+   見出し→価格の数字は物差しB（112）。数字の行ボックスは文字より 29px 上から始まるので 112-29=83 */
+.price{padding-top:var(--sp-chapter)}
+.price__solve{margin:0 0 83px;font-size:34px;font-weight:800;letter-spacing:.06em;text-indent:.06em;color:var(--navy);text-align:center}
 .price__row{
   position:relative;top:-3px;padding-left:22px;
   display:flex;align-items:baseline;justify-content:center;

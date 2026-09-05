@@ -17,9 +17,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Noto+Serif+JP:wght@400;500;600;700&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 <!-- rev22-r3b(2026-09-03): CSS/JS に版番号を付ける。公開サーバーはファイルごとに10分キャッシュされるため、
      更新直後に「新しいHTML＋古いCSS」が混ざって崩れる（Fold 7 で発生）。版を上げるたびに v= の値も上げる -->
-<link rel="stylesheet" href="css/style.css?v=20260903r14">
-<link rel="stylesheet" href="css/responsive.css?v=20260903r14">
-<script src="js/main.js?v=20260903r14" defer></script>
+<link rel="stylesheet" href="css/style.css?v=20260905r15">
+<link rel="stylesheet" href="css/responsive.css?v=20260905r15">
+<script src="js/main.js?v=20260905r15" defer></script>
 </head>
 <body>
 <div class="page">
@@ -56,6 +56,8 @@
          旧「欲しい温度も、欲しい量も／ワンタッチですぐに。」 -->
     <!-- rev22-r7(2026-09-03): 発注主指示で「5つの温度」の後ろの読点を削除 -->
     <h2 class="intro__title">選べる<span class="blue">5つの温度</span><br>欲しい<span class="blue">水量</span>が<span class="nobr">ワンタッチですぐに。</span></h2>
+    <!-- rev22-r15(2026-09-05): 販売パートナー指摘「画像の場所にも、水が自動で出て自動で止まることを伝えてほしい」 -->
+    <p class="intro__sub"><span class="nobr">指定した量が自動で出て、</span><span class="nobr">自動で止まります。</span></p>
     <div class="intro__figure">
       <div class="temp">
         <p class="figure-label">温度</p>
@@ -160,7 +162,9 @@
     <p class="feat__num">01</p>
     <span class="feat__rule"></span>
     <h3 class="feat__head">10ml単位の<br>指定量取水</h3>
-    <p class="feat__body">全モードで量を指定して、<br class="pc-br">手放しで自動取水。<br class="pc-br"><em class="feat__em">粉ミルク</em>を作るための<br class="pc-br"><em class="feat__em">目盛り合わせ</em>も<em class="feat__em">不要</em>に。<br class="pc-br">スープもいつもの濃さで。</p>
+    <!-- rev22-r15(2026-09-05): 販売パートナー指摘「スープの濃さはいらない。プロテイン・計量カップ・水筒の水が溜まるまで待つ、
+         欲しい量を入れてスタートすれば自動で給水・自動でストップ、というニュアンスに」 -->
+    <p class="feat__body"><span class="nobr">プロテインも、</span><span class="nobr">水筒も。</span><br class="pc-br"><span class="nobr">溜まるまで待ちますか？</span><br class="pc-br">欲しい量を入れたら、<br class="pc-br">あとは<em class="feat__em">自動で出て</em>、<br class="pc-br"><em class="feat__em">自動で止まります</em>。<br class="pc-br"><em class="feat__em">粉ミルク</em>作りも楽に。</p>
   </div>
   <video class="feat01__photo" src="images/feat01_panel.mp4" poster="images/feat01_panel_poster.jpg"
          width="647" height="529" autoplay muted loop playsinline preload="metadata"
@@ -245,11 +249,13 @@
       </article>
       <article class="voice__slide">
         <img class="voice__photo" src="images/review_slide2.png" alt="キッチンで計量カップの目盛りを確かめる女性">
-        <!-- rev22(2026-09-02): 発注主指示で文言を差し替え（一字も変えていない） -->
+        <!-- rev22-r15(2026-09-05): 販売パートナー指摘「便利な機能があるサーバーが良い・押しっぱなしは面倒・ワンポチで出て勝手に止まる、
+             という自動の要望に」（旧「シンプルだけど最先端なモノがいい」は差し替え） -->
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>ウォーターサーバーは契約すると<br class="pc-br">長く使うから、シンプルだけど<br class="pc-br">最先端なモノがいい。</p>
-          <p>でもなかなかコレと言ったものが<br class="pc-br">見つかっていません。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>便利な機能がある<br class="pc-br">ウォーターサーバーがいい。</p>
+          <p>ボタンを押しっぱなしとか、めんどくさい。</p>
+          <p>ワンポチで水が出て、<br class="pc-br">勝手に止まってほしい。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
       <article class="voice__slide">
@@ -278,6 +284,8 @@
 
 <!-- S12 価格 -->
 <section class="price">
+  <!-- rev22-r15(2026-09-05): 販売パートナー指摘「お客様の声の後に『ピュアネクストは全て解決しました』のような一言を」 -->
+  <h2 class="price__solve">PureNextが<span class="nobr">すべて解決しました。</span></h2>
   <!-- rev21(2026-08-31): 発注主指示「月額3,300円（税抜）にして、その下に小さく税込3,630円。
        税込金額は控えめで大丈夫」 -->
   <p class="price__row">
