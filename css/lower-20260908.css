@@ -1,0 +1,100 @@
+/* C案｜編集的な2列。PCは見出しを左、内容を右に置き、スマホでは自然な1列へ戻す案。 */
+@media (min-width:1024px){
+  .sechead--detail,.sechead--faq{float:left;clear:left;width:252px;height:auto;padding:76px 28px 32px 0;background:#fff;align-items:flex-start;gap:14px}
+  .sechead--faq{padding-top:112px}
+  .sechead__title{font-size:28px;letter-spacing:.12em;text-indent:0;white-space:nowrap}
+  .sechead__bar{width:40px;height:3px}
+  .detail{width:auto;height:auto!important;margin-left:252px;padding:76px 76px 80px 0;background:#fff!important}
+  .detail__card{width:100%;margin:0;padding:0;background:#fff;border:0;border-radius:0;box-shadow:none}
+  .detail__table{width:100%;border-top:2px solid #2f7fd6;border-collapse:collapse;table-layout:fixed}
+  .detail__table th,.detail__table td{padding:16px 18px;font-size:16px;line-height:1.75;text-align:left;vertical-align:top}
+  .detail__table th{width:186px;padding-left:0;color:#1d3853;font-weight:700;border-right:0}
+  .detail__table td{padding-right:0;color:#33485d}
+  .detail__table tr:not(:last-child) th,.detail__table tr:not(:last-child) td{border-bottom:1px solid #dbe5ef}
+  .notice{clear:both;width:100%;padding:0 76px 80px 252px;background:#fff}
+  .notice__box{width:100%;padding:22px 24px;border:0;border-left:3px solid #2f7fd6;border-radius:0;background:#f7faff;box-shadow:none;text-align:left}
+  .notice__head{font-size:18px;line-height:1.6;color:#1d3853}
+  .notice__body{margin-top:8px;font-size:16px;line-height:1.75;color:#40566c}
+  .faq{width:auto;height:auto!important;margin-left:252px;padding:0 76px 80px 0;background:#fff!important}
+  .faq__card{width:100%;margin:0;padding:0;background:#fff;border-radius:0}
+  .faq__item{margin:0;border:0;border-top:1px solid #c9d8e8;border-radius:0;box-shadow:none;background:#fff;overflow:visible}
+  .faq__item:last-child{border-bottom:1px solid #c9d8e8}
+  .faq__qbtn{height:auto;min-height:62px;padding:16px 48px 16px 0}
+  .faq__q{margin-left:0;width:22px;height:22px;font-size:11px}
+  .faq__text{margin-left:16px;font-size:17px;line-height:1.55}
+  .faq__chev{right:2px;width:20px;height:20px}
+  .faq__a{padding:0 48px 20px 38px;font-size:16px;line-height:1.85;color:#40566c}
+}
+@media (max-width:1023px){
+  .sechead--detail,.sechead--faq{width:auto;margin:0 20px;padding:40px 0 24px;gap:12px}
+  .sechead--faq{padding-top:40px}
+  .sechead__title{font-size:24px;letter-spacing:.12em;text-indent:.12em}
+  .sechead__bar{width:40px;height:3px}
+  .detail{width:100%;padding:0 20px 40px!important;background:#fff!important}
+  .detail__card{width:100%;padding:0;background:#fff;border:0;box-shadow:none}
+  .detail__table{width:100%;border-top:2px solid #2f7fd6}
+  .detail__table th,.detail__table td{padding:12px 0;font-size:15px;line-height:1.75}
+  .detail__table th{width:100px;padding-right:12px}
+  .detail__table td{padding-left:14px}
+  .notice{width:auto;margin:0 20px;padding:0 0 40px}
+  .notice__box{padding:16px;border-left:3px solid #2f7fd6;background:#f7faff}
+  .notice__head{font-size:16px}
+  .notice__body{font-size:15px;line-height:1.75}
+  .faq{width:100%;padding:0 20px 40px!important;background:#fff!important}
+  .faq__card{width:100%}
+  .faq__qbtn{min-height:56px;padding:12px 36px 12px 0}
+  .faq__text{margin-left:12px;font-size:16px}
+  .faq__chev{right:0}
+  .faq__a{padding:0 8px 16px 34px;font-size:15px;line-height:1.8}
+}
+/* 見出しの左余白とスマホ時の共通リセット。 */
+@media(min-width:1024px){
+.sechead--detail,.sechead--faq{margin-left:56px;width:220px;padding-right:20px;justify-content:flex-start}
+.sechead--faq{padding-top:0}
+.detail,.faq{margin-left:300px;padding-right:56px}
+.notice{padding-left:300px;padding-right:56px}
+.sechead--detail .sechead__title,.sechead--faq .sechead__title{font-size:25px;letter-spacing:.06em}
+.detail__table th{width:142px}
+}
+@media(max-width:1023px){
+.detail__card{margin:0;border-radius:0}.detail__table th{border-right:0;font-weight:700}
+.notice__box{width:100%;margin:0;border:0;border-left:3px solid #2f7fd6;border-radius:0;box-shadow:none;text-align:left}
+.notice__head,.notice__body{color:#1d3853}
+.faq__card{margin:0;padding:0;background:transparent;border-radius:0}
+.faq__item{margin:0;border:0;border-top:1px solid #c9d8e8;border-radius:0;box-shadow:none;background:transparent}
+.faq__item:last-child{border-bottom:1px solid #c9d8e8}
+.faq__q{margin-left:0;flex-shrink:0}
+.faq__qbtn{height:auto}
+}
+/* 採用版：既存の章216・見出し112・導入32pxの間隔を継承。 */
+@media(min-width:1024px){
+.sechead--detail{padding-top:var(--sp-chapter)}
+.detail{padding-top:var(--sp-chapter);padding-bottom:0}
+.notice{padding-top:var(--sp-head);padding-bottom:var(--sp-chapter)}
+.sechead--faq{padding-top:0}
+.faq{padding-bottom:0}
+}
+@media(max-width:1023px){
+.sechead--detail,.sechead--faq{margin:0 var(--pad);padding:var(--ch) 0 var(--hd);gap:16px}
+.sechead--detail .sechead__title,.sechead--faq .sechead__title{font-size:var(--t-sec)}
+.detail{padding:0 var(--pad)!important}
+.notice{margin:0 var(--pad);padding:var(--hd) 0 0}
+.faq{padding:0 var(--pad)!important}
+}
+/* r24: 先行予約の注意はPCでページ幅を使って独立した重要告知に。 */
+@media(min-width:1024px){
+.notice{padding-left:0;padding-right:0}
+.notice__box{padding:36px 56px;background:#246bd5;color:#fff;border:0;text-align:center}
+.notice__head{font-size:26px;line-height:1.6;font-weight:800;color:#fff}
+.notice__body{margin-top:12px;font-size:18px;line-height:1.75;color:#fff}
+}
+/* r25: 告知の上下と詳細→FAQを独立して確保。 */
+@media(min-width:1024px){
+.notice{padding-top:var(--sp-chapter);padding-bottom:0}
+.sechead--detail,.detail{padding-top:var(--sp-chapter)}
+.sechead--faq{padding-top:var(--sp-chapter)}
+.faq{padding-top:var(--sp-chapter)}
+}
+@media(max-width:1023px){
+.notice{padding-top:var(--ch);padding-bottom:0}
+}

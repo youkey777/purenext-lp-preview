@@ -1,0 +1,152 @@
+/* 2026-09-08 r17: A1・B1の構成を既存の書体・色・動画に合わせて反映。 */
+.intro .intro__sub{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:7px;width:max-content;max-width:calc(100% - 112px);margin:20px 0 0 56px;padding:16px 28px 17px;border:0;border-radius:54% 46% 48% 52% / 48% 45% 55% 52%;background:#edf5ff;box-shadow:0 12px 28px rgba(42,91,145,.08);color:var(--navy);font-size:20px;line-height:1.5;font-weight:700;letter-spacing:.02em}
+.intro .intro__sub::before{content:"";position:absolute;z-index:-1;left:14%;top:-7px;width:72%;height:9px;border-radius:50%;background:rgba(190,218,248,.55);transform:rotate(-2deg)}
+.intro__auto{padding:0}
+.intro__auto .nobr{text-decoration-line:underline;text-decoration-thickness:2px;text-decoration-color:var(--blue);text-underline-offset:5px}
+.intro__handsfree{display:block;padding:0;background:none;color:var(--blue);font-size:35px;font-weight:900;line-height:1.2;letter-spacing:.02em;white-space:nowrap}
+
+.feat.feat01{height:auto;padding:0;overflow:hidden;background:#fff;border:0}
+.handsfree__intro{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:58px clamp(28px,6vw,88px) 46px;text-align:left}
+.handsfree__eyebrow{display:flex;align-items:center;justify-content:flex-start;gap:15px;color:var(--blue);font-size:16px;font-weight:700;line-height:1.4;letter-spacing:.06em}
+.handsfree__num{font-family:"Quicksand",sans-serif;font-size:32px;line-height:1;font-weight:600}
+.handsfree__title{margin:18px 0 0;font-size:42px;line-height:1.42;font-weight:900;letter-spacing:.02em;color:var(--navy)}
+.handsfree__title span{color:var(--blue);font-size:1em}
+.handsfree__scenes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;margin:34px 0 0;padding:0;list-style:none;color:#50657c;font-size:17px;line-height:1.65;font-weight:500}
+.handsfree__scenes li{display:flex;align-items:flex-start;gap:11px;min-width:0}
+.handsfree__scene-icon{flex:0 0 24px;width:24px;height:32px;margin-top:1px;fill:none;stroke:var(--blue);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.handsfree__visual{position:relative;margin-top:0;background:#fff}
+.handsfree__visual::before{content:"";position:absolute;z-index:2;inset:0 0 auto;height:48px;background:linear-gradient(#fff,transparent);pointer-events:none}
+.handsfree__visual::after{content:"";position:absolute;z-index:2;left:0;right:0;bottom:0;height:clamp(24px,5vw,64px);background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.72) 68%,#fff 100%);pointer-events:none}
+.feat01 .feat01__photo{display:block;position:relative;inset:auto;right:auto;top:auto;z-index:1;width:100%;max-width:none;height:auto;max-height:none;margin:0;aspect-ratio:1294 / 780;object-fit:cover;object-position:50% 75%;border-radius:0}
+.handsfree__description{position:relative;padding:28px 30px 35px;background:transparent;text-align:center;color:var(--navy);font-size:22px;line-height:1.8}
+.handsfree__description strong{font-weight:900;font-size:30px;color:var(--blue)}
+.handsfree__flow{width:100%;max-width:520px;margin:18px auto 0;padding:0}
+.handsfree__flow img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
+.handsfree__flow img{mix-blend-mode:multiply}
+.handsfree__closing{position:relative;margin:0;padding:34px 24px 38px;background:transparent;color:var(--navy);text-align:center;font-size:31px;line-height:1.55;font-weight:800;letter-spacing:.02em}
+.handsfree__closing span:last-child em{font-style:normal;color:var(--blue)}
+
+@media(min-width:1024px){.intro{height:1108px}.intro__figure{top:410px}}
+@media(max-width:1023px){
+  .intro .intro__sub{grid-area:2 / 1 / 3 / 3;align-items:center;gap:5px;width:auto;max-width:none;margin:13px var(--pad) 0;padding:13px 18px 15px;text-align:center;font-size:clamp(15px,2.5vw,20px);line-height:1.45}
+  .intro__handsfree{font-size:clamp(24px,4.5vw,35px)}
+  .handsfree__intro{padding:38px 20px 34px;text-align:left}
+  .handsfree__eyebrow{gap:11px;font-size:clamp(13px,2.5vw,16px)}
+  .handsfree__num{font-size:clamp(27px,5vw,32px)}
+  .handsfree__title{margin-top:14px;font-size:clamp(25px,5.8vw,40px);line-height:1.45;letter-spacing:0}
+  .handsfree__scenes{grid-template-columns:1fr;gap:12px;margin:27px 0 0;font-size:clamp(14px,2.7vw,17px);line-height:1.55}
+  .handsfree__scenes li{gap:10px}.handsfree__scene-icon{flex-basis:22px;width:22px;height:29px}
+  .handsfree__visual{margin-top:0}.handsfree__visual::before{height:26px}
+  .handsfree__description{padding:22px 16px 27px;font-size:clamp(15px,2.5vw,21px);line-height:1.85}
+  .handsfree__description strong{font-size:clamp(19px,3.5vw,29px)}
+  .handsfree__closing{padding:26px 14px 30px;font-size:clamp(22px,3.5vw,30px)}
+}
+@media(min-width:600px) and (max-width:1023px){
+  .handsfree__scenes{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.handsfree__scenes li{display:block}.handsfree__scene-icon{display:block;margin-bottom:6px}
+}
+
+/* 画像案の淡い曲線を装飾だけに使い、文章の可読性を保つ。 */
+.intro .intro__sub{border-radius:32px 74px 44px 28px;background:linear-gradient(115deg,#edf5ff,#e7f1fc);box-shadow:none}
+.intro .intro__sub::before{display:none}
+.intro__auto .nobr{text-decoration:none}
+.intro__handsfree{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:8px;text-decoration-color:#a7c7ed}
+.handsfree__intro{padding-left:56px;padding-right:56px;background:transparent;isolation:isolate}
+.handsfree__intro::before{display:none}
+.feat01 .feat__panel{background:transparent}
+.kodawari__index i{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* S12 料金導線（承認済みP1案） */
+.price{box-sizing:border-box;width:100%;max-width:1024px;margin:0;padding:var(--sp-head) 40px var(--sp-lead);border-radius:0;background:#fff}
+.price__transition{width:100%;text-align:center;color:var(--navy)}
+.price__wishes{display:grid;grid-template-columns:1fr 1.45fr 1.1fr;gap:20px;align-items:start}
+.price__wishes p{position:relative;margin:0;padding:12px 14px;font-family:"Noto Sans JP",sans-serif;font-size:25px;line-height:1.4;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.price__wishes p::before{content:"“";position:absolute;left:4%;top:-10px;color:#a9c9f3;font-family:"Noto Serif JP",serif;font-size:40px;line-height:1;font-weight:700}
+.price__wishes p::after{content:"”";position:absolute;right:4%;bottom:-12px;color:#a9c9f3;font-family:"Noto Serif JP",serif;font-size:40px;line-height:1;font-weight:700}
+.price__chevron{display:block;width:80%;height:auto;max-height:180px;margin:32px auto;overflow:visible}
+.price__chevron path{fill:none;stroke:#7897c2;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.price__chevron .price__chevron-fill{fill:rgba(173,207,247,.34);stroke:none}
+.price__lead{margin:0;font-family:"Noto Sans JP",sans-serif;font-size:42px;line-height:1.4;font-weight:800;letter-spacing:.08em;color:var(--navy)}
+.price__row{margin-top:32px;font-family:"Noto Sans JP",sans-serif}
+.price__num{font-family:"Noto Sans JP",sans-serif;font-size:clamp(110px,11vw,128px);font-weight:800;color:#0d5fcd}
+.price__taxnote{margin-top:16px}
+.price__title{margin-top:222px}
+.handsfree__title{font-size:48px}
+.handsfree__title span{font-size:1.08em}
+.handsfree__visual::before{display:none}
+.handsfree__closing{background:transparent;font-size:36px}
+.handsfree__closing > span{display:block}
+@media(max-width:1023px){
+  .handsfree__intro{padding-left:20px;padding-right:20px}
+  .handsfree__title{font-size:clamp(21px,5.8vw,40px)}
+  .handsfree__closing{font-size:clamp(22px,3.5vw,30px)}
+  .handsfree__flow{width:88%;max-width:420px;margin-top:14px}
+  .price{width:auto;margin:0 var(--pad);padding:var(--hd) 16px var(--hd);border-radius:0}
+  .price__wishes{grid-template-columns:1fr;gap:10px}
+  .price__wishes p{padding:7px 14px;font-size:clamp(17px,4.7vw,24px);line-height:1.45}
+  .price__wishes p::before{left:15%;top:-5px;font-size:30px}
+  .price__wishes p::after{right:15%;bottom:-10px;font-size:30px}
+  .price__chevron{width:80%;max-height:130px;margin:32px auto}
+  .price__lead{font-size:clamp(25px,6.5vw,38px);letter-spacing:.05em}
+  .price__num{font-size:clamp(72px,20vw,96px)}
+  .price__row{margin-top:24px}
+  .price__title{margin-top:var(--ch)}
+}
+
+/* 2枚目は要望を3段落で読ませる。PCの固定引用枠にも収まる幅に調整する。 */
+.price__wishes p{padding-left:0;padding-right:0}
+.price__wishes p::before{left:0;top:-14px}
+.price__wishes p::after{right:0;bottom:-17px}
+.price__row > span{white-space:nowrap;flex-shrink:0}
+@media(max-width:1023px){
+  .price__wishes{grid-template-columns:1fr;gap:10px}
+  .price__wishes p{width:max-content;max-width:100%;margin:0 auto}
+  .price__wishes p::before{left:-18px;top:-7px}
+  .price__wishes p::after{right:-18px;bottom:-12px}
+  .price__row{display:grid;grid-template-columns:auto auto auto;gap:0 6px;padding:0;margin-top:24px;align-items:baseline;justify-content:center}
+  .price__label{grid-column:1 / -1;top:0;margin:0;text-align:center;font-size:20px;line-height:1.5}
+  .price__num{font-size:clamp(62px,18vw,96px);line-height:1.2}
+  .price__yen{font-size:20px;margin:0}
+  .price__tax{font-size:13px;margin:0}
+  .price__title{white-space:normal;line-height:1.6}
+}
+@media(min-width:1024px){
+  .voice__slide--handsfree .voice__quote p{white-space:normal;font-size:23px;line-height:42px;letter-spacing:.01em}
+  .voice__slide--handsfree .voice__quote p + p{margin-top:14px}
+}
+
+/* r21: feature01は白→薄灰の面→白だけで構成し、動画素材の左右端を表示枠外へ収める。 */
+.kodawari__index li{background:#e8f2ff}
+.kodawari__index i{background:transparent;color:var(--blue);border-color:var(--blue)}
+.feat.feat01{background:linear-gradient(180deg,#fff 0%,#fff 24%,#f5f6f8 43%,#f5f6f8 76%,#fff 100%);border:0}
+.handsfree__eyebrow{font-size:24px}
+.handsfree__num{font-size:44px}
+.handsfree__scenes{font-size:21px}
+.handsfree__visual{overflow:hidden}
+.handsfree__visual::before{display:none}
+.handsfree__visual::after{background:linear-gradient(180deg,transparent 0%,rgba(245,246,248,.78) 68%,#f5f6f8 100%)}
+.feat01 .feat01__photo{width:108%;max-width:none;margin-left:-4%}
+.feat01 + .feat02{margin-top:112px}
+@media(max-width:1023px){
+  .handsfree__eyebrow{font-size:18px}
+  .handsfree__num{font-size:34px}
+  .handsfree__scenes{font-size:17px}
+  .feat01 + .feat02{margin-top:var(--hd)}
+}
+@media(min-width:600px) and (max-width:1023px){
+  .handsfree__scenes{font-size:20px}
+}
+
+/* r21 QA: 上端だけを白からつなぎ、操作パネル左右は明瞭に保つ。 */
+.handsfree__intro{background:#fff}
+.handsfree__visual::before{display:block;height:64px;background:linear-gradient(180deg,#fff,rgba(255,255,255,0));pointer-events:none}
+@media(max-width:1023px){.handsfree__visual::before{height:32px}.feat01 + .feat02{margin-top:max(64px,var(--hd))}}
+
+/* r22: 機能一覧のラベルを少し拡大。 */
+.kodawari__index span{font-size:20px}
+@media(max-width:1023px){.kodawari__index span{font-size:15px}}
+/* r25: 動く元動画を傾き補正し、操作面だけを表示。 */
+.handsfree__visual{aspect-ratio:2.2;background:#f5f6f8}
+.feat01 .feat01__photo{position:absolute;left:0;top:0;width:108%;height:auto;aspect-ratio:1294 / 1048;object-fit:fill;margin-left:-4%;transform:translateY(-25%) skewY(.95deg);transform-origin:center}
+.handsfree__visual::before,.handsfree__visual::after{height:14px}
+.price__title{margin-top:270px}
+@media(max-width:1023px){.price__title{margin-top:calc(var(--ch) + var(--hd))}}

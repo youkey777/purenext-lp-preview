@@ -19,7 +19,9 @@
      更新直後に「新しいHTML＋古いCSS」が混ざって崩れる（Fold 7 で発生）。版を上げるたびに v= の値も上げる -->
 <link rel="stylesheet" href="css/style.css?v=20260905r15">
 <link rel="stylesheet" href="css/responsive.css?v=20260905r15">
+<link rel="stylesheet" href="css/handsfree-20260905.css?v=20260908r25">
 <script src="js/main.js?v=20260905r15" defer></script>
+<link rel="stylesheet" href="css/lower-20260908.css?v=20260908r26">
 </head>
 <body>
 <div class="page">
@@ -57,7 +59,7 @@
     <!-- rev22-r7(2026-09-03): 発注主指示で「5つの温度」の後ろの読点を削除 -->
     <h2 class="intro__title">選べる<span class="blue">5つの温度</span><br>欲しい<span class="blue">水量</span>が<span class="nobr">ワンタッチですぐに。</span></h2>
     <!-- rev22-r15(2026-09-05): 販売パートナー指摘「画像の場所にも、水が自動で出て自動で止まることを伝えてほしい」 -->
-    <p class="intro__sub"><span class="nobr">指定した量が自動で出て、</span><span class="nobr">自動で止まります。</span></p>
+    <p class="intro__sub"><span class="intro__auto"><span class="nobr">指定した量が自動で出て、</span><span class="nobr">自動で止まる</span></span><strong class="intro__handsfree">手放し出水</strong></p>
     <div class="intro__figure">
       <div class="temp">
         <p class="figure-label">温度</p>
@@ -73,7 +75,7 @@
         </div>
       </div>
       <div class="amount">
-        <p class="figure-label">取水量</p>
+        <p class="figure-label">出水量</p>
         <p class="amount__unit">10ml単位</p>
         <div class="amount__ruler">
           <span class="amount__mark" style="top:0%"><em>1000ml</em></span>
@@ -92,8 +94,8 @@
       <div class="memory__text">
         <span class="memory__iconwrap"><img class="memory__icon" src="images/icon_bottle.png" alt=""></span>
         <h2 class="memory__title"><span class="nobr">いつもの量が</span><br><span class="nobr">すぐに出る</span></h2>
-        <p class="memory__sub">取水量のメモリ機能</p>
-        <p class="memory__body">前回取水した量が各ボタンごとに記憶されます。<br class="pc-br">毎朝の白湯など、習慣づきやすいよう<br class="pc-br">サポートします。</p>
+        <p class="memory__sub">出水量のメモリ機能</p>
+        <p class="memory__body">前回出水した量が各ボタンごとに記憶されます。<br class="pc-br">毎朝の白湯など、習慣づきやすいよう<br class="pc-br">サポートします。</p>
       </div>
       <div class="memory__photo"><img src="images/memory_photo.png" alt="パネルを押す女性とコップで水を受ける女の子"></div>
     </div>
@@ -147,7 +149,7 @@
     <h2 class="kodawari__title">毎日に寄り添う、<span class="nobr"><span class="num">3</span>つの便利。</span></h2>
     <span class="kodawari__bar"></span>
     <ul class="kodawari__index">
-      <li><i>01</i><span>10ml単位の指定量取水</span></li>
+      <li><i>01</i><span>10ml単位の指定量出水</span></li>
       <li><i>02</i><span>常温水・白湯モード</span></li>
       <li><i>03</i><span>40℃モード</span></li>
     </ul>
@@ -156,19 +158,26 @@
 
 
 <!-- S08 機能01 -->
-<section class="feat feat01">
-  <div class="feat__panel"></div>
-  <div class="feat__text">
-    <p class="feat__num">01</p>
-    <span class="feat__rule"></span>
-    <h3 class="feat__head">10ml単位の<br>指定量取水</h3>
-    <!-- rev22-r15(2026-09-05): 販売パートナー指摘「スープの濃さはいらない。プロテイン・計量カップ・水筒の水が溜まるまで待つ、
-         欲しい量を入れてスタートすれば自動で給水・自動でストップ、というニュアンスに」 -->
-    <p class="feat__body"><span class="nobr">プロテインも、</span><span class="nobr">水筒も。</span><br class="pc-br"><span class="nobr">溜まるまで待ちますか？</span><br class="pc-br">欲しい量を入れたら、<br class="pc-br">あとは<em class="feat__em">自動で出て</em>、<br class="pc-br"><em class="feat__em">自動で止まります</em>。<br class="pc-br"><em class="feat__em">粉ミルク</em>作りも楽に。</p>
+<section class="feat feat01" aria-labelledby="handsfree-title">
+  <div class="handsfree__intro">
+    <p class="handsfree__eyebrow"><span class="handsfree__num">01</span><span>10ml単位の指定量出水</span></p>
+    <h3 class="handsfree__title" id="handsfree-title">その出水が終わるまで<br><span>まだ待ちますか？</span></h3>
+    <ul class="handsfree__scenes">
+      <li><svg class="handsfree__scene-icon" viewBox="0 0 48 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18h28l-4 40H14zM9 13h30v5H9zM15 13V8h18v5M29 8V4h9v9M16 26h16M18 33h8M19 40h7"/></svg><span>プロテインを<br>作るとき</span></li>
+      <li><svg class="handsfree__scene-icon" viewBox="0 0 48 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15h29v37a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V22zM34 22h5a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5h-5M25 24h9M29 31h5M25 38h9M29 45h5M25 52h9"/></svg><span>料理で計量カップに<br>水を入れるとき</span></li>
+      <li><svg class="handsfree__scene-icon" viewBox="0 0 48 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 4h12v8H18zM18 12v5l-6 8v30a4 4 0 0 0 4 4h16a4 4 0 0 0 4-4V25l-6-8v-5M12 29h24M12 46h24M18 8h12"/></svg><span>ペットボトルや水筒に<br>水を入れるとき</span></li>
+    </ul>
   </div>
-  <video class="feat01__photo" src="images/feat01_panel.mp4" poster="images/feat01_panel_poster.jpg"
-         width="647" height="529" autoplay muted loop playsinline preload="metadata"
-         aria-label="操作パネルの＋ボタンを押し続けると、表示が100mlから10ml刻みでだんだん速く1000mlまで増えていく様子"></video>
+  <div class="handsfree__visual">
+    <video class="feat01__photo" src="images/feat01_panel.mp4" poster="images/feat01_panel_poster.jpg"
+           width="1294" height="1048" autoplay muted loop playsinline preload="metadata"
+           aria-label="操作パネルの＋ボタンを押し続けると、表示が100mlから10ml刻みでだんだん速く1000mlまで増えていく様子"></video>
+  </div>
+  <div class="handsfree__description">
+    <p>欲しい量を設定してタップするだけ。<br><strong>自動で出水、自動でストップ。</strong></p>
+    <figure class="handsfree__flow"><img src="images/handsfree-flow-20260908.png" alt="指定した量まで自動で水が注がれ、出水が自動で止まる様子" width="1536" height="768"></figure>
+  </div>
+  <p class="handsfree__closing"><span class="nobr">水を入れる時間を</span><span class="nobr"><em>「待つ時間」</em>にしない。</span></p>
 </section>
 
 <!-- S09 機能02 -->
@@ -247,15 +256,15 @@
           <p>自動調乳器が欲しいけど、高いんですよね。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
-      <article class="voice__slide">
+      <article class="voice__slide voice__slide--handsfree">
         <img class="voice__photo" src="images/review_slide2.png" alt="キッチンで計量カップの目盛りを確かめる女性">
         <!-- rev22-r15(2026-09-05): 販売パートナー指摘「便利な機能があるサーバーが良い・押しっぱなしは面倒・ワンポチで出て勝手に止まる、
              という自動の要望に」（旧「シンプルだけど最先端なモノがいい」は差し替え） -->
         <div class="voice__quote">
           <span class="voice__mark voice__mark--open">“</span>
-          <p>便利な機能がある<br class="pc-br">ウォーターサーバーがいい。</p>
-          <p>ボタンを押しっぱなしとか、めんどくさい。</p>
-          <p>ワンポチで水が出て、<br class="pc-br">勝手に止まってほしい。<span class="voice__mark voice__mark--close">”</span></p>
+          <p>朝はいつもバタバタしているので、</p>
+          <p>少しでも手間を減らせたらと思うんです。</p>
+          <p>タップしたら欲しい量まで水が出て、<br class="pc-br">自動で止まってくれたらうれしいですね。<span class="voice__mark voice__mark--close">”</span></p>
         </div>
       </article>
       <article class="voice__slide">
@@ -284,15 +293,25 @@
 
 <!-- S12 価格 -->
 <section class="price">
-  <!-- rev22-r15(2026-09-05): 販売パートナー指摘「お客様の声の後に『ピュアネクストは全て解決しました』のような一言を」 -->
-  <h2 class="price__solve">PureNextが<span class="nobr">すべて解決しました。</span></h2>
+  <div class="price__transition" aria-label="お客様の3つの願い">
+    <div class="price__wishes">
+      <p>手間を減らしたい</p>
+      <p>もっと便利なものが欲しい</p>
+      <p>清潔な水が飲みたい</p>
+    </div>
+    <svg class="price__chevron" viewBox="0 0 800 220" aria-hidden="true" focusable="false">
+      <path d="M20 24H348c30 0 45 8 52 26l0 0c7-18 22-26 52-26H780M400 52v142" />
+      <path class="price__chevron-fill" d="M130 76c110 8 204 28 270 70 66-42 160-62 270-70-108 40-198 81-270 138C328 157 238 116 130 76Z" />
+    </svg>
+    <h2 class="price__lead"><span class="nobr">その声に応える</span><span class="nobr">一台を。</span></h2>
+  </div>
   <!-- rev21(2026-08-31): 発注主指示「月額3,300円（税抜）にして、その下に小さく税込3,630円。
        税込金額は控えめで大丈夫」 -->
   <p class="price__row">
     <span class="price__label">月額</span><span class="price__num">3,300</span><span class="price__yen">円</span><span class="price__tax">（税抜）</span>
   </p>
   <p class="price__taxnote">税込3,630円</p>
-  <h2 class="price__title">安全で綺麗なお水が毎日飲める</h2>
+  <h2 class="price__title"><span class="nobr">安全で綺麗なお水が</span><span class="nobr">毎日飲める</span></h2>
   <span class="price__bar"></span>
 </section>
 
@@ -381,7 +400,7 @@
   <article class="tanks__card tanks__card--3">
     <span class="tanks__badge">対策が<br>必要</span>
     <h3 class="tanks__name">出水口まわり</h3>
-    <img class="tanks__photo tanks__photo--wide" src="images/outlet_uv_card.png" alt="取水スペースに紫のUV殺菌LEDが照射され、グラスに水が注がれる様子" loading="eager">
+    <img class="tanks__photo tanks__photo--wide" src="images/outlet_uv_card.png" alt="出水スペースに紫のUV殺菌LEDが照射され、グラスに水が注がれる様子" loading="eager">
     <p class="tanks__text tanks__text--strong">常温になりやすく、<br class="pc-br">対策が必要な箇所</p>
     <p class="tanks__note">空気中や水撥ねから細菌が入りやすい。<br class="pc-br">残り水が常温になるので<br class="pc-br">菌が繁殖しやすい。</p>
   </article>
@@ -516,7 +535,7 @@
     <!-- rev22-r6(2026-09-03): 発注主指示で文言を短く「500mlボトルも楽々。受け皿を外すと2Lボトルも」。全幅で 1・2・4 と同じ見出し扱い -->
     <p class="strips__label">500mlボトルも楽々。<br class="pc-br"><span class="nobr">受け皿</span>を外すと<br class="pc-br"><span class="nobr">2Lボトル</span>も</p>
     <span class="strips__lead strips__lead--3"><i></i></span>
-    <img class="strips__photo strips__photo--half strips__photo--a" src="images/strip3_500ml.png" alt="取水スペースに置いた500mlペットボトル" loading="eager">
+    <img class="strips__photo strips__photo--half strips__photo--a" src="images/strip3_500ml.png" alt="出水スペースに置いた500mlペットボトル" loading="eager">
     <img class="strips__photo strips__photo--half strips__photo--b" src="images/strip3_2l.png" alt="受け皿を外して置いた2Lペットボトル" loading="eager">
   </article>
 
@@ -637,6 +656,14 @@
   </ul>
 </section>
 
+<!-- r25: 先行予約告知を製品詳細の前へ -->
+<section class="notice">
+  <div class="notice__box">
+    <p class="notice__head">当商品は先行予約販売のための<span class="nobr">ページです。</span></p>
+    <p class="notice__body">発売時には多少の製品機能の変更が加わる可能性があります。</p>
+  </div>
+</section>
+
 <!-- S22a 製品詳細 見出し（rev15 で .lead 様式の独立見出しとして新設） -->
 <section class="sechead sechead--detail">
   <h2 class="sechead__title">製品詳細</h2>
@@ -674,13 +701,7 @@
   </div>
 </section>
 
-<!-- rev21(2026-08-31): 発注主指示「よくあるご質問の前に、バナーのような形で先行予約販売の注意書きを」 -->
-<section class="notice">
-  <div class="notice__box">
-    <p class="notice__head">当商品は先行予約販売のための<span class="nobr">ページです。</span></p>
-    <p class="notice__body">発売時には多少の製品機能の変更が加わる可能性があります。</p>
-  </div>
-</section>
+
 
 <!-- S23a よくあるご質問 見出し（rev15 で .lead 様式の独立見出しとして取り出した） -->
 <section class="sechead sechead--faq">
