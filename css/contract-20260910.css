@@ -1,0 +1,23 @@
+/* 製品詳細・FAQと同階層の契約案内。章間隔を共通化。 */
+.contract{clear:both;display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;margin:0 56px;padding-top:var(--sp-chapter);color:var(--navy)}
+.contract__heading{margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.contract__title{margin:0;font-size:25px;line-height:1.6;font-weight:800;letter-spacing:.06em}
+.contract__bar{display:block;width:40px;height:3px;border-radius:2px;background:var(--blue)}
+.contract__body{font-size:16px;line-height:1.85;min-width:0}
+.contract__body p{margin:0}
+.contract__table{width:100%;border-collapse:collapse;margin:24px 0;table-layout:fixed}
+.contract__table th,.contract__table td{padding:16px 18px;border-bottom:1px solid #dbe5ef;text-align:left}
+.contract__table thead{border-top:2px solid #2f7fd6;background:#f7faff}
+.contract__table th{font-weight:700}
+.contract__table td:last-child{font-weight:700}
+.contract__return{padding-top:8px}
+@media(max-width:1023px){
+.contract{display:block;margin:0 var(--pad);padding-top:var(--ch)}
+.contract__heading{align-items:center;gap:16px;margin-bottom:var(--hd)}
+.contract__title{font-size:var(--t-sec);line-height:1.5;letter-spacing:.12em;text-align:center}
+.contract__body{font-size:15px}
+.contract__table th,.contract__table td{padding:12px 10px}
+}
+
+.contract__title span{display:block;white-space:nowrap}
+@media(max-width:1023px){.contract__title span{display:inline}}
