@@ -209,3 +209,7 @@
 
 .switch-offer__support { margin-top: 22px; }
 @media(max-width:767px) { .switch-offer__support { margin-top: 12px; } }
+
+/* キャッシュバック表記を一行で読みやすく。 */
+.switch-offer__support { font-size: 66px; letter-spacing: .02em; }
+@media(max-width:767px) { .switch-offer__support { font-size: clamp(28px,8vw,40px); letter-spacing: 0; } }
