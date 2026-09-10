@@ -1,0 +1,19 @@
+/* C案の章見出し。項目間の余白を明示。 */
+.app { background:#fff; }
+.app__title { top:112px;left:56px;width:912px;display:flex;align-items:center;justify-content:center;gap:24px;text-align:left;padding-bottom:28px;border-bottom:1px solid #2e70dc; }
+.app__heading-icon { width:64px;height:80px;flex:none;fill:none;stroke:#2e70dc;stroke-width:3;stroke-linecap:round;stroke-linejoin:round; }
+.app__eyebrow { display:block;font-size:24px;line-height:1.6;font-weight:700; }
+.app__title-em { display:block;font-size:38px;font-weight:800;line-height:1.4;background:none;letter-spacing:.04em; }
+.app__card { background:#f5faff;box-shadow:none; }
+.switch-offer + .support { height:548px; }
+.switch-offer + .support .support__head { top:112px; }
+.switch-offer + .support .support__steps { top:219px; }
+@media(max-width:1023px) {
+ .switch-offer + .support { height:auto;padding-top:80px;padding-bottom:80px; }
+ .app { padding-top:48px;background:#fff; }
+ .app__title { position:static;left:auto;top:auto;width:100%;gap:12px;padding-bottom:24px;margin:0; }
+ .app__heading-icon { width:42px;height:58px; }
+ .app__eyebrow { font-size:16px;line-height:1.65; }
+ .app__title-em { font-size:var(--t-sec);margin:4px 0 0; }
+ .app__heading-copy { min-width:0; }
+}
