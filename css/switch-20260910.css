@@ -1,0 +1,211 @@
+/* 2026-09-10: 乗り換えサポート訴求。既存セクションへ影響しないよう switch-offer 内に限定。 */
+.switch-offer {
+  position: relative;
+  isolation: isolate;
+  min-height: 850px;
+  margin-top: 216px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #092f5b;
+  background: #edf8fd url("../images/switch-lifestyle-20260910.png") center center / cover no-repeat;
+}
+
+.switch-offer__inner {
+  width: min(100% - 48px, 1000px);
+  padding: 86px 24px 78px;
+  text-align: center;
+}
+
+.switch-offer__title {
+  margin: 0;
+  font-family: inherit;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: .06em;
+}
+
+.switch-offer__detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin: 34px 0 4px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.switch-offer__detail::before,
+.switch-offer__detail::after {
+  content: "";
+  width: 46px;
+  height: 2px;
+  flex: 0 0 auto;
+  background: #1466d8;
+  transform: rotate(52deg);
+}
+
+.switch-offer__detail::after { transform: rotate(-52deg); }
+
+.switch-offer__amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  color: #1768de;
+  white-space: nowrap;
+}
+
+.switch-offer__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 132px;
+  height: 132px;
+  margin-right: -2px;
+  border-radius: 50%;
+  color: #0a3d75;
+  background: #f7d98d;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: .03em;
+}
+
+.switch-offer__number {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 178px;
+  font-weight: 900;
+  line-height: .94;
+  letter-spacing: -.08em;
+}
+
+.switch-offer__yen {
+  align-self: flex-end;
+  margin: 0 0 23px 10px;
+  font-size: 52px;
+  font-weight: 800;
+}
+
+.switch-offer__support {
+  margin: 0;
+  color: #1464d5;
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .08em;
+}
+
+.switch-offer__closing {
+  margin: 26px 0 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+@media (max-width: 767px) {
+  .switch-offer {
+    min-height: 540px;
+    margin-top: 96px;
+    background-position: center center;
+    background-size: 100% 100%;
+  }
+
+  .switch-offer__inner {
+    width: 100%;
+    padding: 48px 14px 44px;
+  }
+
+  .switch-offer__title {
+    font-size: clamp(28px, 8.2vw, 38px);
+    letter-spacing: .035em;
+  }
+
+  .switch-offer__detail {
+    gap: 10px;
+    margin-top: 22px;
+    font-size: clamp(16px, 4.3vw, 22px);
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .switch-offer__detail::before,
+  .switch-offer__detail::after {
+    width: 24px;
+  }
+
+  .switch-offer__badge {
+    width: 70px;
+    height: 70px;
+    margin-right: -3px;
+    font-size: 17px;
+  }
+
+  .switch-offer__number {
+    font-size: clamp(67px, 20.5vw, 94px);
+    letter-spacing: -.09em;
+  }
+
+  .switch-offer__yen {
+    margin: 0 0 10px 4px;
+    font-size: clamp(23px, 6.5vw, 32px);
+  }
+
+  .switch-offer__support {
+    margin-top: 3px;
+    font-size: clamp(38px, 11vw, 52px);
+  }
+
+  .switch-offer__closing {
+    margin-top: 18px;
+    font-size: clamp(16px, 4.1vw, 21px);
+    letter-spacing: 0;
+  }
+
+  .switch-offer__closing span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .switch-offer + .support {
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+}
+
+@media (max-width: 390px) {
+  .switch-offer { min-height: 520px; }
+  .switch-offer__detail { font-size: 15px; }
+  .switch-offer__number { font-size: 76px; }
+  .switch-offer__closing { font-size: 16px; }
+}
+
+@media (min-width: 1024px) {
+  .switch-offer + .support {
+    height: 460px;
+  }
+
+  .switch-offer + .support .support__head {
+    top: 48px;
+  }
+
+  .switch-offer + .support .support__steps {
+    top: 155px;
+  }
+}
+
+/* 金額のカンマと次行の接触を防ぎ、スマホ見出しを意味のまとまりで改行。 */
+.switch-offer__number { line-height: 1.15; }
+.switch-offer__title span { display: inline-block; }
+@media (max-width: 767px) {
+ .switch-offer__title { font-size: 28px; }
+ .switch-offer__title span { display: block; }
+ .switch-offer__title br { display: none; }
+ .switch-offer__inner { padding-top: 40px; padding-bottom: 72px; }
+ .switch-offer__number { line-height: 1.14; }
+}
+
+.switch-offer__support { margin-top: 22px; }
+@media(max-width:767px) { .switch-offer__support { margin-top: 12px; } }
